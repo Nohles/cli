@@ -6,7 +6,7 @@ import (
 	"net/url"
 
 	"github.com/readium/cli/internal/version"
-	gv "github.com/readium/go-toolkit/pkg/util/version"
+	gv "github.com/nohles/go-toolkit/pkg/util/version"
 )
 
 type authTransport struct {

@@ -3,7 +3,7 @@ package helpers
 import (
 	"errors"
 
-	"github.com/readium/go-toolkit/pkg/streamer"
+	"github.com/nohles/go-toolkit/pkg/streamer"
 )
 
 type InferA11yMetadata streamer.InferA11yMetadata

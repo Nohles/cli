@@ -4,8 +4,8 @@ import (
 	"io/fs"
 
 	"github.com/pkg/errors"
-	"github.com/readium/go-toolkit/pkg/analyzer"
-	"github.com/readium/go-toolkit/pkg/manifest"
+	"github.com/nohles/go-toolkit/pkg/analyzer"
+	"github.com/nohles/go-toolkit/pkg/manifest"
 )
 
 type ImageInspector struct {

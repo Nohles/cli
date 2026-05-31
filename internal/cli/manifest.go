@@ -10,13 +10,13 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/readium/cli/pkg/helpers"
-	"github.com/readium/go-toolkit/pkg/analyzer"
-	"github.com/readium/go-toolkit/pkg/asset"
-	"github.com/readium/go-toolkit/pkg/fetcher"
-	"github.com/readium/go-toolkit/pkg/manifest"
-	"github.com/readium/go-toolkit/pkg/mediatype"
-	"github.com/readium/go-toolkit/pkg/streamer"
-	"github.com/readium/go-toolkit/pkg/util/url"
+	"github.com/nohles/go-toolkit/pkg/analyzer"
+	"github.com/nohles/go-toolkit/pkg/asset"
+	"github.com/nohles/go-toolkit/pkg/fetcher"
+	"github.com/nohles/go-toolkit/pkg/manifest"
+	"github.com/nohles/go-toolkit/pkg/mediatype"
+	"github.com/nohles/go-toolkit/pkg/streamer"
+	"github.com/nohles/go-toolkit/pkg/util/url"
 	"github.com/spf13/cobra"
 )
 

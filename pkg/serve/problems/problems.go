@@ -11,7 +11,7 @@ import (
 
 	"github.com/airmrcr/go-problem"
 	"github.com/readium/cli/pkg/serve/session"
-	"github.com/readium/go-toolkit/pkg/fetcher"
+	"github.com/nohles/go-toolkit/pkg/fetcher"
 )
 
 // Write writes err to w as an application/problem+json response. If err already

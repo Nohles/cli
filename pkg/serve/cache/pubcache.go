@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/readium/cli/pkg/serve/session"
-	"github.com/readium/go-toolkit/pkg/pub"
+	"github.com/nohles/go-toolkit/pkg/pub"
 )
 
 // CachedPublication implements Evictable

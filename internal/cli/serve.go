@@ -27,8 +27,8 @@ import (
 	"github.com/readium/cli/pkg/serve/auth"
 	"github.com/readium/cli/pkg/serve/client"
 	"github.com/readium/cli/pkg/serve/session"
-	"github.com/readium/go-toolkit/pkg/streamer"
-	"github.com/readium/go-toolkit/pkg/util/url"
+	"github.com/nohles/go-toolkit/pkg/streamer"
+	"github.com/nohles/go-toolkit/pkg/util/url"
 	"github.com/spf13/cobra"
 	"google.golang.org/api/option"
 )
