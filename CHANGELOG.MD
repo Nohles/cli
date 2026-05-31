@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 **Warning:** Features marked as *alpha* may change or be removed in a future release without notice. Use with caution.
 
+## Unreleased
+
+### Changed
+
+- Switched the CLI fork to use the `github.com/nohles/go-toolkit` fork, with local development wired through `../go-toolkit`.
+- Updated Go module dependencies to match the forked go-toolkit audiobook improvements.
+
+### Fixed
+
+- Updated the go-toolkit integration to include folder-level comic manifests for local folders of CBZ/CBR chapter archives, with chapter links served relative to the manifest URL.
+- Updated the go-toolkit integration to include improved audiobook manifest generation for local audiobook folders and standalone audio files.
+
 ## [0.7.1] - 2026-05-18
 
 ### Fixed

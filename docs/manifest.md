@@ -17,6 +17,11 @@
     ```sh
     readium manifest publication.epub | jq -r .metadata
     ```
+* Generate a folder-level manifest for comic chapter archives.
+
+    ```sh
+    readium manifest ./comics/series-folder
+    ```
 
 ## Inferring accessibility metadata
 
