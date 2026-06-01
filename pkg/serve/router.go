@@ -8,6 +8,7 @@ import (
 	"github.com/CAFxX/httpcompression"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/nohles/go-toolkit/pkg/streamer"
 	"github.com/readium/cli/pkg/serve/problems"
 )
 
@@ -26,6 +27,9 @@ func (s *Server) Routes() *mux.Router {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("OK"))
 	})
+	if s.config.ManifestList != nil {
+		r.Handle(streamer.ManifestListPath, s.config.ManifestList)
+	}
 
 	if s.config.Debug {
 		r.HandleFunc("/debug/pprof/", pprof.Index)

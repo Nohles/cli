@@ -7,12 +7,12 @@ import (
 	"cloud.google.com/go/storage"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/gorilla/mux"
-	"github.com/readium/cli/pkg/serve/auth"
-	"github.com/readium/cli/pkg/serve/cache"
-	"github.com/readium/cli/pkg/serve/session"
 	"github.com/nohles/go-toolkit/pkg/archive"
 	"github.com/nohles/go-toolkit/pkg/streamer"
 	"github.com/nohles/go-toolkit/pkg/util/url"
+	"github.com/readium/cli/pkg/serve/auth"
+	"github.com/readium/cli/pkg/serve/cache"
+	"github.com/readium/cli/pkg/serve/session"
 )
 
 type Remote struct {
@@ -49,6 +49,7 @@ type ServerConfig struct {
 	Auth                  auth.AuthProvider
 	ReadingSessionFetcher session.Fetcher
 	CORSAllowedOrigins    []string
+	ManifestList          *streamer.ManifestList
 }
 
 type Server struct {

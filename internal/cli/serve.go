@@ -3,9 +3,11 @@ package cli
 import (
 	"context"
 	"crypto/rand"
+	"encoding/base64"
 	"encoding/hex"
 	"fmt"
 	"log"
+	"net"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -22,13 +24,13 @@ import (
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/credentials"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
+	"github.com/nohles/go-toolkit/pkg/streamer"
+	"github.com/nohles/go-toolkit/pkg/util/url"
 	"github.com/pkg/errors"
 	"github.com/readium/cli/pkg/serve"
 	"github.com/readium/cli/pkg/serve/auth"
 	"github.com/readium/cli/pkg/serve/client"
 	"github.com/readium/cli/pkg/serve/session"
-	"github.com/nohles/go-toolkit/pkg/streamer"
-	"github.com/nohles/go-toolkit/pkg/util/url"
 	"github.com/spf13/cobra"
 	"google.golang.org/api/option"
 )
@@ -360,6 +362,12 @@ access to publications and prevent abuse or unauthorized access.`,
 			return fmt.Errorf("invalid access mode %q, acceptable values: base64, jwt, jwks, jwt-bonding, jwks-bonding", mode)
 		}
 
+		bind := fmt.Sprintf("%s:%d", bindAddressFlag, bindPortFlag)
+		manifestList, err := newManifestList(bind, fileDirectoryFlag, authProvider)
+		if err != nil {
+			return err
+		}
+
 		// Create server
 		pubServer := serve.NewServer(serve.ServerConfig{
 			Debug:                 debugFlag,
@@ -368,9 +376,9 @@ access to publications and prevent abuse or unauthorized access.`,
 			Auth:                  authProvider,
 			ReadingSessionFetcher: readingSessionFetcher,
 			CORSAllowedOrigins:    corsAllowedOriginsFlag,
+			ManifestList:          manifestList,
 		}, remote)
 
-		bind := fmt.Sprintf("%s:%d", bindAddressFlag, bindPortFlag)
 		protocols := new(http.Protocols)
 		protocols.SetHTTP1(true)
 		protocols.SetUnencryptedHTTP2(true)
@@ -391,6 +399,45 @@ access to publications and prevent abuse or unauthorized access.`,
 
 		return nil
 	},
+}
+
+func newManifestList(bind, directory string, authProvider auth.AuthProvider) (*streamer.ManifestList, error) {
+	if directory == "" {
+		return nil, nil
+	}
+	if _, ok := authProvider.(*auth.B64EncodedAuthProvider); !ok {
+		slog.Info("Skipping manifest list; it is only available in base64 access mode")
+		return nil, nil
+	}
+
+	entries, err := os.ReadDir(directory)
+	if err != nil {
+		return nil, fmt.Errorf("failed reading local publication directory: %w", err)
+	}
+
+	host := bind
+	bindHost, port, err := net.SplitHostPort(bind)
+	if err == nil {
+		if bindHost == "" || bindHost == "0.0.0.0" || bindHost == "::" {
+			host = "localhost:" + port
+		}
+	}
+
+	list := streamer.NewManifestList()
+	for _, entry := range entries {
+		relPath := entry.Name()
+		token := base64.RawURLEncoding.EncodeToString([]byte(relPath))
+		sourceType := streamer.ManifestSourceFile
+		if entry.IsDir() {
+			sourceType = streamer.ManifestSourceDirectory
+		}
+		list.Set(streamer.ManifestListItem{
+			Manifest:     fmt.Sprintf("http://%s/webpub/%s/manifest.json", host, token),
+			ManifestType: sourceType,
+			DirFile:      relPath,
+		})
+	}
+	return list, nil
 }
 
 func init() {
