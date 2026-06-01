@@ -27,9 +27,7 @@ func (s *Server) Routes() *mux.Router {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("OK"))
 	})
-	if s.config.ManifestList != nil {
-		r.Handle(streamer.ManifestListPath, s.config.ManifestList)
-	}
+	r.HandleFunc(streamer.ManifestListPath, s.getManifestList)
 
 	if s.config.Debug {
 		r.HandleFunc("/debug/pprof/", pprof.Index)

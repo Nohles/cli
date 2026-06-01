@@ -18,11 +18,6 @@ import (
 
 	"github.com/gorilla/mux"
 	httprange "github.com/gotd/contrib/http_range"
-	"github.com/pkg/errors"
-	"github.com/readium/cli/pkg/serve/auth"
-	"github.com/readium/cli/pkg/serve/cache"
-	"github.com/readium/cli/pkg/serve/problems"
-	"github.com/readium/cli/pkg/serve/session"
 	"github.com/nohles/go-toolkit/pkg/archive"
 	"github.com/nohles/go-toolkit/pkg/asset"
 	"github.com/nohles/go-toolkit/pkg/fetcher"
@@ -30,6 +25,11 @@ import (
 	"github.com/nohles/go-toolkit/pkg/pub"
 	"github.com/nohles/go-toolkit/pkg/streamer"
 	"github.com/nohles/go-toolkit/pkg/util/url"
+	"github.com/pkg/errors"
+	"github.com/readium/cli/pkg/serve/auth"
+	"github.com/readium/cli/pkg/serve/cache"
+	"github.com/readium/cli/pkg/serve/problems"
+	"github.com/readium/cli/pkg/serve/session"
 	"github.com/zeebo/xxh3"
 )
 
@@ -231,6 +231,15 @@ func (s *Server) getPublication(ctx context.Context) (*cache.CachedPublication, 
 	}
 
 	return cp, nil
+}
+
+func (s *Server) getManifestList(w http.ResponseWriter, req *http.Request) {
+	if s.config.ManifestList == nil {
+		problems.Write(problems.NotImplemented.Build().
+			Detail("manifest list is only available when serving a local directory in base64 access mode").Problem(), w, req)
+		return
+	}
+	s.config.ManifestList.ServeHTTP(w, req)
 }
 
 func (s *Server) enforceBonding(ctx context.Context, doc *session.ReadingSessionDocument) error {
