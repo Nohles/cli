@@ -24,6 +24,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/credentials"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
+	"github.com/nohles/go-toolkit/pkg/asset"
 	"github.com/nohles/go-toolkit/pkg/streamer"
 	"github.com/nohles/go-toolkit/pkg/util/url"
 	"github.com/pkg/errors"
@@ -410,11 +411,6 @@ func newManifestList(bind, directory string, authProvider auth.AuthProvider) (*s
 		return nil, nil
 	}
 
-	entries, err := os.ReadDir(directory)
-	if err != nil {
-		return nil, fmt.Errorf("failed reading local publication directory: %w", err)
-	}
-
 	host := bind
 	bindHost, port, err := net.SplitHostPort(bind)
 	if err == nil {
@@ -424,8 +420,34 @@ func newManifestList(bind, directory string, authProvider auth.AuthProvider) (*s
 	}
 
 	list := streamer.NewManifestList()
-	for _, entry := range entries {
-		relPath := entry.Name()
+	ctx := context.Background()
+	err = filepath.WalkDir(directory, func(itemPath string, entry os.DirEntry, walkErr error) error {
+		if walkErr != nil {
+			return walkErr
+		}
+		if itemPath == directory {
+			return nil
+		}
+		if strings.HasPrefix(entry.Name(), ".") {
+			if entry.IsDir() {
+				return filepath.SkipDir
+			}
+			return nil
+		}
+
+		pathURL, err := url.FromFilepath(itemPath)
+		if err != nil {
+			return fmt.Errorf("failed creating URL from filepath: %w", err)
+		}
+		if _, err := streamer.New(streamer.Config{}).Open(ctx, asset.File(pathURL), ""); err != nil {
+			return nil
+		}
+
+		relPath, err := filepath.Rel(directory, itemPath)
+		if err != nil {
+			return fmt.Errorf("failed creating relative publication path: %w", err)
+		}
+		relPath = filepath.ToSlash(relPath)
 		token := base64.RawURLEncoding.EncodeToString([]byte(relPath))
 		sourceType := streamer.ManifestSourceFile
 		if entry.IsDir() {
@@ -436,6 +458,13 @@ func newManifestList(bind, directory string, authProvider auth.AuthProvider) (*s
 			ManifestType: sourceType,
 			DirFile:      relPath,
 		})
+		if entry.IsDir() {
+			return filepath.SkipDir
+		}
+		return nil
+	})
+	if err != nil {
+		return nil, fmt.Errorf("failed reading local publication directory: %w", err)
 	}
 	return list, nil
 }

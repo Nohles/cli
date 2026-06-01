@@ -19,8 +19,8 @@ Since there's no default path, it requires the presence of a `--file-directory` 
 ### Listing files
 
 For debugging purposes, the server exposes a `/list.json` endpoint that
-returns a list of all the publications found in the directory along with their
-encoded paths.
+returns a list of publications discovered in the directory tree along with
+their manifest URLs.
 
 This will be replaced by an OPDS 2.0 feed in a future release, using an optional flag.
 
