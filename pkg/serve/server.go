@@ -49,7 +49,7 @@ type ServerConfig struct {
 	Auth                  auth.AuthProvider
 	ReadingSessionFetcher session.Fetcher
 	CORSAllowedOrigins    []string
-	ManifestList          *streamer.ManifestList
+	ManifestList          http.Handler
 }
 
 type Server struct {

@@ -13,6 +13,7 @@ import (
 	"path/filepath"
 	"slices"
 	"strings"
+	"sync"
 	"time"
 
 	"log/slog"
@@ -402,7 +403,32 @@ access to publications and prevent abuse or unauthorized access.`,
 	},
 }
 
-func newManifestList(bind, directory string, authProvider auth.AuthProvider) (*streamer.ManifestList, error) {
+type manifestListBuilder func(host, directory string) (*streamer.ManifestList, error)
+
+type lazyManifestList struct {
+	once  sync.Once
+	build func() (*streamer.ManifestList, error)
+	list  *streamer.ManifestList
+	err   error
+}
+
+func (l *lazyManifestList) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	l.once.Do(func() {
+		l.list, l.err = l.build()
+	})
+	if l.err != nil {
+		slog.ErrorContext(req.Context(), "Manifest list creation failed", "error", l.err)
+		http.Error(w, l.err.Error(), http.StatusInternalServerError)
+		return
+	}
+	l.list.ServeHTTP(w, req)
+}
+
+func newManifestList(bind, directory string, authProvider auth.AuthProvider) (http.Handler, error) {
+	return newManifestListWithBuilder(bind, directory, authProvider, buildManifestList)
+}
+
+func newManifestListWithBuilder(bind, directory string, authProvider auth.AuthProvider, builder manifestListBuilder) (http.Handler, error) {
 	if directory == "" {
 		return nil, nil
 	}
@@ -419,9 +445,17 @@ func newManifestList(bind, directory string, authProvider auth.AuthProvider) (*s
 		}
 	}
 
+	return &lazyManifestList{
+		build: func() (*streamer.ManifestList, error) {
+			return builder(host, directory)
+		},
+	}, nil
+}
+
+func buildManifestList(host, directory string) (*streamer.ManifestList, error) {
 	list := streamer.NewManifestList()
 	ctx := context.Background()
-	err = filepath.WalkDir(directory, func(itemPath string, entry os.DirEntry, walkErr error) error {
+	err := filepath.WalkDir(directory, func(itemPath string, entry os.DirEntry, walkErr error) error {
 		if walkErr != nil {
 			return walkErr
 		}
