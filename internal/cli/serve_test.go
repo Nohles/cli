@@ -1,9 +1,13 @@
 package cli
 
 import (
+	"archive/zip"
+	"encoding/base64"
 	"errors"
 	"net/http"
 	"net/http/httptest"
+	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/nohles/go-toolkit/pkg/streamer"
@@ -58,5 +62,69 @@ func TestLazyManifestListCachesBuildError(t *testing.T) {
 	}
 	if called != 1 {
 		t.Fatalf("manifest list builder calls: got %d, want 1", called)
+	}
+}
+
+func TestBuildManifestListIncludesRelativeDirectoryPublications(t *testing.T) {
+	root := t.TempDir()
+	library := filepath.Join(root, "library")
+	series := filepath.Join(library, "A Cadet Becomes a Prophet")
+	if err := os.MkdirAll(series, 0o755); err != nil {
+		t.Fatalf("failed creating series directory: %v", err)
+	}
+	writeTestCBZ(t, filepath.Join(series, "Chapter 1.cbz"))
+
+	previousCwd, err := os.Getwd()
+	if err != nil {
+		t.Fatalf("failed reading cwd: %v", err)
+	}
+	if err := os.Chdir(root); err != nil {
+		t.Fatalf("failed changing cwd: %v", err)
+	}
+	t.Cleanup(func() {
+		if err := os.Chdir(previousCwd); err != nil {
+			t.Fatalf("failed restoring cwd: %v", err)
+		}
+	})
+
+	list, err := buildManifestList("localhost:15080", "library")
+	if err != nil {
+		t.Fatalf("buildManifestList returned error: %v", err)
+	}
+
+	items := list.Items()
+	if len(items) != 1 {
+		t.Fatalf("manifest list length: got %d (%#v), want 1", len(items), items)
+	}
+	if items[0].ManifestType != streamer.ManifestSourceDirectory {
+		t.Fatalf("manifest type: got %q, want %q", items[0].ManifestType, streamer.ManifestSourceDirectory)
+	}
+	if items[0].DirFile != "A Cadet Becomes a Prophet" {
+		t.Fatalf("Dir_File: got %q", items[0].DirFile)
+	}
+	token := base64.RawURLEncoding.EncodeToString([]byte("A Cadet Becomes a Prophet"))
+	wantManifest := "http://localhost:15080/webpub/" + token + "/manifest.json"
+	if items[0].Manifest != wantManifest {
+		t.Fatalf("manifest URL: got %q, want %q", items[0].Manifest, wantManifest)
+	}
+}
+
+func writeTestCBZ(t *testing.T, filePath string) {
+	t.Helper()
+	file, err := os.Create(filePath)
+	if err != nil {
+		t.Fatalf("failed creating test cbz: %v", err)
+	}
+	defer file.Close()
+
+	archive := zip.NewWriter(file)
+	defer archive.Close()
+
+	image, err := archive.Create("001.jpg")
+	if err != nil {
+		t.Fatalf("failed creating test image entry: %v", err)
+	}
+	if _, err := image.Write([]byte("fake image bytes")); err != nil {
+		t.Fatalf("failed writing test image entry: %v", err)
 	}
 }

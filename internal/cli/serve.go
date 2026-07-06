@@ -49,9 +49,11 @@ var fileDirectoryFlag string
 
 var mode string
 
+// JWT/JWKS flags
 var jwtSharedSecret string
 var jwksURL string
 
+// Bonding flags
 var bondingDefaultMaxDevices uint16
 var bondingMaxBondsPerSubject uint16
 var bondingMaxCacheSize uint
@@ -67,17 +69,25 @@ var s3AccessKeyFlag string
 var s3SecretKeyFlag string
 var s3UsePathStyleFlag bool
 
+// HTTP client flags
 var httpHostWhitelistFlag []string
 var httpUnsafeRequestsFlag bool
 var httpAuthorizationFlag string
 var specificHttpAuthorizationFlag []string
 
+// Remote archive flags
 var remoteArchiveTimeoutFlag uint32
 var remoteArchiveCacheSize uint32
 var remoteArchiveCacheCount uint32
 var remoteArchiveCacheAll uint32
 
+// Web flags
 var corsAllowedOriginsFlag []string
+
+// Audio parsing flags
+var audioEmbeddedChaptersFlag bool
+var audioParsingConcurrency uint8
+var audioParsingCacheBlockSize uint32
 
 var serveCmd = &cobra.Command{
 	Use:   "serve",
@@ -127,7 +137,10 @@ access to publications and prevent abuse or unauthorized access.`,
 				slog.Warn("local directory specified, but file scheme is not enabled")
 			}
 
-			path := filepath.Clean(fileDirectoryFlag)
+			path, err := filepath.Abs(filepath.Clean(fileDirectoryFlag))
+			if err != nil {
+				return fmt.Errorf("failed resolving %s: %w", fileDirectoryFlag, err)
+			}
 			fi, err := os.Stat(path)
 			if err != nil {
 				if os.IsNotExist(err) {
@@ -372,13 +385,16 @@ access to publications and prevent abuse or unauthorized access.`,
 
 		// Create server
 		pubServer := serve.NewServer(serve.ServerConfig{
-			Debug:                 debugFlag,
-			JSONIndent:            indentFlag,
-			InferA11yMetadata:     streamer.InferA11yMetadata(inferA11yFlag),
-			Auth:                  authProvider,
-			ReadingSessionFetcher: readingSessionFetcher,
-			CORSAllowedOrigins:    corsAllowedOriginsFlag,
-			ManifestList:          manifestList,
+			Debug:                      debugFlag,
+			JSONIndent:                 indentFlag,
+			InferA11yMetadata:          streamer.InferA11yMetadata(inferA11yFlag),
+			Auth:                       authProvider,
+			ReadingSessionFetcher:      readingSessionFetcher,
+			CORSAllowedOrigins:         corsAllowedOriginsFlag,
+			ManifestList:               manifestList,
+			AudioEmbeddedChapters:      audioEmbeddedChaptersFlag,
+			AudioParsingConcurrency:    audioParsingConcurrency,
+			AudioParsingCacheBlockSize: audioParsingCacheBlockSize,
 		}, remote)
 
 		protocols := new(http.Protocols)
@@ -455,7 +471,11 @@ func newManifestListWithBuilder(bind, directory string, authProvider auth.AuthPr
 func buildManifestList(host, directory string) (*streamer.ManifestList, error) {
 	list := streamer.NewManifestList()
 	ctx := context.Background()
-	err := filepath.WalkDir(directory, func(itemPath string, entry os.DirEntry, walkErr error) error {
+	directory, err := filepath.Abs(filepath.Clean(directory))
+	if err != nil {
+		return nil, fmt.Errorf("failed resolving local publication directory: %w", err)
+	}
+	err = filepath.WalkDir(directory, func(itemPath string, entry os.DirEntry, walkErr error) error {
 		if walkErr != nil {
 			return walkErr
 		}
@@ -542,6 +562,10 @@ func init() {
 	serveCmd.Flags().Uint32Var(&remoteArchiveCacheSize, "remote-archive-cache-size", 1024*1024, "Max size of items in an archive that can be cached (in bytes)")
 	serveCmd.Flags().Uint32Var(&remoteArchiveCacheCount, "remote-archive-cache-count", 64, "Max number of items in an archive that can be cached")
 	serveCmd.Flags().Uint32Var(&remoteArchiveCacheAll, "remote-archive-cache-all", 1024*1024, "Archives this size or less (in bytes) will be cached in full")
+
+	serveCmd.Flags().BoolVar(&audioEmbeddedChaptersFlag, "audio-embedded-chapters", true, "Whether to parse chapters embedded in audio files, in particular M4B. Will cause more range reads to be made on audio files, increasing load time")
+	serveCmd.Flags().Uint8Var(&audioParsingConcurrency, "audio-parsing-concurrency", 8, "Number of audio files to parse concurrently when retrieving metadata and chapters")
+	serveCmd.Flags().Uint32Var(&audioParsingCacheBlockSize, "audio-parsing-cache-block-size", 256<<10, "Block size in bytes for the read cache used when parsing audio files for metadata and chapters. Larger blocks may reduce the number of range requests but increase data transfer for scattered reads")
 
 	serveCmd.Flags().StringSliceVar(&corsAllowedOriginsFlag, "cors-allowed-origin", []string{"*"}, "Allowed origins for CORS requests. Repeat the flag or comma-separate to allow multiple origins (e.g. 'https://reader.example.com'). Use '*' to allow any origin")
 }

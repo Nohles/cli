@@ -6,10 +6,14 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### Added
+
+- Added the `--audio-embedded-chapters`, `--audio-parsing-concurrency`, `--audio-parsing-cache-block-size` flags for more control over audiobook parsing with regards to speed/latency/memory tradeoffs.
+
 ### Changed
 
 - Switched the CLI fork to use the `github.com/nohles/go-toolkit` fork, with local development wired through `../go-toolkit`.
-- Updated Go module dependencies to match the forked go-toolkit audiobook improvements.
+- Updated Go module dependencies to match the forked go-toolkit audiobook improvements based on upstream go-toolkit v0.14.0.
 
 ### Fixed
 

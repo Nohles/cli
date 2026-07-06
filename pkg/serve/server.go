@@ -50,6 +50,11 @@ type ServerConfig struct {
 	ReadingSessionFetcher session.Fetcher
 	CORSAllowedOrigins    []string
 	ManifestList          http.Handler
+
+	// Audio parsing
+	AudioEmbeddedChapters      bool   // Whether to extract chapters embedded in audio files
+	AudioParsingConcurrency    uint8  // Number of audio files to probe concurrently (0 = library default)
+	AudioParsingCacheBlockSize uint32 // Read-cache block size in bytes while probing audio (0 = library default)
 }
 
 type Server struct {
