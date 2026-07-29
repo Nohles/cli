@@ -6,7 +6,6 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"fmt"
-	"log"
 	"net"
 	"net/http"
 	"os"
@@ -42,6 +41,8 @@ var debugFlag bool
 var bindAddressFlag string
 
 var bindPortFlag uint16
+
+var portFileFlag string
 
 var schemeFlag []string
 
@@ -88,6 +89,7 @@ var corsAllowedOriginsFlag []string
 var audioEmbeddedChaptersFlag bool
 var audioParsingConcurrency uint8
 var audioParsingCacheBlockSize uint32
+var audioParsingCacheRetain bool
 
 var serveCmd = &cobra.Command{
 	Use:   "serve",
@@ -185,7 +187,7 @@ access to publications and prevent abuse or unauthorized access.`,
 			}
 			cfg, err := config.LoadDefaultConfig(ctx, options...)
 			if err != nil {
-				log.Fatal(err)
+				return fmt.Errorf("failed loading AWS config: %w", err)
 			}
 			_, err = cfg.Credentials.Retrieve(ctx)
 			if err == nil {
@@ -378,7 +380,14 @@ access to publications and prevent abuse or unauthorized access.`,
 		}
 
 		bind := fmt.Sprintf("%s:%d", bindAddressFlag, bindPortFlag)
-		manifestList, err := newManifestList(bind, fileDirectoryFlag, authProvider)
+		listener, err := net.Listen("tcp", bind)
+		if err != nil {
+			return fmt.Errorf("failed binding HTTP server: %w", err)
+		}
+		defer listener.Close()
+
+		boundAddress := listener.Addr().String()
+		manifestList, err := newManifestList(boundAddress, fileDirectoryFlag, authProvider)
 		if err != nil {
 			return err
 		}
@@ -395,6 +404,7 @@ access to publications and prevent abuse or unauthorized access.`,
 			AudioEmbeddedChapters:      audioEmbeddedChaptersFlag,
 			AudioParsingConcurrency:    audioParsingConcurrency,
 			AudioParsingCacheBlockSize: audioParsingCacheBlockSize,
+			AudioParsingCacheRetain:    audioParsingCacheRetain,
 		}, remote)
 
 		protocols := new(http.Protocols)
@@ -404,12 +414,18 @@ access to publications and prevent abuse or unauthorized access.`,
 			ReadTimeout:    10 * time.Second,
 			IdleTimeout:    120 * time.Second,
 			MaxHeaderBytes: 1 << 20,
-			Addr:           bind,
+			Addr:           boundAddress,
 			Handler:        pubServer.Routes(),
 			Protocols:      protocols,
 		}
-		slog.Info("Starting HTTP server", "address", "http://"+httpServer.Addr)
-		if err := httpServer.ListenAndServe(); err != http.ErrServerClosed {
+		if portFileFlag != "" {
+			if err := writeBoundPortFile(portFileFlag, listener.Addr()); err != nil {
+				return err
+			}
+			defer os.Remove(portFileFlag)
+		}
+		slog.Info("Starting HTTP server", "address", "http://"+boundAddress)
+		if err := httpServer.Serve(listener); err != http.ErrServerClosed {
 			slog.Error("Server stopped", "error", err)
 		} else {
 			slog.Info("Goodbye!")
@@ -417,6 +433,39 @@ access to publications and prevent abuse or unauthorized access.`,
 
 		return nil
 	},
+}
+
+func writeBoundPortFile(filePath string, address net.Addr) error {
+	tcpAddress, ok := address.(*net.TCPAddr)
+	if !ok || tcpAddress.Port <= 0 {
+		return fmt.Errorf("HTTP listener did not provide a valid TCP port")
+	}
+
+	if err := os.MkdirAll(filepath.Dir(filePath), 0o755); err != nil {
+		return fmt.Errorf("failed creating port file directory: %w", err)
+	}
+	tempFile, err := os.CreateTemp(filepath.Dir(filePath), ".readium-port-*")
+	if err != nil {
+		return fmt.Errorf("failed creating temporary port file: %w", err)
+	}
+	tempPath := tempFile.Name()
+	defer os.Remove(tempPath)
+
+	if _, err := fmt.Fprintf(tempFile, "%d\n", tcpAddress.Port); err != nil {
+		tempFile.Close()
+		return fmt.Errorf("failed writing bound port: %w", err)
+	}
+	if err := tempFile.Chmod(0o600); err != nil {
+		tempFile.Close()
+		return fmt.Errorf("failed securing bound port file: %w", err)
+	}
+	if err := tempFile.Close(); err != nil {
+		return fmt.Errorf("failed closing bound port file: %w", err)
+	}
+	if err := os.Rename(tempPath, filePath); err != nil {
+		return fmt.Errorf("failed publishing bound port file: %w", err)
+	}
+	return nil
 }
 
 type manifestListBuilder func(host, directory string) (*streamer.ManifestList, error)
@@ -529,6 +578,7 @@ func init() {
 	serveCmd.Flags().StringSliceVarP(&schemeFlag, "scheme", "s", []string{url.SchemeFile.String()}, "Scheme(s) to enable for accessing content. Acceptable values: file, http, https, s3, gs, session")
 	serveCmd.Flags().StringVarP(&bindAddressFlag, "address", "a", "localhost", "Address to bind the HTTP server to")
 	serveCmd.Flags().Uint16VarP(&bindPortFlag, "port", "p", 15080, "Port to bind the HTTP server to")
+	serveCmd.Flags().StringVar(&portFileFlag, "port-file", "", "Write the bound TCP port to this file after listening")
 	serveCmd.Flags().StringVarP(&indentFlag, "indent", "i", "", "Indentation used to pretty-print JSON files")
 	serveCmd.Flags().Var(&inferA11yFlag, "infer-a11y", "Infer accessibility metadata: no, merged, split")
 	serveCmd.Flags().BoolVarP(&debugFlag, "debug", "d", false, "Enable debug mode")
@@ -564,8 +614,9 @@ func init() {
 	serveCmd.Flags().Uint32Var(&remoteArchiveCacheAll, "remote-archive-cache-all", 1024*1024, "Archives this size or less (in bytes) will be cached in full")
 
 	serveCmd.Flags().BoolVar(&audioEmbeddedChaptersFlag, "audio-embedded-chapters", true, "Whether to parse chapters embedded in audio files, in particular M4B. Will cause more range reads to be made on audio files, increasing load time")
-	serveCmd.Flags().Uint8Var(&audioParsingConcurrency, "audio-parsing-concurrency", 8, "Number of audio files to parse concurrently when retrieving metadata and chapters")
+	serveCmd.Flags().Uint8Var(&audioParsingConcurrency, "audio-parsing-concurrency", 8, "Number of audio files to parse concurrently when retrieving metadata and chapters. Also bounds the parallel range reads made within a single file (e.g. fetching scattered chapter titles)")
 	serveCmd.Flags().Uint32Var(&audioParsingCacheBlockSize, "audio-parsing-cache-block-size", 256<<10, "Block size in bytes for the read cache used when parsing audio files for metadata and chapters. Larger blocks may reduce the number of range requests but increase data transfer for scattered reads")
+	serveCmd.Flags().BoolVar(&audioParsingCacheRetain, "audio-parsing-cache-retain", true, "Keep the data fetched while parsing remote audiobooks in memory and serve matching byte ranges from it. Browsers request exactly these ranges (container header, embedded chapters) before starting playback, so this significantly reduces the time to first audio. Disable to save memory (roughly one cache block per chapter plus the file headers)")
 
 	serveCmd.Flags().StringSliceVar(&corsAllowedOriginsFlag, "cors-allowed-origin", []string{"*"}, "Allowed origins for CORS requests. Repeat the flag or comma-separate to allow multiple origins (e.g. 'https://reader.example.com'). Use '*' to allow any origin")
 }

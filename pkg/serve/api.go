@@ -4,20 +4,23 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
+	"fmt"
 	"log/slog"
 	"net/http"
+	"os"
 	"path"
 	"path/filepath"
 	"slices"
 	"strconv"
 	"strings"
-	"syscall"
 	"time"
 
 	nurl "net/url"
 
 	"github.com/gorilla/mux"
 	httprange "github.com/gotd/contrib/http_range"
+	"github.com/maypok86/otter/v2"
 	"github.com/nohles/go-toolkit/pkg/archive"
 	"github.com/nohles/go-toolkit/pkg/asset"
 	"github.com/nohles/go-toolkit/pkg/fetcher"
@@ -31,13 +34,28 @@ import (
 	"github.com/nohles/go-toolkit/pkg/pub"
 	"github.com/nohles/go-toolkit/pkg/streamer"
 	"github.com/nohles/go-toolkit/pkg/util/url"
-	"github.com/pkg/errors"
 	"github.com/readium/cli/pkg/serve/auth"
 	"github.com/readium/cli/pkg/serve/cache"
 	"github.com/readium/cli/pkg/serve/problems"
 	"github.com/readium/cli/pkg/serve/session"
 	"github.com/zeebo/xxh3"
 )
+
+func readingSessionDataURL(sessionURL string) (string, error) {
+	cloc, err := nurl.Parse(sessionURL)
+	if err != nil {
+		return "", err
+	}
+	// Example: session:https://example.com/data.json?t=abc --> https://example.com/data.json?t=abc
+	if cloc.Opaque == "" {
+		return "", errors.New("reading session URL is missing data")
+	}
+	target := cloc.Opaque
+	if cloc.ForceQuery || cloc.RawQuery != "" {
+		target += "?" + cloc.RawQuery
+	}
+	return target, nil
+}
 
 func (s *Server) getPublication(ctx context.Context) (*cache.CachedPublication, error) {
 	filename, ok := ctx.Value(auth.ContextPathKey).(string)
@@ -76,18 +94,13 @@ func (s *Server) getPublication(ctx context.Context) (*cache.CachedPublication, 
 				return nil, problems.NotImplemented.Build().
 					Detail("reading session API is not available").Problem()
 			}
-			cloc, err := nurl.Parse(filename)
+			target, err := readingSessionDataURL(filename)
 			if err != nil {
 				return nil, problems.BadRequest.Build().Wrap(err).
-					Detail("failed parsing reading session URL").Problem()
-			}
-			// Example: session:https://example.com/data.json --> https://example.com/data.json
-			if cloc.Opaque == "" {
-				return nil, problems.BadRequest.Build().
-					Detail("reading session URL is missing data").Problem()
+					Detail("invalid reading session URL").Problem()
 			}
 
-			doc, err = s.config.ReadingSessionFetcher.Fetch(ctx, cloc.Opaque)
+			doc, err = s.config.ReadingSessionFetcher.Fetch(ctx, target)
 			if err != nil {
 				return nil, problems.BadGateway.Build().Wrap(err).
 					Detail("failed fetching reading session data").Problem()
@@ -119,6 +132,14 @@ func (s *Server) getPublication(ctx context.Context) (*cache.CachedPublication, 
 		if !s.config.AudioEmbeddedChapters {
 			audioOpts = append(audioOpts, audio.WithoutEmbeddedChapters())
 		}
+		if s.config.AudioParsingCacheRetain && !u.IsFile() {
+			// Keep the blocks fetched while probing remote audiobooks attached
+			// to the cached publication: browsers request the container header
+			// and every chapter sample before starting playback, and those
+			// ranges are then served from memory instead of new remote
+			// requests. Local files don't need it — serving them is cheap.
+			audioOpts = append(audioOpts, audio.WithRetainedCache())
+		}
 		config := streamer.Config{
 			InferA11yMetadata:    s.config.InferA11yMetadata,
 			HttpClient:           s.remote.HTTP,
@@ -140,15 +161,50 @@ func (s *Server) getPublication(ctx context.Context) (*cache.CachedPublication, 
 				Detailf("unacceptable scheme %q", u.Scheme().String()).Problem()
 		}
 		if u.IsFile() {
-			path, err := url.FromFilepath(filepath.Join(s.remote.LocalDirectory, path.Clean(u.Path())))
+			// Confine the request to LocalDirectory at the syscall layer.
+			// os.Root refuses any traversal outside the directory — via "..",
+			// an absolute path, or a symlink — using the OS's own path
+			// semantics. That closes both the Windows separator-mismatch gap
+			// (slash-only path.Clean misses backslash "..") and the
+			// symlink-escape gap a purely lexical containment check leaves
+			// open. go-toolkit's fetcher still opens the file by path, so this
+			// Stat is the confinement gate; the path handed to the streamer is
+			// the same one it validates.
+			root, err := os.OpenRoot(s.remote.LocalDirectory)
+			if err != nil {
+				return nil, problems.Internal("failed opening file directory", err)
+			}
+			// os.Root paths are relative to the root, so drop the leading
+			// slash the URL path carries; an empty path is the directory
+			// itself.
+			rel := strings.TrimPrefix(path.Clean(u.Path()), "/")
+			if rel == "" {
+				rel = "."
+			}
+			_, statErr := root.Stat(rel)
+			root.Close()
+			if statErr != nil {
+				// The path either escapes the root or does not exist; either
+				// way the client only learns the publication was not found.
+				// The offending path stays on the wrapped error, for logs.
+				return nil, problems.NotFound.Build().
+					Wrap(fmt.Errorf("failed resolving %s within %s: %w", rel, s.remote.LocalDirectory, statErr)).
+					Detail("Publication not found").Problem()
+			}
+
+			fpath, err := url.FromFilepath(filepath.Join(s.remote.LocalDirectory, rel))
 			if err != nil {
 				return nil, problems.Internal("failed creating URL from filepath", err)
 			}
 
-			pub, err = streamer.New(config).Open(ctx, asset.File(path), "")
+			pub, err = streamer.New(config).Open(ctx, asset.File(fpath), "")
 			if err != nil {
-				return nil, problems.NotFound.Build().Wrap(err).
-					Detailf("failed opening %s", path.String()).Problem()
+				// The local path stays on the wrapped error for logs; the
+				// client-facing detail must not disclose the server's
+				// filesystem layout or act as a file-existence oracle.
+				return nil, problems.NotFound.Build().
+					Wrap(fmt.Errorf("failed opening %s: %w", fpath.String(), err)).
+					Detail("Publication not found").Problem()
 			}
 		} else {
 			switch u.Scheme() {
@@ -161,8 +217,12 @@ func (s *Server) getPublication(ctx context.Context) (*cache.CachedPublication, 
 				config.ArchiveFactory = archive.NewS3ArchiveFactory(s.remote.S3, archive.NewDefaultRemoteArchiveConfig())
 				pub, err = streamer.New(config).Open(ctx, asset.S3(s.remote.S3, u), "")
 				if err != nil {
-					return nil, problems.BadGateway.Build().Wrap(err).
-						Detailf("failed opening %s", u.String()).Problem()
+					// Never serialize u into the detail: in session mode it is
+					// the resolved publication URL, which may carry upstream
+					// credentials (e.g. a presigned query string).
+					return nil, problems.BadGateway.Build().
+						Wrap(fmt.Errorf("failed opening %s: %w", u.String(), err)).
+						Detail("upstream fetch failed").Problem()
 				}
 			case url.SchemeGS:
 				remote = true
@@ -173,8 +233,9 @@ func (s *Server) getPublication(ctx context.Context) (*cache.CachedPublication, 
 				config.ArchiveFactory = archive.NewGCSArchiveFactory(s.remote.GCS, archive.NewDefaultRemoteArchiveConfig())
 				pub, err = streamer.New(config).Open(ctx, asset.GCS(s.remote.GCS, u), "")
 				if err != nil {
-					return nil, problems.BadGateway.Build().Wrap(err).
-						Detailf("failed opening %s", u.String()).Problem()
+					return nil, problems.BadGateway.Build().
+						Wrap(fmt.Errorf("failed opening %s: %w", u.String(), err)).
+						Detail("upstream fetch failed").Problem()
 				}
 			case url.SchemeHTTP, url.SchemeHTTPS:
 				remote = true
@@ -185,8 +246,9 @@ func (s *Server) getPublication(ctx context.Context) (*cache.CachedPublication, 
 				config.ArchiveFactory = archive.NewHTTPArchiveFactory(s.remote.HTTP, archive.NewDefaultRemoteArchiveConfig())
 				pub, err = streamer.New(config).Open(ctx, asset.HTTP(s.remote.HTTP, u), "")
 				if err != nil {
-					return nil, problems.BadGateway.Build().Wrap(err).
-						Detailf("failed opening %s", u.String()).Problem()
+					return nil, problems.BadGateway.Build().
+						Wrap(fmt.Errorf("failed opening %s: %w", u.String(), err)).
+						Detail("upstream fetch failed").Problem()
 				}
 			default:
 				return nil, problems.BadRequest.Build().
@@ -194,14 +256,18 @@ func (s *Server) getPublication(ctx context.Context) (*cache.CachedPublication, 
 			}
 		}
 
-		// Cache the publication
+		// Cache the publication. Retain before inserting so eviction can never
+		// close it before this request has a hold on it; the caller balances
+		// this with a deferred Release.
 		encPub := cache.EncapsulatePublication(pub, doc, remote)
+		encPub.Retain()
 		s.lfu.Set(cacheKey, encPub)
 
 		// Record the bond for the opening device before returning, so a
 		// `devices: N` session cannot admit N+1 devices via subsequent cached
 		// requests that find an empty bond list.
 		if err := s.enforceBonding(ctx, doc); err != nil {
+			encPub.Release()
 			return nil, err
 		}
 
@@ -224,17 +290,13 @@ func (s *Server) getPublication(ctx context.Context) (*cache.CachedPublication, 
 				return nil, problems.NotImplemented.Build().
 					Detail("reading session API is not available").Problem()
 			}
-			cloc, err := nurl.Parse(filename)
+			target, err := readingSessionDataURL(filename)
 			if err != nil {
-				return nil, problems.Internal("failed parsing reading session URL", err)
-			}
-			// Example: session:https://example.com/data.json --> https://example.com/data.json
-			if cloc.Opaque == "" {
-				return nil, problems.Internal("reading session URL is missing data", nil)
+				return nil, problems.Internal("invalid reading session URL", err)
 			}
 
 			var doc *session.ReadingSessionDocument
-			doc, err = s.config.ReadingSessionFetcher.Fetch(ctx, cloc.Opaque)
+			doc, err = s.config.ReadingSessionFetcher.Fetch(ctx, target)
 			if err != nil {
 				return nil, problems.BadGateway.Build().Wrap(err).
 					Detail("failed fetching reading session data").Problem()
@@ -245,12 +307,19 @@ func (s *Server) getPublication(ctx context.Context) (*cache.CachedPublication, 
 			}
 
 			cp.RefreshSession(doc)
-			s.lfu.Set(cacheKey, cp)
 		} else if err != nil {
 			return nil, problems.From(err)
 		}
 	}
 
+	// Retain for the returning caller. A failure means the entry was evicted
+	// and closed between the cache lookup and here (rare). The closed entry is
+	// already gone from the cache map (TinyLFU deletes before OnEvict), so
+	// re-opening is enough — a blind Del here could instead evict a fresher
+	// entry a concurrent miss had repopulated under the same key.
+	if !cp.Retain() {
+		return s.getPublication(ctx)
+	}
 	return cp, nil
 }
 
@@ -286,38 +355,49 @@ func (s *Server) enforceBonding(ctx context.Context, doc *session.ReadingSession
 	}
 
 	now := time.Now()
-	foundIdx := -1
-	for i := range bd.Bonds {
-		if bd.Bonds[i].Device == bd.Device {
-			foundIdx = i
-			break
+	// Perform the whole read-check-append-write atomically under the cache's
+	// per-key lock: otherwise concurrent requests from distinct devices each
+	// read the same bond snapshot, each pass the limit check, and each write
+	// back — a lost-update race that admits more than `limit` devices and
+	// data-races on the shared backing array. The authoritative bond list is
+	// the one passed in here (not the request-time snapshot), and it is cloned
+	// before any mutation so the cache's backing array is never written.
+	var limitErr error
+	bap.Cache().Compute(bd.Key, func(oldBonds []auth.AgentBond, _ bool) ([]auth.AgentBond, otter.ComputeOp) {
+		bonds := slices.Clone(oldBonds)
+		foundIdx := -1
+		for i := range bonds {
+			if bonds[i].Device == bd.Device {
+				foundIdx = i
+				break
+			}
 		}
-	}
-	if foundIdx >= 0 {
-		bd.Bonds[foundIdx].Hash = bd.Hash
-		bd.Bonds[foundIdx].UpdatedAt = now
-	} else {
-		if uint16(len(bd.Bonds)) >= limit {
+		if foundIdx >= 0 {
+			bonds[foundIdx].Hash = bd.Hash
+			bonds[foundIdx].UpdatedAt = now
+			return bonds, otter.WriteOp
+		}
+		if uint16(len(bonds)) >= limit {
 			var newestBond time.Time
-			for _, b := range bd.Bonds {
+			for _, b := range bonds {
 				if b.UpdatedAt.After(newestBond) {
 					newestBond = b.UpdatedAt
 				}
 			}
 			if time.Since(newestBond) < bap.MinDeviceEvictionInterval() {
-				return problems.DeviceLimitExceeded.Build().
+				limitErr = problems.DeviceLimitExceeded.Build().
 					Detail("device limit exceeded for this publication").Problem()
+				return oldBonds, otter.CancelOp
 			}
-			bd.Evict(limit - 1)
+			bonds = auth.EvictBonds(bonds, limit-1)
 		}
-		bd.Bonds = append(bd.Bonds, auth.AgentBond{
+		return append(bonds, auth.AgentBond{
 			Device:    bd.Device,
 			Hash:      bd.Hash,
 			UpdatedAt: now,
-		})
-	}
-	bap.Cache().Set(bd.Key, bd.Bonds)
-	return nil
+		}), otter.WriteOp
+	})
+	return limitErr
 }
 
 func (s *Server) getManifest(w http.ResponseWriter, req *http.Request) {
@@ -330,6 +410,7 @@ func (s *Server) getManifest(w http.ResponseWriter, req *http.Request) {
 		problems.Write(err, w, req)
 		return
 	}
+	defer cp.Release()
 
 	// Create "self" link in manifest
 	scheme := "http://"
@@ -392,6 +473,7 @@ func (s *Server) getAsset(w http.ResponseWriter, r *http.Request) {
 		problems.Write(err, w, r)
 		return
 	}
+	defer cp.Release()
 
 	// Parse asset path from mux vars
 	href, err := url.URLFromDecodedPath(path.Clean(vars["asset"]))
@@ -442,8 +524,11 @@ func (s *Server) getAsset(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("cache-control", "private, max-age=86400, immutable")
 	w.Header().Set("content-length", strconv.FormatInt(l, 10))
 
+	// Range reading assets. hasRange tracks whether a Range header was
+	// actually parsed: `bytes=0-0` also produces start == 0 && end == 0, so
+	// those values cannot be used to detect the absence of a range request.
 	var start, end int64
-	// Range reading assets
+	hasRange := false
 	rangeHeader := r.Header.Get("range")
 	if rangeHeader != "" {
 		rng, err := httprange.ParseRange(rangeHeader, l)
@@ -458,25 +543,46 @@ func (s *Server) getAsset(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		if len(rng) > 0 {
+			hasRange = true
 			w.Header().Set("content-range", rng[0].ContentRange(l))
 			start = rng[0].Start
 			end = start + rng[0].Length - 1
 			w.Header().Set("content-length", strconv.FormatInt(rng[0].Length, 10))
 		}
 	}
-	if w.Header().Get("content-range") != "" {
+	if hasRange {
 		w.WriteHeader(http.StatusPartialContent)
 	} else {
 		w.Header().Set("accept-ranges", "bytes")
 	}
 
 	cres, ok := res.(fetcher.CompressedResource)
+	es, esok := res.(fetcher.EfficientStreamer)
 	normalResponse := func() {
 		if r.Method == http.MethodHead {
 			return
 		}
 
-		if remote {
+		if hasRange && start == 0 && end == 0 {
+			// A one-byte range at offset 0 is inexpressible through the
+			// toolkit's (start, end) pair, where 0,0 means the whole
+			// resource — read the first two bytes and send only the first.
+			var bin []byte
+			bin, rerr = res.Read(r.Context(), 0, 1)
+			if rerr == nil && len(bin) > 0 {
+				_, err = w.Write(bin[:1])
+				if err != nil {
+					rerr = fetcher.Other(err)
+				}
+			}
+			return
+		}
+
+		if remote && (!esok || !es.HasEfficientStream()) {
+			// The resource cannot stream the range efficiently from a remote
+			// source (e.g. a deflate-compressed archive entry, whose ranged
+			// Stream decompresses from the entry start on every call), so
+			// read the whole range with a single call instead.
 			var bin []byte
 			bin, rerr = res.Read(r.Context(), start, end)
 			if rerr == nil {
@@ -486,10 +592,15 @@ func (s *Server) getAsset(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 		} else {
+			// Local resources and efficient streamers (bare remote files,
+			// stored entries in remote archives) retrieve only the requested
+			// range and pipe it through: the first byte reaches the client as
+			// soon as it is available, memory use is bounded, and a client
+			// abort cancels the remote transfer via the request context.
 			_, rerr = res.Stream(r.Context(), w, start, end)
 		}
 	}
-	if ok && cres.CompressedAs(archive.CompressionMethodDeflate) && start == 0 && end == 0 {
+	if ok && cres.CompressedAs(archive.CompressionMethodDeflate) && !hasRange {
 		// Stream the asset in compressed format if supported by the user agent
 		if supportsEncoding(r, "deflate") {
 			headers := func() {
@@ -545,8 +656,10 @@ func (s *Server) getAsset(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if rerr != nil {
-		if errors.Is(rerr.Cause, syscall.EPIPE) || errors.Is(rerr.Cause, syscall.ECONNRESET) {
-			// Ignore client errors
+		if problems.IsClientDisconnect(r.Context(), rerr.Cause) {
+			// Ignore client aborts: the write fails with a broken pipe or a
+			// reset HTTP/2 stream, or the canceled request context interrupts
+			// the remote read mid-stream.
 			return
 		}
 

@@ -4,6 +4,7 @@ import (
 	"archive/zip"
 	"encoding/base64"
 	"errors"
+	"net"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -13,6 +14,30 @@ import (
 	"github.com/nohles/go-toolkit/pkg/streamer"
 	"github.com/readium/cli/pkg/serve/auth"
 )
+
+func TestWriteBoundPortFile(t *testing.T) {
+	filePath := filepath.Join(t.TempDir(), "runtime", "readium.port")
+	address := &net.TCPAddr{IP: net.ParseIP("127.0.0.1"), Port: 43125}
+
+	if err := writeBoundPortFile(filePath, address); err != nil {
+		t.Fatalf("writeBoundPortFile returned error: %v", err)
+	}
+
+	contents, err := os.ReadFile(filePath)
+	if err != nil {
+		t.Fatalf("failed reading port file: %v", err)
+	}
+	if string(contents) != "43125\n" {
+		t.Fatalf("port file contents: got %q, want %q", contents, "43125\n")
+	}
+	info, err := os.Stat(filePath)
+	if err != nil {
+		t.Fatalf("failed stating port file: %v", err)
+	}
+	if info.Mode().Perm() != 0o600 {
+		t.Fatalf("port file mode: got %o, want 600", info.Mode().Perm())
+	}
+}
 
 func TestNewManifestListIsLazy(t *testing.T) {
 	called := 0
