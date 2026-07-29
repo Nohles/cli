@@ -8,17 +8,64 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Added the `--audio-embedded-chapters`, `--audio-parsing-concurrency`, `--audio-parsing-cache-block-size` flags for more control over audiobook parsing with regards to speed/latency/memory tradeoffs.
+- Added the `--port-file` option to write the bound TCP port after the HTTP listener starts, including support for dynamic port allocation with `--port 0`.
 
 ### Changed
 
-- Switched the CLI fork to use the `github.com/nohles/go-toolkit` fork, with local development wired through `../go-toolkit`.
-- Updated Go module dependencies to match the forked go-toolkit audiobook improvements based on upstream go-toolkit v0.14.0.
+- Switched the CLI fork to use the `github.com/nohles/go-toolkit` fork.
+- Updated the go-toolkit integration to the fork's merge of upstream v0.15.1.
 
 ### Fixed
 
 - Updated the go-toolkit integration to include folder-level comic manifests for local folders of CBZ/CBR chapter archives, with chapter links served relative to the manifest URL.
 - Updated the go-toolkit integration to include improved audiobook manifest generation for local audiobook folders and standalone audio files.
+
+## [0.9.1] - 2026-07-23
+
+### Changed
+
+- Docker builds use a local `mime.types` and pinned container hash for better security
+
+### Fixed
+
+- Fixed `session:` scheme URLs for the web server not passing on query parameters to the session's HTTP request. Session URLs like `session:https://example.com/data.json?t=abc` will work now
+- Hash list for manifest command is now validated
+- This has probably never shown up in the real world, but requesting the byte range `bytes=0-0` for a resource would have caused issues in the web server
+- Further confine local FS reads on Windows. The long term solution is to is os.Root or such, but that requires go-toolkit changes
+- Improved bonding reliability to deal with edge cases
+- Improved open publication cache logic to deal with rare edge cases
+
+## [0.9.0] - 2026-07-09
+
+### Added
+
+- Standalone Readium Web Publication Manifests (e.g. a bare `manifest.json`, `.audiobook` or `.divina` file) can now be served. The publication's resources are resolved relative to the manifest's location, whether it lives on the local file system or on a remote source (http(s), s3, gs), and absolute HTTP(S) links in a manifest are fetched as-is. Previously, trying to open one would fail
+- Added the `--audio-parsing-cache-retain` flag (enabled by default): the data fetched while parsing a remote audiobook (the container header and embedded chapter titles) is kept in memory, and requests for those byte ranges are served from it. Browsers request exactly these ranges before starting playback of e.g. an M4B, so with a many-chapter audiobook on a remote source, playback now starts several times faster. Disable the flag to save memory (it costs roughly one cache block per chapter plus the file headers, so a few MB per audiobook). Or just use a better audio format...
+- Publications opened from a WebPub manifest now get a positions service, and a guided navigation service (MVP) when they contain HTML content
+
+### Changed
+
+- The go-toolkit has been updated to v0.15.1. Together with changes to the webserver, this dramatically reduces the latency and excess data transfer of streaming publications from remote (http(s), s3, gs) sources. For the detailed list, refer to the [go-toolkit's changelog](https://github.com/readium/go-toolkit/blob/develop/CHANGELOG.md); the highlights as they apply to the CLI:
+  - The webserver now streams remote media to the client as it arrives whenever the range can be fetched efficiently (bare files and uncompressed archive entries), instead of buffering the entire requested range in memory first. Time to first byte no longer depends on the size of the requested range, memory use is bounded, and a client disconnecting cancels the remote transfer
+  - Streaming has been optimized to unlock the ability for data transfers from a local filesystem source to the network to happen in-kernel with `sendfile`
+  - Seeking through media inside a remote archive no longer re-downloads parts of the archive over and over (in the worst case, the whole archive tail on every request), and data is fetched in far fewer, larger range requests
+  - Opening the same publication only queries the remote source for a file's size once, instead of once per request while streaming. For audiobooks in particular, this removes a remote round trip from every range request a browser makes
+  - Fixed ranged reads of S3 resources downloading the entire object
+  - Fixed a path traversal issue: a crafted link inside a publication could address content outside the publication's own location (e.g. a sibling S3 key or URL path) on the remote source it is served from
+
+### Fixed
+
+- Clients disconnecting over HTTP/2 mid-response (e.g. a browser aborting range requests while probing or seeking media, which is routine) were logged as streaming errors such as `http2: stream closed`, polluting the logs. They are now ignored like their HTTP/1 counterparts (broken pipe, connection reset)
+
+## [0.8.0] - 2026-06-06
+
+### Added
+
+- Added the `--audio-embedded-chapters`, `--audio-parsing-concurrency`, `--audio-parsing-cache-block-size` flags for more control over audiobook parsing with regards to speed/latency/memory tradeoffs
+
+### Changed
+
+- The go-toolkit has been updated to v0.14.0. This adds improved audiobook parsing. For a more detailed list of changed, refer to the [go-toolkit's changelog](https://github.com/readium/go-toolkit/blob/develop/CHANGELOG.md#0140---2026-06-06). While best effort is made to minimize the latency when reading audiobooks from remote sources, there can still be an excess of reads that are necessary to fully parse metadata. The new settings provide a way to make tradeoffs depending on the situation
 
 ## [0.7.1] - 2026-05-18
 
