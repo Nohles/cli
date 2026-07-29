@@ -43,6 +43,8 @@ var bindAddressFlag string
 
 var bindPortFlag uint16
 
+var portFileFlag string
+
 var schemeFlag []string
 
 var fileDirectoryFlag string
@@ -378,7 +380,14 @@ access to publications and prevent abuse or unauthorized access.`,
 		}
 
 		bind := fmt.Sprintf("%s:%d", bindAddressFlag, bindPortFlag)
-		manifestList, err := newManifestList(bind, fileDirectoryFlag, authProvider)
+		listener, err := net.Listen("tcp", bind)
+		if err != nil {
+			return fmt.Errorf("failed binding HTTP server: %w", err)
+		}
+		defer listener.Close()
+
+		boundAddress := listener.Addr().String()
+		manifestList, err := newManifestList(boundAddress, fileDirectoryFlag, authProvider)
 		if err != nil {
 			return err
 		}
@@ -404,12 +413,18 @@ access to publications and prevent abuse or unauthorized access.`,
 			ReadTimeout:    10 * time.Second,
 			IdleTimeout:    120 * time.Second,
 			MaxHeaderBytes: 1 << 20,
-			Addr:           bind,
+			Addr:           boundAddress,
 			Handler:        pubServer.Routes(),
 			Protocols:      protocols,
 		}
-		slog.Info("Starting HTTP server", "address", "http://"+httpServer.Addr)
-		if err := httpServer.ListenAndServe(); err != http.ErrServerClosed {
+		if portFileFlag != "" {
+			if err := writeBoundPortFile(portFileFlag, listener.Addr()); err != nil {
+				return err
+			}
+			defer os.Remove(portFileFlag)
+		}
+		slog.Info("Starting HTTP server", "address", "http://"+boundAddress)
+		if err := httpServer.Serve(listener); err != http.ErrServerClosed {
 			slog.Error("Server stopped", "error", err)
 		} else {
 			slog.Info("Goodbye!")
@@ -417,6 +432,39 @@ access to publications and prevent abuse or unauthorized access.`,
 
 		return nil
 	},
+}
+
+func writeBoundPortFile(filePath string, address net.Addr) error {
+	tcpAddress, ok := address.(*net.TCPAddr)
+	if !ok || tcpAddress.Port <= 0 {
+		return fmt.Errorf("HTTP listener did not provide a valid TCP port")
+	}
+
+	if err := os.MkdirAll(filepath.Dir(filePath), 0o755); err != nil {
+		return fmt.Errorf("failed creating port file directory: %w", err)
+	}
+	tempFile, err := os.CreateTemp(filepath.Dir(filePath), ".readium-port-*")
+	if err != nil {
+		return fmt.Errorf("failed creating temporary port file: %w", err)
+	}
+	tempPath := tempFile.Name()
+	defer os.Remove(tempPath)
+
+	if _, err := fmt.Fprintf(tempFile, "%d\n", tcpAddress.Port); err != nil {
+		tempFile.Close()
+		return fmt.Errorf("failed writing bound port: %w", err)
+	}
+	if err := tempFile.Chmod(0o600); err != nil {
+		tempFile.Close()
+		return fmt.Errorf("failed securing bound port file: %w", err)
+	}
+	if err := tempFile.Close(); err != nil {
+		return fmt.Errorf("failed closing bound port file: %w", err)
+	}
+	if err := os.Rename(tempPath, filePath); err != nil {
+		return fmt.Errorf("failed publishing bound port file: %w", err)
+	}
+	return nil
 }
 
 type manifestListBuilder func(host, directory string) (*streamer.ManifestList, error)
@@ -529,6 +577,7 @@ func init() {
 	serveCmd.Flags().StringSliceVarP(&schemeFlag, "scheme", "s", []string{url.SchemeFile.String()}, "Scheme(s) to enable for accessing content. Acceptable values: file, http, https, s3, gs, session")
 	serveCmd.Flags().StringVarP(&bindAddressFlag, "address", "a", "localhost", "Address to bind the HTTP server to")
 	serveCmd.Flags().Uint16VarP(&bindPortFlag, "port", "p", 15080, "Port to bind the HTTP server to")
+	serveCmd.Flags().StringVar(&portFileFlag, "port-file", "", "Write the bound TCP port to this file after listening")
 	serveCmd.Flags().StringVarP(&indentFlag, "indent", "i", "", "Indentation used to pretty-print JSON files")
 	serveCmd.Flags().Var(&inferA11yFlag, "infer-a11y", "Infer accessibility metadata: no, merged, split")
 	serveCmd.Flags().BoolVarP(&debugFlag, "debug", "d", false, "Enable debug mode")
