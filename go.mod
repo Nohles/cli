@@ -18,7 +18,7 @@ require (
 	github.com/gorilla/mux v1.8.1
 	github.com/gotd/contrib v0.24.0
 	github.com/maypok86/otter/v2 v2.3.0
-	github.com/nohles/go-toolkit v0.0.0-20260729114138-88aa937272eb
+	github.com/nohles/go-toolkit v0.0.0-20260811165309-b89220a022f5
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.10.2
 	github.com/stretchr/testify v1.11.1

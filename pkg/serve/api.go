@@ -63,7 +63,12 @@ func (s *Server) getPublication(ctx context.Context) (*cache.CachedPublication, 
 		return nil, problems.Internal("missing publication path in context", nil)
 	}
 
+	selection := directorySelectionFromContext(ctx)
 	isSession := strings.HasPrefix(filename, session.SchemeReadingSession+":")
+	if selection != nil && isSession {
+		return nil, problems.BadRequest.Build().
+			Detail("directory selections cannot be applied to reading sessions").Problem()
+	}
 	_, bapok := s.config.Auth.(auth.BondingAuthProvider)
 	var u url.AbsoluteURL
 	var cacheKey string
@@ -84,6 +89,9 @@ func (s *Server) getPublication(ctx context.Context) (*cache.CachedPublication, 
 		}
 		u = url.BaseFile.Resolve(loc).(url.AbsoluteURL) // Turn relative filepaths into file:/// URLs
 		cacheKey = u.String()
+	}
+	if selection != nil {
+		cacheKey += "\x00directory-selection=" + selection.Digest
 	}
 
 	dat, ok := s.lfu.Get(cacheKey)
@@ -140,6 +148,10 @@ func (s *Server) getPublication(ctx context.Context) (*cache.CachedPublication, 
 			// requests. Local files don't need it — serving them is cheap.
 			audioOpts = append(audioOpts, audio.WithRetainedCache())
 		}
+		imageParser := image.NewParser()
+		if selection != nil {
+			imageParser = image.NewParser(image.WithComicArchiveReadingOrder(selection.ReadingOrder...))
+		}
 		config := streamer.Config{
 			InferA11yMetadata:    s.config.InferA11yMetadata,
 			HttpClient:           s.remote.HTTP,
@@ -149,7 +161,7 @@ func (s *Server) getPublication(ctx context.Context) (*cache.CachedPublication, 
 				epub.NewParser(nil),
 				pdf.NewParser(),
 				webpub.NewParser(s.remote.HTTP),
-				image.NewParser(),
+				imageParser,
 				audio.NewRichParser(audioOpts...),
 			},
 		}
