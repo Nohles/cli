@@ -27,6 +27,9 @@ func (s *Server) Routes() *mux.Router {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("OK"))
 	})
+	r.HandleFunc("/_readium/capabilities", s.getDirectorySelectionCapabilities).Methods(http.MethodGet)
+	r.HandleFunc("/_readium/directory-selections", s.registerDirectorySelection).Methods(http.MethodPost)
+	r.HandleFunc("/_readium/directory-selections/{id}", s.deleteDirectorySelection).Methods(http.MethodDelete)
 	r.HandleFunc(streamer.ManifestListPath, s.getManifestList)
 
 	if s.config.Debug {
@@ -87,6 +90,7 @@ func (s *Server) Routes() *mux.Router {
 			problems.Write(p, w, req)
 		})
 	})
+	pub.Use(s.withDirectorySelection)
 	pub.HandleFunc("", func(w http.ResponseWriter, req *http.Request) {
 		ru, _ := r.Get("manifest").URLPath("path", mux.Vars(req)["path"])
 		http.Redirect(w, req, ru.String(), http.StatusFound)

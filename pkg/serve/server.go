@@ -59,10 +59,11 @@ type ServerConfig struct {
 }
 
 type Server struct {
-	config ServerConfig
-	remote Remote
-	router *mux.Router
-	lfu    *cache.TinyLFU
+	config              ServerConfig
+	remote              Remote
+	router              *mux.Router
+	lfu                 *cache.TinyLFU
+	directorySelections *directorySelectionRegistry
 }
 
 const MaxCachedPublicationAmount = 10
@@ -73,8 +74,9 @@ func NewServer(config ServerConfig, remote Remote) *Server {
 		config.Auth = auth.NewB64EncodedAuthProvider()
 	}
 	return &Server{
-		config: config,
-		remote: remote,
-		lfu:    cache.NewTinyLFU(MaxCachedPublicationAmount, MaxCachedPublicationTTL),
+		config:              config,
+		remote:              remote,
+		lfu:                 cache.NewTinyLFU(MaxCachedPublicationAmount, MaxCachedPublicationTTL),
+		directorySelections: newDirectorySelectionRegistry(),
 	}
 }
