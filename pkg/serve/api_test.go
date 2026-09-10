@@ -6,6 +6,8 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"image"
+	"image/png"
 	"log/slog"
 	"net/http"
 	"net/http/httptest"
@@ -280,9 +282,86 @@ func TestServeRemoteBareFileCachedRegion(t *testing.T) {
 		"a range inside the retained parse cache must not touch the origin")
 }
 
-// buildCBZ builds an in-memory comic book archive with a large stored entry.
-func buildCBZ(t *testing.T, big []byte) []byte {
+// buildPNGCBZ builds an in-memory comic book archive whose entries are valid
+// PNG pages of the given dimensions.
+func buildPNGCBZ(t *testing.T, width, height, pages int) []byte {
 	t.Helper()
+	img := image.NewRGBA(image.Rect(0, 0, width, height))
+	var page bytes.Buffer
+	require.NoError(t, png.Encode(&page, img))
+
+	var buf bytes.Buffer
+	zw := zip.NewWriter(&buf)
+	for i := 0; i < pages; i++ {
+		w, err := zw.CreateHeader(&zip.FileHeader{Name: fmt.Sprintf("%03d.png", i+1), Method: zip.Store})
+		require.NoError(t, err)
+		_, err = w.Write(page.Bytes())
+		require.NoError(t, err)
+	}
+	require.NoError(t, zw.Close())
+	return buf.Bytes()
+}
+
+// Probing fills the manifest's reading-order links with pixel dimensions so
+// readers can reserve layout space without decoding pages first.
+func TestServeManifestImageDimensionsProbed(t *testing.T) {
+	o := newOrigin(map[string][]byte{"/pub/webtoon.cbz": buildPNGCBZ(t, 320, 640, 3)})
+	defer o.srv.Close()
+	s := NewServer(ServerConfig{
+		AudioParsingCacheRetain:    true, // the CLI default
+		ImageDimensionProbeWorkers: 4,
+	}, Remote{
+		HTTP:        o.srv.Client(),
+		HTTPEnabled: true,
+	})
+	router := s.Routes()
+
+	rec := httptest.NewRecorder()
+	router.ServeHTTP(rec, httptest.NewRequest(http.MethodGet,
+		"/webpub/"+pubToken(o, "/pub/webtoon.cbz")+"/manifest.json", nil))
+	require.Equal(t, http.StatusOK, rec.Code, rec.Body.String())
+
+	var m struct {
+		ReadingOrder []struct {
+			Href   string `json:"href"`
+			Width  uint   `json:"width"`
+			Height uint   `json:"height"`
+		} `json:"readingOrder"`
+	}
+	require.NoError(t, json.Unmarshal(rec.Body.Bytes(), &m))
+	require.Len(t, m.ReadingOrder, 3)
+	for _, link := range m.ReadingOrder {
+		assert.Equal(t, uint(320), link.Width, link.Href)
+		assert.Equal(t, uint(640), link.Height, link.Href)
+	}
+}
+
+func TestServeManifestImageDimensionsNotProbedByDefault(t *testing.T) {
+	o := newOrigin(map[string][]byte{"/pub/webtoon.cbz": buildPNGCBZ(t, 320, 640, 2)})
+	defer o.srv.Close()
+	router := newTestRouter(t, o)
+
+	rec := httptest.NewRecorder()
+	router.ServeHTTP(rec, httptest.NewRequest(http.MethodGet,
+		"/webpub/"+pubToken(o, "/pub/webtoon.cbz")+"/manifest.json", nil))
+	require.Equal(t, http.StatusOK, rec.Code, rec.Body.String())
+
+	var m struct {
+		ReadingOrder []struct {
+			Width  uint `json:"width"`
+			Height uint `json:"height"`
+		} `json:"readingOrder"`
+	}
+	require.NoError(t, json.Unmarshal(rec.Body.Bytes(), &m))
+	require.Len(t, m.ReadingOrder, 2)
+	for _, link := range m.ReadingOrder {
+		assert.Zero(t, link.Width)
+		assert.Zero(t, link.Height)
+	}
+}
+
+// buildCBZ builds an in-memory comic book archive with a large stored entry.
+func buildCBZ(t *testing.T, big []byte) []byte {	t.Helper()
 	var buf bytes.Buffer
 	zw := zip.NewWriter(&buf)
 	w, err := zw.CreateHeader(&zip.FileHeader{Name: "001.jpg", Method: zip.Store})

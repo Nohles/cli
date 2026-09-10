@@ -93,6 +93,11 @@ func (s *Server) getPublication(ctx context.Context) (*cache.CachedPublication, 
 	if selection != nil {
 		cacheKey += "\x00directory-selection=" + selection.Digest
 	}
+	if !isSession {
+		// Content-aware component: a changed source file must not keep
+		// serving the previously parsed publication.
+		cacheKey = appendFingerprint(cacheKey, u, s.remote.LocalDirectory)
+	}
 
 	dat, ok := s.lfu.Get(cacheKey)
 	if !ok {
@@ -148,10 +153,14 @@ func (s *Server) getPublication(ctx context.Context) (*cache.CachedPublication, 
 			// requests. Local files don't need it — serving them is cheap.
 			audioOpts = append(audioOpts, audio.WithRetainedCache())
 		}
-		imageParser := image.NewParser()
-		if selection != nil {
-			imageParser = image.NewParser(image.WithComicArchiveReadingOrder(selection.ReadingOrder...))
+		imageOpts := []image.Option{}
+		if s.config.ImageDimensionProbeWorkers > 0 {
+			imageOpts = append(imageOpts, image.WithDimensionProbing(int(s.config.ImageDimensionProbeWorkers)))
 		}
+		if selection != nil {
+			imageOpts = append(imageOpts, image.WithComicArchiveReadingOrder(selection.ReadingOrder...))
+		}
+		imageParser := image.NewParser(imageOpts...)
 		config := streamer.Config{
 			InferA11yMetadata:    s.config.InferA11yMetadata,
 			HttpClient:           s.remote.HTTP,

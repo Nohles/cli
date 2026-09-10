@@ -122,3 +122,7 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
+
+// Local checkout carries the in-flight search engine (pkg/search, search
+// service); switch back to the published version once it lands upstream.
+replace github.com/nohles/go-toolkit => /Users/rich/Code/go-toolkit
