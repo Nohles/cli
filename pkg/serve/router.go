@@ -21,6 +21,11 @@ func (s *Server) Routes() *mux.Router {
 		handlers.AllowedMethods([]string{http.MethodGet, http.MethodHead, http.MethodOptions}),
 		handlers.AllowedHeaders([]string{"Authorization", "Content-Type", "Range"}),
 		handlers.ExposedHeaders([]string{"Content-Length", "Content-Range", "Accept-Ranges"}),
+		// The search service implements OPTIONS semantically (proposal 007),
+		// so OPTIONS requests must reach the router; the catch-all OPTIONS
+		// route below preserves the bare-200 preflight answer for every
+		// other path.
+		handlers.IgnoreOptions(),
 	))
 
 	r.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
@@ -96,7 +101,16 @@ func (s *Server) Routes() *mux.Router {
 		http.Redirect(w, req, ru.String(), http.StatusFound)
 	})
 	pub.HandleFunc("/manifest.json", s.getManifest).Name("manifest")
+	pub.HandleFunc("/~readium/search", s.searchPublication).Name("search")
+	pub.HandleFunc("/~readium/search/batch", s.batchSearch).Methods(http.MethodPost)
 	pub.HandleFunc("/{asset:.*}", s.getAsset).Name("asset")
+
+	// CORS preflight passthrough: with IgnoreOptions, OPTIONS reaches the
+	// router; anything not claiming semantic OPTIONS answers like the CORS
+	// middleware used to (bare 200), keeping browser preflights working.
+	r.HandleFunc("/{rest:.*}", func(w http.ResponseWriter, _ *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	}).Methods(http.MethodOptions)
 
 	s.router = r
 	return r

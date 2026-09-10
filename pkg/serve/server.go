@@ -56,6 +56,9 @@ type ServerConfig struct {
 	AudioParsingConcurrency    uint8  // Number of audio files to probe concurrently (0 = library default)
 	AudioParsingCacheBlockSize uint32 // Read-cache block size in bytes while probing audio (0 = library default)
 	AudioParsingCacheRetain    bool   // Keep probe-cache blocks of remote audiobooks in memory to serve their byte ranges without remote requests
+
+	// Comic/image parsing
+	ImageDimensionProbeWorkers uint8 // Number of reading-order pages to probe for pixel dimensions concurrently (0 disables probing)
 }
 
 type Server struct {

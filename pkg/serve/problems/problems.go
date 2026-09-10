@@ -113,6 +113,25 @@ var (
 		Status: http.StatusGone,
 		Title:  "Gone",
 	}
+	MethodNotAllowed = problem.Type{
+		URI:    publicationServerBase + "method-not-allowed",
+		Status: http.StatusMethodNotAllowed,
+		Title:  "Method Not Allowed",
+	}
+
+	// Search service problem types (proposal 007 defines a single 400 for
+	// "invalid search query or options"; we split it into distinguishable
+	// subtypes under the same status).
+	SearchInvalidQuery = problem.Type{
+		URI:    publicationServerBase + "search-invalid-query",
+		Status: http.StatusBadRequest,
+		Title:  "Invalid Search Query",
+	}
+	SearchUnsupportedOption = problem.Type{
+		URI:    publicationServerBase + "search-unsupported-option",
+		Status: http.StatusBadRequest,
+		Title:  "Unsupported Search Option",
+	}
 
 	ReadingSessionRevoked = problem.Type{
 		URI:    readingSessionBase + "revoked",
