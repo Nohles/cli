@@ -20,7 +20,7 @@ import (
 
 // searchTimeout bounds every search operation, matching the approved
 // standing decision. It covers corpus extraction on first use as well as
-// matching.
+// matching. The batch endpoint applies it to each term separately.
 const searchTimeout = 5 * time.Second
 
 // maxBatchTerms bounds the internal batch endpoint. Dictionary lookups send
@@ -347,41 +347,7 @@ func (s *Server) batchSearch(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	ctx, cancel := context.WithTimeout(req.Context(), searchTimeout)
-	defer cancel()
-
-	results := make(map[string]batchTermResult, len(payload.Terms))
-	for _, term := range payload.Terms {
-		id := term.ID
-		if id == "" {
-			id = term.Text
-		}
-		it, serr := searchSvc.Search(ctx, term.Text)
-		if serr != nil {
-			results[id] = batchTermResult{Error: batchErrorText(serr)}
-			continue
-		}
-		entry := batchTermResult{}
-		if t, ok := it.Total(); ok {
-			total := t
-			entry.Total = &total
-		}
-		for {
-			page, ierr := it.Next(ctx)
-			if ierr != nil {
-				if !errors.Is(ierr, pub.ErrIteratorDone) {
-					entry.Error = batchErrorText(ierr)
-				}
-				break
-			}
-			entry.Locators = append(entry.Locators, page.Locators...)
-		}
-		it.Close()
-		if entry.Locators == nil {
-			entry.Locators = []manifest.Locator{}
-		}
-		results[id] = entry
-	}
+	results := runBatchTerms(req.Context(), searchSvc, payload.Terms, searchTimeout)
 
 	body, merr := json.Marshal(map[string]interface{}{"results": results})
 	if merr != nil {
@@ -391,6 +357,52 @@ func (s *Server) batchSearch(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("content-type", "application/json; charset=utf-8")
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write(body)
+}
+
+// runBatchTerms searches each term under its own searchTimeout budget. A
+// shared deadline let the frequent terms of a very large publication exhaust
+// the budget, so every later term in the batch reported "timeout" on every
+// retry. Cancelling ctx (the client went away) still stops the whole batch.
+func runBatchTerms(ctx context.Context, svc pub.SearchService, terms []batchTerm, timeout time.Duration) map[string]batchTermResult {
+	results := make(map[string]batchTermResult, len(terms))
+	for _, term := range terms {
+		id := term.ID
+		if id == "" {
+			id = term.Text
+		}
+		results[id] = runBatchTerm(ctx, svc, term.Text, timeout)
+	}
+	return results
+}
+
+func runBatchTerm(parent context.Context, svc pub.SearchService, text string, timeout time.Duration) batchTermResult {
+	ctx, cancel := context.WithTimeout(parent, timeout)
+	defer cancel()
+
+	it, serr := svc.Search(ctx, text)
+	if serr != nil {
+		return batchTermResult{Error: batchErrorText(serr)}
+	}
+	defer it.Close()
+	entry := batchTermResult{}
+	if t, ok := it.Total(); ok {
+		total := t
+		entry.Total = &total
+	}
+	for {
+		page, ierr := it.Next(ctx)
+		if ierr != nil {
+			if !errors.Is(ierr, pub.ErrIteratorDone) {
+				entry.Error = batchErrorText(ierr)
+			}
+			break
+		}
+		entry.Locators = append(entry.Locators, page.Locators...)
+	}
+	if entry.Locators == nil {
+		entry.Locators = []manifest.Locator{}
+	}
+	return entry
 }
 
 // batchErrorText reduces a search error to a stable in-band error tag.
