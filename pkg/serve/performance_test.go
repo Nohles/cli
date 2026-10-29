@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"testing"
 
 	"github.com/nohles/go-toolkit/pkg/util/url"
@@ -38,9 +39,7 @@ func (w *discardResponse) ReadFrom(r io.Reader) (int64, error) {
 // BenchmarkServing exercises the real router, auth, fingerprint, publication
 // cache, serialization and asset streaming, without network/client allocation.
 func BenchmarkServing(b *testing.B) {
-	dir := b.TempDir()
-	files, err := benchfixture.Library(dir)
-	require.NoError(b, err)
+	dir, files := performanceLibrary(b)
 	for _, file := range files {
 		b.Run(file, func(b *testing.B) {
 			s := NewServer(ServerConfig{ImageDimensionProbeWorkers: 4, AudioEmbeddedChapters: true, AudioParsingConcurrency: 8, AudioParsingCacheBlockSize: 256 << 10, AudioParsingCacheRetain: true}, Remote{LocalDirectory: dir})
@@ -100,9 +99,7 @@ func authContext(file string) context.Context {
 // BenchmarkPublicationCache bypasses HTTP middleware, distinguishing the
 // toolkit's publication-open cost from warm-cache lookup and route overhead.
 func BenchmarkPublicationCache(b *testing.B) {
-	dir := b.TempDir()
-	files, err := benchfixture.Library(dir)
-	require.NoError(b, err)
+	dir, files := performanceLibrary(b)
 	for _, file := range files {
 		b.Run(file, func(b *testing.B) {
 			s := NewServer(ServerConfig{ImageDimensionProbeWorkers: 4, AudioEmbeddedChapters: true, AudioParsingConcurrency: 8, AudioParsingCacheBlockSize: 256 << 10, AudioParsingCacheRetain: true}, Remote{LocalDirectory: dir})
@@ -137,4 +134,23 @@ func BenchmarkPublicationCache(b *testing.B) {
 			})
 		})
 	}
+}
+
+// READIUM_BENCH_LIBRARY selects persistent media in place (e.g. an SMB NAS).
+// The default retains the original generated temporary-fixture behavior.
+func performanceLibrary(b *testing.B) (string, []string) {
+	b.Helper()
+	if dir := os.Getenv("READIUM_BENCH_LIBRARY"); dir != "" {
+		names := os.Getenv("READIUM_BENCH_FILES")
+		if names == "" {
+			names = "book.epub,comic.cbz,audio.wav"
+		}
+		dir, files, err := benchfixture.Existing(dir, names)
+		require.NoError(b, err)
+		return dir, files
+	}
+	dir := b.TempDir()
+	files, err := benchfixture.Library(dir)
+	require.NoError(b, err)
+	return dir, files
 }

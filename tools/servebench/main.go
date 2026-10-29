@@ -72,24 +72,26 @@ type fixture struct {
 	DurationSeconds   float64 `json:"duration_seconds,omitempty"`
 }
 type report struct {
-	Schema          int             `json:"schema"`
-	At              string          `json:"at_utc"`
-	GOOS            string          `json:"goos"`
-	GOARCH          string          `json:"goarch"`
-	GoVersion       string          `json:"harness_go_version"`
-	CPUs            int             `json:"logical_cpus"`
-	GOMAXPROCS      string          `json:"gomaxprocs_env"`
-	GOMEMLIMIT      string          `json:"gomemlimit_env"`
-	BinarySHA256    string          `json:"binary_sha256"`
-	BinaryBuildInfo string          `json:"binary_build_info"`
-	ToolkitRevision string          `json:"toolkit_revision,omitempty"`
-	ToolkitStatus   string          `json:"toolkit_status,omitempty"`
-	ReaderRoot      string          `json:"reader_root,omitempty"`
-	ReaderSources   json.RawMessage `json:"reader_pinned_sources,omitempty"`
-	Fixtures        []fixture       `json:"fixtures"`
-	Workloads       []workload      `json:"workloads"`
-	Memory          []memory        `json:"memory"`
-	Notes           []string        `json:"notes"`
+	LibraryDirectory string          `json:"library_directory,omitempty"`
+	StorageLabel     string          `json:"storage_label,omitempty"`
+	Schema           int             `json:"schema"`
+	At               string          `json:"at_utc"`
+	GOOS             string          `json:"goos"`
+	GOARCH           string          `json:"goarch"`
+	GoVersion        string          `json:"harness_go_version"`
+	CPUs             int             `json:"logical_cpus"`
+	GOMAXPROCS       string          `json:"gomaxprocs_env"`
+	GOMEMLIMIT       string          `json:"gomemlimit_env"`
+	BinarySHA256     string          `json:"binary_sha256"`
+	BinaryBuildInfo  string          `json:"binary_build_info"`
+	ToolkitRevision  string          `json:"toolkit_revision,omitempty"`
+	ToolkitStatus    string          `json:"toolkit_status,omitempty"`
+	ReaderRoot       string          `json:"reader_root,omitempty"`
+	ReaderSources    json.RawMessage `json:"reader_pinned_sources,omitempty"`
+	Fixtures         []fixture       `json:"fixtures"`
+	Workloads        []workload      `json:"workloads"`
+	Memory           []memory        `json:"memory"`
+	Notes            []string        `json:"notes"`
 }
 type process struct {
 	cmd    *exec.Cmd
@@ -105,6 +107,10 @@ func main() {
 	}
 }
 func run() error {
+	libraryDir := flag.String("library-dir", "", "Read media in place from this existing directory; do not copy to temporary local storage")
+	filesFlag := flag.String("files", "book.epub,comic.cbz,audio.wav", "Three fixture basenames in library-dir, in EPUB, comic, audio order")
+	prepareOnly := flag.Bool("prepare-only", false, "Create a new library-dir with deterministic fixtures, then exit; refuses an existing directory")
+	storageLabel := flag.String("storage-label", "", "Description of the filesystem holding the media, recorded with results")
 	binary := flag.String("binary", "", "CLI binary to measure (required)")
 	output := flag.String("output", "baseline.json", "JSON output; existing files are not overwritten")
 	rounds := flag.Int("rounds", 3, "Fresh CLI processes; each round opens all media types")
@@ -115,6 +121,19 @@ func run() error {
 	toolkit := flag.String("toolkit-root", "../go-toolkit", "Toolkit checkout used to build the CLI; records revision and status")
 	reader := flag.String("reader-root", "", "Reader checkout to record docker/readium-sources.json")
 	flag.Parse()
+	if *prepareOnly {
+		if *libraryDir == "" {
+			return fmt.Errorf("prepare-only requires library-dir")
+		}
+		files, err := prepareLibrary(*libraryDir, *epub, *audio)
+		if err != nil {
+			return err
+		}
+		return json.NewEncoder(os.Stdout).Encode(files)
+	}
+	if *libraryDir != "" && (*epub != "" || *audio != "") {
+		return fmt.Errorf("in-place library cannot be combined with epub/audio copies; use files to select existing media")
+	}
 	if *binary == "" || *rounds < 1 || *requests < 1 || *concurrency < 1 {
 		return fmt.Errorf("binary, positive rounds, requests and concurrency are required")
 	}
@@ -133,21 +152,29 @@ func run() error {
 	}
 	defer os.RemoveAll(dir)
 	library := filepath.Join(dir, "library")
-	files, err := benchfixture.Library(library)
+	var files []string
+	if *libraryDir != "" {
+		library, files, err = benchfixture.Existing(*libraryDir, *filesFlag)
+	} else {
+		files, err = prepareLibrary(library, *epub, *audio)
+	}
 	if err != nil {
 		return err
 	}
-	for i, source := range map[int]string{0: *epub, 2: *audio} {
-		if source == "" {
-			continue
-		}
-		name := fmt.Sprintf("external-%d%s", i, strings.ToLower(filepath.Ext(source)))
-		if err := copyFile(source, filepath.Join(library, name)); err != nil {
+	// Persistent fixtures are read in place; cache-pressure copies belong to a
+	// unique scratch directory on the same filesystem and only it is cleaned up.
+	churnRoot := library
+	churnPrefix := ""
+	if *libraryDir != "" {
+		churnRoot, err = os.MkdirTemp(library, ".servebench-churn-")
+		if err != nil {
 			return err
 		}
-		files[i] = name
+		defer os.RemoveAll(churnRoot)
+		churnPrefix = filepath.Base(churnRoot) + "/"
 	}
-	r := report{Schema: 1, At: time.Now().UTC().Format(time.RFC3339), GOOS: runtime.GOOS, GOARCH: runtime.GOARCH, GoVersion: runtime.Version(), CPUs: runtime.NumCPU(), GOMAXPROCS: os.Getenv("GOMAXPROCS"), GOMEMLIMIT: os.Getenv("GOMEMLIMIT"), ReaderRoot: *reader,
+
+	r := report{Schema: 2, LibraryDirectory: library, StorageLabel: *storageLabel, At: time.Now().UTC().Format(time.RFC3339), GOOS: runtime.GOOS, GOARCH: runtime.GOARCH, GoVersion: runtime.Version(), CPUs: runtime.NumCPU(), GOMAXPROCS: os.Getenv("GOMAXPROCS"), GOMEMLIMIT: os.Getenv("GOMEMLIMIT"), ReaderRoot: *reader,
 		Notes: []string{"Loopback HTTP to the CLI; excludes Reader proxy, browser rendering and network/Wi-Fi latency.", "Cold means fresh CLI publication cache, with OS filesystem cache uncontrolled (not a cold-disk benchmark).", "Warm HTTP requests use identity encoding, persistent connections, and fully consume bodies; debug mode is enabled for memory snapshots.", "Heap snapshots labelled post_gc force GC and are taken outside timed workloads. RSS/peak RSS are sampled only on Linux; peak RSS covers process lifetime.", "Fixtures are synthetic unless external EPUB/audio overrides are specified. Generated WAV does not cover M4B chapter probing; CBZ repeats one PNG page.", "No 2x/5x improvement is claimed by this baseline. Production cache behavior is unchanged."}}
 	bin, err := digest(abs)
 	if err != nil {
@@ -308,11 +335,11 @@ func run() error {
 				source := filepath.Join(library, name)
 				for i := range 12 {
 					copyName := fmt.Sprintf("churn-%02d-%s", i, name)
-					dest := filepath.Join(library, copyName)
+					dest := filepath.Join(churnRoot, copyName)
 					if err := copyFile(source, dest); err != nil {
 						return err
 					}
-					path := "/webpub/" + base64.RawURLEncoding.EncodeToString([]byte(copyName)) + "/manifest.json"
+					path := "/webpub/" + base64.RawURLEncoding.EncodeToString([]byte(churnPrefix+copyName)) + "/manifest.json"
 					w, err := p.work(round, name, "cache_pressure_open", path, "", 1, 1)
 					if err != nil {
 						return err

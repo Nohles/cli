@@ -2,9 +2,14 @@ package main
 
 import (
 	"bytes"
+	"github.com/readium/cli/internal/benchfixture"
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"os"
+	"path/filepath"
+	"slices"
+	"strings"
 	"testing"
 	"time"
 )
@@ -65,5 +70,46 @@ func TestSummaryUsesNearestRankPercentiles(t *testing.T) {
 	result := summarize(samples)
 	if result.Count != 20 || result.FirstByteP50MS != 10 || result.FirstByteP95MS != 19 || result.CompleteP50MS != 20 || result.CompleteP95MS != 38 || result.Bytes != 100 {
 		t.Fatalf("incorrect percentiles: %+v", result)
+	}
+}
+
+func TestPrepareLibraryRefusesExistingData(t *testing.T) {
+	dir := t.TempDir()
+	sentinel := filepath.Join(dir, "keep.txt")
+	if err := os.WriteFile(sentinel, []byte("keep me"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := prepareLibrary(dir, "", ""); err == nil {
+		t.Fatal("must refuse an existing directory")
+	}
+	data, err := os.ReadFile(sentinel)
+	if err != nil || string(data) != "keep me" {
+		t.Fatalf("existing data changed: %q, %v", data, err)
+	}
+}
+
+func TestPreparedLibraryMatchesBaselineFixtureHashes(t *testing.T) {
+	dir := filepath.Join(t.TempDir(), "fixtures")
+	files, err := prepareLibrary(dir, "", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	expected := []string{
+		"cb3ba68b120d2ef9f07c5a87b5fbef1c566ccce0eb5b76afebc53dd2eb3f986f",
+		"6015e12ea1619f039d050e4512691395b4587b06adfc47fb1f21eddf0ca16527",
+		"36eac0aa56342867765a291153a9ffa99baabcbfc1c1a738335a97684e0d58c8",
+	}
+	for i, name := range files {
+		f, err := digest(filepath.Join(dir, name))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if f.SHA256 != expected[i] {
+			t.Fatalf("%s differs from original baseline: %s", name, f.SHA256)
+		}
+	}
+	abs, names, err := benchfixture.Existing(dir, strings.Join(files, ","))
+	if err != nil || abs != dir || !slices.Equal(names, files) {
+		t.Fatalf("in-place fixture selection failed: %s %v %v", abs, names, err)
 	}
 }
