@@ -1,0 +1,7 @@
+goos: linux
+goarch: amd64
+pkg: github.com/readium/cli/pkg/serve
+cpu: Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz
+BenchmarkServing/audio.wav/manifest-4         	    3000	   1221340 ns/op	 6141392 B/op	     318 allocs/op
+PASS
+ok  	github.com/readium/cli/pkg/serve	3.759s
