@@ -100,6 +100,18 @@ func (s *Server) getPublication(ctx context.Context) (*cache.CachedPublication, 
 	}
 
 	dat, ok := s.lfu.Get(cacheKey)
+	var unlockOpen func()
+	if !ok && !isSession {
+		unlock, err := s.publicationOpens.acquire(ctx, cacheKey)
+		if err != nil {
+			return nil, err
+		}
+		unlockOpen = unlock
+		defer unlock()
+		// A preceding opener may have populated the cache while this caller waited.
+		// Retain/release and normal eviction still control publication lifetime.
+		dat, ok = s.lfu.Get(cacheKey)
+	}
 	if !ok {
 		var doc *session.ReadingSessionDocument
 		if isSession {
@@ -339,6 +351,9 @@ func (s *Server) getPublication(ctx context.Context) (*cache.CachedPublication, 
 	// re-opening is enough — a blind Del here could instead evict a fresher
 	// entry a concurrent miss had repopulated under the same key.
 	if !cp.Retain() {
+		if unlockOpen != nil {
+			unlockOpen()
+		}
 		return s.getPublication(ctx)
 	}
 	return cp, nil
