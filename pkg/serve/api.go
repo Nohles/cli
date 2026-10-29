@@ -3,7 +3,6 @@ package serve
 import (
 	"bytes"
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"log/slog"
@@ -38,7 +37,6 @@ import (
 	"github.com/readium/cli/pkg/serve/cache"
 	"github.com/readium/cli/pkg/serve/problems"
 	"github.com/readium/cli/pkg/serve/session"
-	"github.com/zeebo/xxh3"
 )
 
 func readingSessionDataURL(sessionURL string) (string, error) {
@@ -464,39 +462,16 @@ func (s *Server) getManifest(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	// Hold the read lock while reading manifest fields and marshalling, so a
-	// concurrent RefreshSession cannot mutate the manifest mid-read.
-	cp.Mu.RLock()
-	conformsTo := conformsToAsMimetype(cp.Publication.Manifest.Metadata.ConformsTo)
-	selfLink := &manifest.Link{
-		Rels:      manifest.Strings{"self"},
-		MediaType: &conformsTo,
-		Href:      manifest.NewHREF(selfUrl),
-	}
-	var j []byte
-	if s.config.JSONIndent == "" {
-		j, err = json.Marshal(cp.Publication.Manifest.ToMap(selfLink))
-	} else {
-		j, err = json.MarshalIndent(cp.Publication.Manifest.ToMap(selfLink), "", s.config.JSONIndent)
-	}
-	cachedAt := cp.CachedAt
-	cp.Mu.RUnlock()
-
+	response, err := cp.MarshalManifest(selfUrl, s.config.JSONIndent)
 	if err != nil {
 		slog.Error("failed marshalling manifest JSON", "error", err)
 		problems.Write(problems.Internal("failed marshalling manifest JSON", err), w, req)
 		return
 	}
-
-	// Add headers
-	w.Header().Set("content-type", conformsTo.String()+"; charset=utf-8")
+	w.Header().Set("content-type", response.ContentType)
 	w.Header().Set("cache-control", "private, must-revalidate")
-
-	// Etag based on hash of the manifest bytes
-	etag := `"` + strconv.FormatUint(xxh3.Hash(j), 36) + `"`
-	w.Header().Set("Etag", etag)
-
-	http.ServeContent(w, req, "manifest.json", cachedAt, bytes.NewReader(j))
+	w.Header().Set("Etag", response.ETag)
+	http.ServeContent(w, req, "manifest.json", response.CachedAt, bytes.NewReader(response.Data))
 }
 
 func (s *Server) getAsset(w http.ResponseWriter, r *http.Request) {

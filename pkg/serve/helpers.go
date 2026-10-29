@@ -5,7 +5,6 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/nohles/go-toolkit/pkg/manifest"
 	"github.com/nohles/go-toolkit/pkg/mediatype"
 )
 
@@ -54,22 +53,6 @@ var compressableMimes = []string{
 	mediatype.NCX.String(),
 	mediatype.XML.String(),
 	mediatype.JSON.String(),
-}
-
-func conformsToAsMimetype(conformsTo manifest.Profiles) mediatype.MediaType {
-	mime := mediatype.ReadiumWebpubManifest
-	for _, profile := range conformsTo {
-		switch profile {
-		case manifest.ProfileDivina:
-			mime = mediatype.ReadiumDivinaManifest
-		case manifest.ProfileAudiobook:
-			mime = mediatype.ReadiumAudiobookManifest
-		default:
-			continue
-		}
-		break
-	}
-	return mime
 }
 
 func supportsEncoding(r *http.Request, encoding string) bool {
