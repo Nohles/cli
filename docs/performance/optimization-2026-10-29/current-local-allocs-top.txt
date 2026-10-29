@@ -1,0 +1,94 @@
+File: final-serve.test
+Build ID: 3fa10899c376105955f16cf4fe8e16bdc8f2cab5
+Type: alloc_space
+Time: 2026-10-29 03:44:05 PDT
+Showing nodes accounting for 1287.94MB, 97.64% of 1319.03MB total
+Dropped 116 nodes (cum <= 6.60MB)
+      flat  flat%   sum%        cum   cum%
+  273.58MB 20.74% 20.74%   273.58MB 20.74%  net/http.(*Request).WithContext (inline)
+   89.03MB  6.75% 27.49%    89.03MB  6.75%  net/textproto.MIMEHeader.Add (inline)
+   84.52MB  6.41% 33.90%    84.52MB  6.41%  github.com/gorilla/mux.mapFromPairsToString
+   79.51MB  6.03% 39.93%    79.51MB  6.03%  net/url.parse
+   77.02MB  5.84% 45.77%    77.02MB  5.84%  github.com/gorilla/mux.extractVars (inline)
+   59.50MB  4.51% 50.28%    59.50MB  4.51%  internal/bytealg.MakeNoZero
+   55.01MB  4.17% 54.45%    67.01MB  5.08%  os.statNolog
+   44.50MB  3.37% 57.82%    44.50MB  3.37%  context.WithValue
+   41.51MB  3.15% 60.97%   143.53MB 10.88%  github.com/gorilla/mux.(*Route).URLPath
+   41.01MB  3.11% 64.08%    46.01MB  3.49%  net/url.(*URL).ResolveReference
+      34MB  2.58% 66.65%       34MB  2.58%  github.com/readium/cli/pkg/serve.(*Server).Routes.AllowedHeaders.func9
+      32MB  2.43% 69.08%   120.51MB  9.14%  github.com/gorilla/handlers.parseCORSOptions
+   31.50MB  2.39% 71.47%    31.50MB  2.39%  net/textproto.MIMEHeader.Set (inline)
+      29MB  2.20% 73.67%       29MB  2.20%  github.com/readium/cli/pkg/serve.(*Server).Routes.AllowedMethods.func8
+   28.50MB  2.16% 75.83%   540.57MB 40.98%  github.com/readium/cli/pkg/serve.(*Server).getManifest
+   25.50MB  1.93% 77.76%    25.50MB  1.93%  github.com/readium/cli/pkg/serve.(*Server).Routes.ExposedHeaders.func10
+   21.50MB  1.63% 79.39%    21.50MB  1.63%  fmt.Sprintf
+   15.50MB  1.18% 80.57%    15.50MB  1.18%  net/url.ParseQuery (inline)
+   15.50MB  1.18% 81.74%  1302.95MB 98.78%  github.com/readium/cli/pkg/serve.BenchmarkServing.func1.2
+      15MB  1.14% 82.88%       15MB  1.14%  bytes.NewReader (inline)
+   14.50MB  1.10% 83.98%    28.50MB  2.16%  github.com/readium/cli/pkg/serve.(*Server).Routes.func2
+      14MB  1.06% 85.04%       14MB  1.06%  github.com/CAFxX/httpcompression.Adapter.func2
+   13.50MB  1.02% 86.06%       33MB  2.50%  github.com/readium/cli/pkg/serve/cache.(*CachedPublication).MarshalManifest
+   12.50MB  0.95% 87.01%    12.50MB  0.95%  github.com/CAFxX/httpcompression.parseEncodings
+   12.50MB  0.95% 87.96%   130.03MB  9.86%  github.com/readium/cli/pkg/serve/auth.(*B64EncodedAuthProvider).Validate
+      12MB  0.91% 88.87%       12MB  0.91%  syscall.ByteSliceFromString
+   11.50MB  0.87% 89.74%   163.25MB 12.38%  github.com/gorilla/mux.(*Route).Match
+   11.50MB  0.87% 90.61%  1287.44MB 97.61%  github.com/gorilla/mux.(*Router).ServeHTTP
+      11MB  0.83% 91.45%       11MB  0.83%  regexp.(*Regexp).doOnePass
+   10.50MB   0.8% 92.24%    56.51MB  4.28%  github.com/nohles/go-toolkit/pkg/util/url.AbsoluteURL.Resolve
+   10.50MB   0.8% 93.04%    10.50MB   0.8%  time.Time.Format
+    9.50MB  0.72% 93.76%     9.50MB  0.72%  github.com/readium/cli/pkg/serve.(*Server).Routes.func3
+       9MB  0.68% 94.44%   102.01MB  7.73%  github.com/readium/cli/pkg/serve.appendFingerprint
+       9MB  0.68% 95.12%    17.22MB  1.31%  regexp.(*Regexp).backtrack
+    8.50MB  0.64% 95.77%     8.50MB  0.64%  github.com/readium/cli/pkg/serve.(*Server).withDirectorySelection
+       8MB  0.61% 96.38%        8MB  0.61%  io.LimitReader (inline)
+    7.72MB  0.59% 96.96%     7.72MB  0.59%  regexp.(*bitState).reset
+       6MB  0.45% 97.42%    93.01MB  7.05%  github.com/readium/cli/pkg/serve.publicationFingerprint
+       3MB  0.23% 97.64%    17.50MB  1.33%  github.com/gorilla/mux.(*routeRegexp).url
+         0     0% 97.64%   787.63MB 59.71%  github.com/CAFxX/httpcompression.Adapter.func2.1
+         0     0% 97.64%     7.02MB  0.53%  github.com/CAFxX/httpcompression.DefaultAdapter
+         0     0% 97.64%    89.03MB  6.75%  github.com/CAFxX/httpcompression.addVaryHeader
+         0     0% 97.64%   787.63MB 59.71%  github.com/gorilla/handlers.(*cors).ServeHTTP
+         0     0% 97.64%    84.52MB  6.41%  github.com/gorilla/mux.(*Route).prepareVars
+         0     0% 97.64%   283.76MB 21.51%  github.com/gorilla/mux.(*Router).Match
+         0     0% 97.64%     8.22MB  0.62%  github.com/gorilla/mux.(*routeRegexp).Match
+         0     0% 97.64%   167.01MB 12.66%  github.com/gorilla/mux.MiddlewareFunc.Middleware
+         0     0% 97.64%   103.53MB  7.85%  github.com/gorilla/mux.requestWithRoute
+         0     0% 97.64%   101.03MB  7.66%  github.com/gorilla/mux.requestWithVars
+         0     0% 97.64%    97.02MB  7.36%  github.com/gorilla/mux.routeRegexpGroup.setMatch
+         0     0% 97.64%    29.50MB  2.24%  github.com/nohles/go-toolkit/pkg/util/url.AbsoluteURL.String (inline)
+         0     0% 97.64%    39.01MB  2.96%  github.com/nohles/go-toolkit/pkg/util/url.AbsoluteURLFromString
+         0     0% 97.64%    43.51MB  3.30%  github.com/nohles/go-toolkit/pkg/util/url.URLFromString
+         0     0% 97.64%     7.52MB  0.57%  github.com/readium/cli/pkg/serve.(*Server).Routes
+         0     0% 97.64%   120.51MB  9.14%  github.com/readium/cli/pkg/serve.(*Server).Routes.CORS.func12
+         0     0% 97.64%   787.63MB 59.71%  github.com/readium/cli/pkg/serve.(*Server).Routes.func2.1
+         0     0% 97.64%   686.10MB 52.02%  github.com/readium/cli/pkg/serve.(*Server).Routes.func3.1
+         0     0% 97.64%   212.02MB 16.07%  github.com/readium/cli/pkg/serve.(*Server).getPublication
+         0     0% 97.64%   556.07MB 42.16%  github.com/readium/cli/pkg/serve.(*Server).withDirectorySelection-fm.(*Server).withDirectorySelection.func1
+         0     0% 97.64%     7.52MB  0.57%  github.com/readium/cli/pkg/serve.BenchmarkServing.func1
+         0     0% 97.64%     9.01MB  0.68%  io.CopyN
+         0     0% 97.64%   787.63MB 59.71%  net/http.HandlerFunc.ServeHTTP
+         0     0% 97.64%    89.03MB  6.75%  net/http.Header.Add (inline)
+         0     0% 97.64%    31.50MB  2.39%  net/http.Header.Set (inline)
+         0     0% 97.64%    38.01MB  2.88%  net/http.ServeContent
+         0     0% 97.64%    38.01MB  2.88%  net/http.serveContent
+         0     0% 97.64%       17MB  1.29%  net/http.setLastModified
+         0     0% 97.64%    15.50MB  1.18%  net/url.(*URL).Query
+         0     0% 97.64%       48MB  3.64%  net/url.(*URL).String
+         0     0% 97.64%    79.51MB  6.03%  net/url.Parse
+         0     0% 97.64%    67.01MB  5.08%  os.Stat
+         0     0% 97.64%       12MB  0.91%  os.ignoringEINTR (inline)
+         0     0% 97.64%       12MB  0.91%  os.statNolog.func1 (inline)
+         0     0% 97.64%    11.50MB  0.87%  path/filepath.Join (inline)
+         0     0% 97.64%    11.50MB  0.87%  path/filepath.join
+         0     0% 97.64%       20MB  1.52%  regexp.(*Regexp).FindStringSubmatchIndex
+         0     0% 97.64%     8.22MB  0.62%  regexp.(*Regexp).MatchString (inline)
+         0     0% 97.64%    28.22MB  2.14%  regexp.(*Regexp).doExecute
+         0     0% 97.64%     8.22MB  0.62%  regexp.(*Regexp).doMatch (inline)
+         0     0% 97.64%    59.50MB  4.51%  strings.(*Builder).Grow
+         0     0% 97.64%    59.50MB  4.51%  strings.(*Builder).grow
+         0     0% 97.64%    11.50MB  0.87%  strings.Join
+         0     0% 97.64%       12MB  0.91%  syscall.BytePtrFromString (inline)
+         0     0% 97.64%       12MB  0.91%  syscall.Stat (inline)
+         0     0% 97.64%       12MB  0.91%  syscall.fstatat
+         0     0% 97.64%  1310.47MB 99.35%  testing.(*B).run1.func1
+         0     0% 97.64%  1310.47MB 99.35%  testing.(*B).runN

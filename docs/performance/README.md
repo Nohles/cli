@@ -1,10 +1,13 @@
 # Reader serving baseline
 
-This is the baseline phase of the Reader / Readium CLI / Go toolkit performance
-work. Serving code, cache policies, cache capacities and memory limits are
-unchanged. See the [recorded Linux baseline](baseline-2026-10-29.md).
-Subsequent optimization commits should update the same PR and add a
-new result file rather than replace the original measurements.
+This directory tracks baseline and optimized Reader / Readium CLI / Go toolkit
+serving results. See the [current before/after report](optimization-2026-10-29.md),
+[original Linux baseline](baseline-2026-10-29.md), and
+[matched HDD NAS comparison](storage-comparison-2026-10-29.md). Original
+measurement artifacts remain unchanged; optimization commits add new results
+and update the PR's current comparison. Commands below measure the selected
+checkout, so use each report's recorded source revisions to reproduce before
+and after; a binary filename alone does not establish its version.
 
 ## Run on Linux, macOS or Windows
 

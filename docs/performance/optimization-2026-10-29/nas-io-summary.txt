@@ -1,0 +1,31 @@
+Diagnostic only: strace -f -tt -T, open/stat/pread/close, raw pread buffers. Not comparable performance timings.
+78980 03:48:01.933280 <... pread64 resumed>) = 0x1e <0.124922>
+78979 03:48:01.933305 <... pread64 resumed>) = 0x37c3 <0.124742>
+78973 03:48:01.933328 <... pread64 resumed>) = 0x1e <0.124703>
+78981 03:48:01.933212 <... pread64 resumed>) = 0x1e <0.124671>
+78892 03:48:02.954727 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-00-external-2.m4b", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.091965>
+78938 03:48:05.477110 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-06-comic.cbz", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.078148>
+78892 03:48:02.650627 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-10-comic.cbz", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.069786>
+78938 03:48:00.971529 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-06-external-0.epub", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.069480>
+78894 03:48:01.952279 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-04-comic.cbz", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.069271>
+78894 03:48:04.999290 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-02-comic.cbz", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.062513>
+78892 03:47:57.402596 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-01-external-0.epub", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.060682>
+78892 03:47:55.794384 newfstatat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b", {st_mode=S_IFDIR|0775, st_size=0, ...}, 0) = 0 <0.054981>
+78892 03:47:59.840457 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-09-external-2.m4b", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.050792>
+78938 03:47:59.763978 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-08-external-2.m4b", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.049126>
+78892 03:48:06.163005 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-00-external-2.m4b", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.043595>
+78892 03:48:01.498955 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-01-comic.cbz", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.039419>
+78895 03:48:02.541483 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-09-comic.cbz", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.038664>
+78895 03:48:01.184091 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-09-external-0.epub", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.037249>
+78938 03:48:00.651289 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-00-external-0.epub", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.036670>
+78894 03:48:04.226628 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-00-external-0.epub", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.035917>
+78895 03:47:57.595454 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-04-external-0.epub", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.034983>
+78894 03:48:04.344227 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-02-external-0.epub", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.034968>
+78895 03:48:02.211024 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-06-comic.cbz", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.034897>
+78895 03:48:01.297282 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-11-external-0.epub", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.032928>
+78894 03:48:01.614034 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-02-comic.cbz", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.032546>
+78896 03:47:57.715174 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-06-external-0.epub", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.032131>
+78938 03:47:57.348030 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-00-external-0.epub", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.032094>
+78895 03:48:00.765020 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-02-external-0.epub", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.031575>
+78892 03:48:06.609742 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-09-external-2.m4b", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.031273>
+78894 03:48:02.323728 openat(AT_FDCWD, "/mnt/Media/Reader_Testing/moby-m4b/.servebench-churn-1570503498/churn-07-comic.cbz", O_RDWR|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 16 <0.030916>
