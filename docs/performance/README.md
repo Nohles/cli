@@ -23,7 +23,8 @@ On Windows, use `readium-baseline.exe` for the output binary and binary argument
 No shell script, FFmpeg, private library, network service or database is required
 for the generated fixture run. Every output file is created exclusively, so the
 harness refuses to overwrite earlier measurements. Temporary libraries and
-child processes are removed when the run finishes or returns an error.
+child processes are removed when the run finishes or returns an error. An
+explicit `--library-dir` is retained, along with its media.
 
 For a more representative EPUB and chaptered audiobook, supply files explicitly:
 
@@ -47,6 +48,43 @@ baseline used `GOMAXPROCS=4`, unset `GOMEMLIMIT`, five rounds and 100 requests p
 warm workload. macOS/Linux can set `GOMAXPROCS=4` before commands; PowerShell
 uses `$env:GOMAXPROCS = "4"`. Do not set a production memory limit based on
 these small fixtures alone.
+
+## Compare a mounted library, including an HDD NAS
+
+`--epub` and `--audio` copy files into a local temporary library. To measure a
+NAS, use **`--library-dir`** so all parsing, fingerprinting and resource reads
+use the mounted files in place. The server binary and request client still run
+locally. These paths are examples; preparation refuses an existing directory:
+
+```sh
+go run ./tools/servebench --prepare-only --library-dir /path/new-fixtures
+# Copy those exact files to a new directory on the target storage, then verify hashes.
+go run ./tools/servebench --binary ./readium-baseline --library-dir /mnt/Media/Reader_Testing/synthetic --storage-label 'HDD NAS over SMB 3.1.1' --rounds 5 --requests 100 --output nas-synthetic.json
+```
+
+`--prepare-only` optionally accepts `--epub` and `--audio` to copy real media
+into the newly-created fixture library. In-place runs use `--files` to select
+three basenames in EPUB, comic, audio order; for the Moby-Dick/M4B baseline use
+`--files external-0.epub,comic.cbz,external-2.m4b`. In-place mode refuses
+`--epub`/`--audio` copies to prevent accidentally measuring temporary storage.
+Existing media are never regenerated or overwritten. Cache-pressure copies are
+created in a unique scratch subdirectory on the **same selected filesystem**;
+only that owned scratch directory is deleted after the run. Results record the
+absolute library path and the supplied storage label.
+
+Go route/cache benchmarks can use the same files without generating a temporary
+library. Run sequentially after the HTTP measurements:
+
+```sh
+READIUM_BENCH_LIBRARY=/mnt/Media/Reader_Testing/synthetic GOMAXPROCS=4 go test ./pkg/serve -run '^$' -bench '^(BenchmarkServing|BenchmarkPublicationCache)$' -benchmem -count=5 -benchtime=500ms
+```
+
+`READIUM_BENCH_FILES` can override the default three fixture basenames. Default
+benchmark behavior remains the original generated temporary library. Profiles
+accept the same environment variables. See the [HDD NAS storage comparison](storage-comparison-2026-10-29.md)
+for exact input hashes, matched local-control results and complete NAS results.
+These runs measure application-cold and warm serving, not uncached physical HDD
+throughput; neither client filesystem caches nor NAS caches are flushed.
 
 ## What gets measured
 

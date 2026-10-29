@@ -1,0 +1,65 @@
+goos: linux
+goarch: amd64
+pkg: github.com/readium/cli/pkg/serve
+cpu: Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz
+BenchmarkServing/book.epub/manifest-4         	     326	   1826882 ns/op	 6340483 B/op	    3633 allocs/op
+BenchmarkServing/book.epub/manifest-4         	     322	   1850954 ns/op	 6336412 B/op	    3632 allocs/op
+BenchmarkServing/book.epub/manifest-4         	     306	   2050925 ns/op	 6344716 B/op	    3636 allocs/op
+BenchmarkServing/book.epub/manifest-4         	     348	   1816112 ns/op	 6332940 B/op	    3630 allocs/op
+BenchmarkServing/book.epub/manifest-4         	     321	   1892407 ns/op	 6340555 B/op	    3634 allocs/op
+BenchmarkServing/book.epub/asset-4            	     380	   1547846 ns/op	 6257663 B/op	     754 allocs/op
+BenchmarkServing/book.epub/asset-4            	     367	   1646530 ns/op	 6261594 B/op	     755 allocs/op
+BenchmarkServing/book.epub/asset-4            	     369	   1742842 ns/op	 6259880 B/op	     754 allocs/op
+BenchmarkServing/book.epub/asset-4            	     363	   1706343 ns/op	 6253289 B/op	     752 allocs/op
+BenchmarkServing/book.epub/asset-4            	     349	   1739893 ns/op	 6262789 B/op	     755 allocs/op
+BenchmarkServing/comic.cbz/manifest-4         	     303	   2084788 ns/op	 6373417 B/op	    5600 allocs/op
+BenchmarkServing/comic.cbz/manifest-4         	     271	   2060642 ns/op	 6371135 B/op	    5599 allocs/op
+BenchmarkServing/comic.cbz/manifest-4         	     308	   1976873 ns/op	 6372636 B/op	    5599 allocs/op
+BenchmarkServing/comic.cbz/manifest-4         	     289	   2002501 ns/op	 6373772 B/op	    5600 allocs/op
+BenchmarkServing/comic.cbz/manifest-4         	     296	   2089976 ns/op	 6376103 B/op	    5601 allocs/op
+BenchmarkServing/comic.cbz/asset-4            	     376	   1523559 ns/op	 6216968 B/op	    1202 allocs/op
+BenchmarkServing/comic.cbz/asset-4            	     370	   1737334 ns/op	 6221844 B/op	    1204 allocs/op
+BenchmarkServing/comic.cbz/asset-4            	     352	   1595704 ns/op	 6218140 B/op	    1203 allocs/op
+BenchmarkServing/comic.cbz/asset-4            	     338	   1635587 ns/op	 6219874 B/op	    1203 allocs/op
+BenchmarkServing/comic.cbz/asset-4            	     360	   1698735 ns/op	 6219453 B/op	    1203 allocs/op
+BenchmarkServing/audio.wav/manifest-4         	     387	   1446975 ns/op	 6145507 B/op	     323 allocs/op
+BenchmarkServing/audio.wav/manifest-4         	     427	   1428515 ns/op	 6145350 B/op	     323 allocs/op
+BenchmarkServing/audio.wav/manifest-4         	     441	   1435434 ns/op	 6144449 B/op	     323 allocs/op
+BenchmarkServing/audio.wav/manifest-4         	     426	   1546679 ns/op	 6144272 B/op	     323 allocs/op
+BenchmarkServing/audio.wav/manifest-4         	     424	   1361170 ns/op	 6143392 B/op	     322 allocs/op
+BenchmarkServing/audio.wav/asset-4            	     376	   1511109 ns/op	 6139482 B/op	     249 allocs/op
+BenchmarkServing/audio.wav/asset-4            	     392	   1528232 ns/op	 6139178 B/op	     250 allocs/op
+BenchmarkServing/audio.wav/asset-4            	     405	   1561851 ns/op	 6142228 B/op	     251 allocs/op
+BenchmarkServing/audio.wav/asset-4            	     378	   1527606 ns/op	 6142620 B/op	     251 allocs/op
+BenchmarkServing/audio.wav/asset-4            	     381	   1534393 ns/op	 6141158 B/op	     251 allocs/op
+BenchmarkPublicationCache/book.epub/hit-4     	  176280	      3403 ns/op	     808 B/op	      15 allocs/op
+BenchmarkPublicationCache/book.epub/hit-4     	  185868	      3322 ns/op	     808 B/op	      15 allocs/op
+BenchmarkPublicationCache/book.epub/hit-4     	  189306	      3376 ns/op	     808 B/op	      15 allocs/op
+BenchmarkPublicationCache/book.epub/hit-4     	  178123	      3353 ns/op	     808 B/op	      15 allocs/op
+BenchmarkPublicationCache/book.epub/hit-4     	  164929	      3440 ns/op	     808 B/op	      15 allocs/op
+BenchmarkPublicationCache/book.epub/open_close-4         	     307	   1893247 ns/op	  987020 B/op	   14992 allocs/op
+BenchmarkPublicationCache/book.epub/open_close-4         	     297	   1911020 ns/op	  987837 B/op	   14993 allocs/op
+BenchmarkPublicationCache/book.epub/open_close-4         	     320	   1859517 ns/op	  988260 B/op	   14993 allocs/op
+BenchmarkPublicationCache/book.epub/open_close-4         	     331	   1877948 ns/op	  988519 B/op	   14993 allocs/op
+BenchmarkPublicationCache/book.epub/open_close-4         	     318	   1841808 ns/op	  989450 B/op	   14993 allocs/op
+BenchmarkPublicationCache/comic.cbz/hit-4                	  176536	      3349 ns/op	     808 B/op	      15 allocs/op
+BenchmarkPublicationCache/comic.cbz/hit-4                	  173072	      3368 ns/op	     808 B/op	      15 allocs/op
+BenchmarkPublicationCache/comic.cbz/hit-4                	  183777	      3386 ns/op	     808 B/op	      15 allocs/op
+BenchmarkPublicationCache/comic.cbz/hit-4                	  182526	      3377 ns/op	     808 B/op	      15 allocs/op
+BenchmarkPublicationCache/comic.cbz/hit-4                	  154528	      3419 ns/op	     808 B/op	      15 allocs/op
+BenchmarkPublicationCache/comic.cbz/open_close-4         	      76	   7814448 ns/op	18179242 B/op	   26775 allocs/op
+BenchmarkPublicationCache/comic.cbz/open_close-4         	      74	   7701255 ns/op	18178676 B/op	   26775 allocs/op
+BenchmarkPublicationCache/comic.cbz/open_close-4         	      82	   7647468 ns/op	18178710 B/op	   26775 allocs/op
+BenchmarkPublicationCache/comic.cbz/open_close-4         	      92	   7552112 ns/op	18178630 B/op	   26775 allocs/op
+BenchmarkPublicationCache/comic.cbz/open_close-4         	      73	   7591770 ns/op	18178471 B/op	   26774 allocs/op
+BenchmarkPublicationCache/audio.wav/hit-4                	  183939	      3327 ns/op	     808 B/op	      15 allocs/op
+BenchmarkPublicationCache/audio.wav/hit-4                	  186122	      3396 ns/op	     808 B/op	      15 allocs/op
+BenchmarkPublicationCache/audio.wav/hit-4                	  188072	      3352 ns/op	     808 B/op	      15 allocs/op
+BenchmarkPublicationCache/audio.wav/hit-4                	  189438	      3273 ns/op	     808 B/op	      15 allocs/op
+BenchmarkPublicationCache/audio.wav/hit-4                	  183328	      3329 ns/op	     808 B/op	      15 allocs/op
+BenchmarkPublicationCache/audio.wav/open_close-4         	    1623	    361212 ns/op	  392524 B/op	     664 allocs/op
+BenchmarkPublicationCache/audio.wav/open_close-4         	    1615	    364928 ns/op	  392527 B/op	     664 allocs/op
+BenchmarkPublicationCache/audio.wav/open_close-4         	    1678	    381646 ns/op	  392528 B/op	     664 allocs/op
+BenchmarkPublicationCache/audio.wav/open_close-4         	    1599	    370267 ns/op	  392526 B/op	     664 allocs/op
+BenchmarkPublicationCache/audio.wav/open_close-4         	    1464	    390905 ns/op	  392530 B/op	     664 allocs/op
+PASS
