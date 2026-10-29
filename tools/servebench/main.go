@@ -107,6 +107,8 @@ func main() {
 	}
 }
 func run() error {
+	directoryToolkit := flag.String("directory-toolkit-revision", "", "Explicit toolkit source revision used by the measured directory binary (checkout can differ)")
+	directoryComics := flag.Bool("directory-comics", false, "Measure a Series directory containing 100 CBZ chapters; prepare-only creates that new library")
 	libraryDir := flag.String("library-dir", "", "Read media in place from this existing directory; do not copy to temporary local storage")
 	filesFlag := flag.String("files", "book.epub,comic.cbz,audio.wav", "Three fixture basenames in library-dir, in EPUB, comic, audio order")
 	prepareOnly := flag.Bool("prepare-only", false, "Create a new library-dir with deterministic fixtures, then exit; refuses an existing directory")
@@ -121,6 +123,22 @@ func run() error {
 	toolkit := flag.String("toolkit-root", "../go-toolkit", "Toolkit checkout used to build the CLI; records revision and status")
 	reader := flag.String("reader-root", "", "Reader checkout to record docker/readium-sources.json")
 	flag.Parse()
+	if *directoryComics {
+		if *libraryDir == "" {
+			return fmt.Errorf("directory-comics requires library-dir")
+		}
+		if *epub != "" || *audio != "" {
+			return fmt.Errorf("directory-comics does not accept epub/audio overrides")
+		}
+		if *prepareOnly {
+			names, err := benchfixture.DirectoryComics(*libraryDir)
+			if err != nil {
+				return err
+			}
+			return json.NewEncoder(os.Stdout).Encode(names)
+		}
+		return runDirectoryComics(directoryOptions{binary: *binary, library: *libraryDir, output: *output, storage: *storageLabel, toolkit: *toolkit, toolkitRevision: *directoryToolkit, reader: *reader, rounds: *rounds, requests: *requests, concurrency: *concurrency})
+	}
 	if *prepareOnly {
 		if *libraryDir == "" {
 			return fmt.Errorf("prepare-only requires library-dir")

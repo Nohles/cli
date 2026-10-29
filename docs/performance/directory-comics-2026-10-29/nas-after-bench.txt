@@ -1,0 +1,25 @@
+goos: linux
+goarch: amd64
+pkg: github.com/readium/cli/pkg/serve
+cpu: Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz
+BenchmarkDirectoryComics/plain/warm_manifest-4         	   37506	     14778 ns/op	    4796 B/op	      66 allocs/op
+BenchmarkDirectoryComics/plain/warm_manifest-4         	   33249	     15895 ns/op	    4778 B/op	      66 allocs/op
+BenchmarkDirectoryComics/plain/warm_manifest-4         	   28838	     17526 ns/op	    4762 B/op	      66 allocs/op
+BenchmarkDirectoryComics/plain/warm_manifest-4         	   35964	     15062 ns/op	    4786 B/op	      66 allocs/op
+BenchmarkDirectoryComics/plain/warm_manifest-4         	   42100	     14525 ns/op	    4789 B/op	      66 allocs/op
+BenchmarkDirectoryComics/plain/cold_open_close-4       	       4	 137575776 ns/op	 1001494 B/op	   13757 allocs/op
+BenchmarkDirectoryComics/plain/cold_open_close-4       	       6	  84193418 ns/op	  981588 B/op	   13746 allocs/op
+BenchmarkDirectoryComics/plain/cold_open_close-4       	       6	  89901318 ns/op	  977212 B/op	   13745 allocs/op
+BenchmarkDirectoryComics/plain/cold_open_close-4       	       6	  97607601 ns/op	 1000422 B/op	   13753 allocs/op
+BenchmarkDirectoryComics/plain/cold_open_close-4       	       6	 111838234 ns/op	 1019125 B/op	   13762 allocs/op
+BenchmarkDirectoryComics/selected/warm_manifest-4      	   31388	     17807 ns/op	    6197 B/op	      77 allocs/op
+BenchmarkDirectoryComics/selected/warm_manifest-4      	   37770	     15943 ns/op	    6201 B/op	      77 allocs/op
+BenchmarkDirectoryComics/selected/warm_manifest-4      	   39373	     15466 ns/op	    6205 B/op	      77 allocs/op
+BenchmarkDirectoryComics/selected/warm_manifest-4      	   35593	     16865 ns/op	    6195 B/op	      77 allocs/op
+BenchmarkDirectoryComics/selected/warm_manifest-4      	   35881	     16785 ns/op	    6204 B/op	      77 allocs/op
+BenchmarkDirectoryComics/selected/cold_open_close-4    	       2	 251716402 ns/op	 1131360 B/op	   15085 allocs/op
+BenchmarkDirectoryComics/selected/cold_open_close-4    	       6	  96461917 ns/op	 1105214 B/op	   15075 allocs/op
+BenchmarkDirectoryComics/selected/cold_open_close-4    	       6	  93270117 ns/op	 1097389 B/op	   15070 allocs/op
+BenchmarkDirectoryComics/selected/cold_open_close-4    	       6	 105870818 ns/op	 1104324 B/op	   15074 allocs/op
+BenchmarkDirectoryComics/selected/cold_open_close-4    	       6	  93699901 ns/op	 1119814 B/op	   15081 allocs/op
+PASS

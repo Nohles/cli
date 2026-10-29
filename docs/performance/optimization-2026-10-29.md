@@ -1,5 +1,9 @@
 # Readium serving optimizations — 2026-10-29
 
+The additional [100-CBZ directory case](directory-comics-2026-10-29.md) is now
+included in the interactive chart's plain/Reader-selection datasets, with
+registration plus first-open cost and chapter/positions validation.
+
 Measured sources: CLI `989c2f1b3d01cc2fc06ba697373e2887f0993ca8`, toolkit
 `99d1e931c3a60131ed36de4448c17312cc2826ca`. Before uses CLI `d123c32` /
 toolkit `c070049` and the matched local/HDD-NAS storage baselines. The original

@@ -166,3 +166,27 @@ do not extrapolate a manifest speedup to page delivery or audio playback.
 Include cold and warm regressions, not just favorable rows. Compare equal work
 and reading-order/TOC/duration data; cache growth must be justified with retained
 heap/RSS, not request allocation counts alone.
+
+## Directory-of-CBZ publications
+
+The [100-CBZ directory comparison](directory-comics-2026-10-29.md) covers 100
+24-page chapters, both plain folder and Reader selection v1. Registration itself
+parses/caches the selected parent, so use registration plus first GET as the
+selected first-open metric; its subsequent first GET/burst is already warm.
+
+```sh
+go build -o servebench ./tools/servebench
+./servebench --directory-comics --prepare-only --library-dir /path/new-directory-library
+GOMAXPROCS=4 ./servebench --directory-comics --binary /path/measured-cli --library-dir /mnt/Media/Reader_Testing/directory-comics --directory-toolkit-revision FULL_TOOLKIT_SHA --rounds 5 --requests 100 --output /path/new-directory-results.json
+READIUM_DIRECTORY_LIBRARY=/mnt/Media/Reader_Testing/directory-comics GOMAXPROCS=4 go test ./pkg/serve -run '^$' -bench '^BenchmarkDirectoryComics$' -benchmem -count=5 -benchtime=500ms
+```
+
+Copy the generated library to the desired storage once and verify hashes before
+measurement. `--directory-toolkit-revision` explicitly records the source used
+for an external binary rather than assuming the harness checkout matches it.
+The fixture, complete normalized parent manifest, chapter order, TOC, positions,
+selection acknowledgement, sampled CBZ/range bytes and child page dimensions are
+validated. The parent enumerates chapter archives rather than flattening all
+image pages. Cache pressure opens twelve individual chapter publications and
+revisits the parent without making directory copies. Original media/results and
+production serving behavior are unchanged.
