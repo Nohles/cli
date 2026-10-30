@@ -66,7 +66,6 @@ type Server struct {
 	remote              Remote
 	router              *mux.Router
 	lfu                 *cache.TinyLFU
-	publicationOpens    publicationLocks
 	directorySelections *directorySelectionRegistry
 }
 
