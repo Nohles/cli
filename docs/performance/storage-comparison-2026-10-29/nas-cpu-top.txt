@@ -1,0 +1,198 @@
+File: storage-serve.test
+Build ID: f99e681bcc18f81958c358a8df44bc3c2cabc835
+Type: cpu
+Time: 2026-10-29 03:06:29 PDT
+Duration: 3.72s, Total samples = 7.47s (201.04%)
+Showing nodes accounting for 6.43s, 86.08% of 7.47s total
+Dropped 233 nodes (cum <= 0.04s)
+      flat  flat%   sum%        cum   cum%
+     1.35s 18.07% 18.07%      1.35s 18.07%  runtime.memclrNoHeapPointers
+     0.77s 10.31% 28.38%      1.56s 20.88%  runtime.scanObject
+     0.70s  9.37% 37.75%      0.70s  9.37%  runtime.futex
+     0.56s  7.50% 45.25%      0.88s 11.78%  runtime.scanblock
+     0.50s  6.69% 51.94%      0.72s  9.64%  runtime.tryDeferToSpanScan
+     0.44s  5.89% 57.83%      0.44s  5.89%  runtime.madvise
+     0.39s  5.22% 63.05%      0.86s 11.51%  runtime.scanObjectsSmall
+     0.23s  3.08% 66.13%      0.25s  3.35%  runtime.typePointers.next
+     0.20s  2.68% 68.81%      0.32s  4.28%  runtime.findObject
+     0.11s  1.47% 70.28%      0.11s  1.47%  runtime.spanClass.sizeclass (inline)
+     0.10s  1.34% 71.62%      0.10s  1.34%  runtime.(*spanSet).reset
+     0.10s  1.34% 72.96%      0.11s  1.47%  runtime.spanOf (inline)
+     0.10s  1.34% 74.30%      0.10s  1.34%  runtime.typePointers.nextFast (inline)
+     0.07s  0.94% 75.23%      0.13s  1.74%  runtime.(*unwinder).resolveInternal
+     0.05s  0.67% 75.90%      0.05s  0.67%  runtime.(*lfstack).pop
+     0.05s  0.67% 76.57%      0.05s  0.67%  runtime.getGCMask (inline)
+     0.05s  0.67% 77.24%      0.05s  0.67%  runtime.step
+     0.04s  0.54% 77.78%      0.04s  0.54%  internal/runtime/atomic.(*UnsafePointer).Load (inline)
+     0.04s  0.54% 78.31%      0.04s  0.54%  runtime.(*gcWork).putObjFast (inline)
+     0.04s  0.54% 78.85%      0.04s  0.54%  runtime.(*mspan).markBitsForIndex (inline)
+     0.04s  0.54% 79.38%      0.10s  1.34%  runtime.(*spanSet).pop
+     0.04s  0.54% 79.92%      0.04s  0.54%  runtime.findfunc
+     0.04s  0.54% 80.46%      0.04s  0.54%  runtime.heapArenaOf (inline)
+     0.04s  0.54% 80.99%      0.04s  0.54%  runtime.tgkill
+     0.03s   0.4% 81.39%      0.93s 12.45%  runtime.scanSpan
+     0.02s  0.27% 81.66%      0.05s  0.67%  runtime.(*mspan).typePointersOfUnchecked
+     0.02s  0.27% 81.93%      0.09s  1.20%  runtime.(*spanSet).push
+     0.02s  0.27% 82.20%      1.09s 14.59%  runtime.markroot
+     0.02s  0.27% 82.46%      1.11s 14.86%  runtime.newobject
+     0.02s  0.27% 82.73%      0.04s  0.54%  runtime.suspendG
+     0.01s  0.13% 82.86%      0.07s  0.94%  compress/flate.(*compressor).deflate
+     0.01s  0.13% 83.00%      0.19s  2.54%  compress/flate.(*compressor).init
+     0.01s  0.13% 83.13%      0.18s  2.41%  compress/flate.(*compressor).initDeflate (inline)
+     0.01s  0.13% 83.27%         2s 26.77%  github.com/CAFxX/httpcompression/contrib/internal/utils.CheckWriter
+     0.01s  0.13% 83.40%      0.10s  1.34%  github.com/andybalholm/brotli.writeMetaBlockInternal
+     0.01s  0.13% 83.53%      0.06s   0.8%  github.com/readium/cli/pkg/serve.appendFingerprint
+     0.01s  0.13% 83.67%      0.07s  0.94%  runtime.(*mcache).allocLarge
+     0.01s  0.13% 83.80%      0.06s   0.8%  runtime.(*mcache).nextFree
+     0.01s  0.13% 83.94%      0.07s  0.94%  runtime.(*mcache).prepareForSweep
+     0.01s  0.13% 84.07%      0.06s   0.8%  runtime.(*mcache).releaseAll
+     0.01s  0.13% 84.20%      0.04s  0.54%  runtime.(*mcentral).cacheSpan
+     0.01s  0.13% 84.34%      0.06s   0.8%  runtime.(*mcentral).uncacheSpan
+     0.01s  0.13% 84.47%      0.06s   0.8%  runtime.(*mheap).allocSpan
+     0.01s  0.13% 84.61%      0.51s  6.83%  runtime.(*pageAlloc).scavengeOne
+     0.01s  0.13% 84.74%      0.33s  4.42%  runtime.findRunnable
+     0.01s  0.13% 84.87%      0.20s  2.68%  runtime.gcStart
+     0.01s  0.13% 85.01%      0.12s  1.61%  runtime.greyobject
+     0.01s  0.13% 85.14%      0.06s   0.8%  runtime.mProf_FlushLocked
+     0.01s  0.13% 85.27%      2.61s 34.94%  runtime.mallocgc
+     0.01s  0.13% 85.41%      1.66s 22.22%  runtime.mallocgcLarge
+     0.01s  0.13% 85.54%      0.55s  7.36%  runtime.mcall
+     0.01s  0.13% 85.68%      0.06s   0.8%  runtime.pcvalue
+     0.01s  0.13% 85.81%      0.54s  7.23%  runtime.schedule
+     0.01s  0.13% 85.94%      0.45s  6.02%  runtime.sysUnusedOS
+     0.01s  0.13% 86.08%      4.68s 62.65%  runtime.systemstack
+         0     0% 86.08%      0.06s   0.8%  compress/flate.(*Writer).Close (inline)
+         0     0% 86.08%      0.06s   0.8%  compress/flate.(*compressor).close
+         0     0% 86.08%      0.06s   0.8%  compress/flate.(*compressor).writeBlock
+         0     0% 86.08%      0.06s   0.8%  compress/flate.(*huffmanBitWriter).indexTokens
+         0     0% 86.08%      0.06s   0.8%  compress/flate.(*huffmanBitWriter).writeBlock
+         0     0% 86.08%      0.06s   0.8%  compress/flate.(*huffmanEncoder).generate
+         0     0% 86.08%      0.94s 12.58%  compress/flate.NewWriter (inline)
+         0     0% 86.08%      0.52s  6.96%  compress/flate.NewWriterDict
+         0     0% 86.08%      0.04s  0.54%  compress/gzip.(*Writer).Close
+         0     0% 86.08%      0.42s  5.62%  compress/gzip.(*Writer).Write
+         0     0% 86.08%      0.53s  7.10%  compress/zlib.(*Writer).Write
+         0     0% 86.08%      0.52s  6.96%  compress/zlib.(*Writer).writeHeader
+         0     0% 86.08%      0.16s  2.14%  encoding/json.(*encodeState).marshal
+         0     0% 86.08%      0.16s  2.14%  encoding/json.(*encodeState).reflectValue
+         0     0% 86.08%      0.16s  2.14%  encoding/json.Marshal
+         0     0% 86.08%      0.09s  1.20%  encoding/json.addrMarshalerEncoder
+         0     0% 86.08%      0.10s  1.34%  encoding/json.arrayEncoder.encode
+         0     0% 86.08%      0.13s  1.74%  encoding/json.condAddrEncoder.encode
+         0     0% 86.08%      0.14s  1.87%  encoding/json.interfaceEncoder
+         0     0% 86.08%      0.16s  2.14%  encoding/json.mapEncoder.encode
+         0     0% 86.08%      0.05s  0.67%  encoding/json.marshalerEncoder
+         0     0% 86.08%      0.10s  1.34%  encoding/json.sliceEncoder.encode
+         0     0% 86.08%      0.31s  4.15%  github.com/CAFxX/httpcompression.Adapter.func2.1
+         0     0% 86.08%      0.99s 13.25%  github.com/CAFxX/httpcompression.BrotliCompressionLevel
+         0     0% 86.08%      2.66s 35.61%  github.com/CAFxX/httpcompression.DefaultAdapter
+         0     0% 86.08%      0.56s  7.50%  github.com/CAFxX/httpcompression.DeflateCompressionLevel
+         0     0% 86.08%      0.46s  6.16%  github.com/CAFxX/httpcompression.GzipCompressionLevel
+         0     0% 86.08%      0.46s  6.16%  github.com/CAFxX/httpcompression.NewDefaultGzipCompressor (inline)
+         0     0% 86.08%      0.64s  8.57%  github.com/CAFxX/httpcompression.defaultZstandardCompressor
+         0     0% 86.08%      0.99s 13.25%  github.com/CAFxX/httpcompression/contrib/andybalholm/brotli.New
+         0     0% 86.08%      0.46s  6.16%  github.com/CAFxX/httpcompression/contrib/compress/gzip.New
+         0     0% 86.08%      0.56s  7.50%  github.com/CAFxX/httpcompression/contrib/compress/zlib.New
+         0     0% 86.08%      0.64s  8.57%  github.com/CAFxX/httpcompression/contrib/klauspost/zstd.New
+         0     0% 86.08%      0.95s 12.72%  github.com/andybalholm/brotli.(*Writer).Close
+         0     0% 86.08%      0.97s 12.99%  github.com/andybalholm/brotli.(*Writer).writeChunk
+         0     0% 86.08%      0.82s 10.98%  github.com/andybalholm/brotli.(*h5).Initialize
+         0     0% 86.08%      0.95s 12.72%  github.com/andybalholm/brotli.encodeData
+         0     0% 86.08%      0.97s 12.99%  github.com/andybalholm/brotli.encoderCompressStream
+         0     0% 86.08%      0.82s 10.98%  github.com/andybalholm/brotli.hasherSetup
+         0     0% 86.08%      0.82s 10.98%  github.com/andybalholm/brotli.initOrStitchToPreviousBlock
+         0     0% 86.08%      0.04s  0.54%  github.com/andybalholm/brotli.storeMetaBlock
+         0     0% 86.08%      0.31s  4.15%  github.com/gorilla/handlers.(*cors).ServeHTTP
+         0     0% 86.08%      2.72s 36.41%  github.com/gorilla/mux.(*Route).Match
+         0     0% 86.08%      2.73s 36.55%  github.com/gorilla/mux.(*Router).Match
+         0     0% 86.08%      3.04s 40.70%  github.com/gorilla/mux.(*Router).ServeHTTP
+         0     0% 86.08%      2.67s 35.74%  github.com/gorilla/mux.MiddlewareFunc.Middleware
+         0     0% 86.08%      0.62s  8.30%  github.com/klauspost/compress/zstd.(*Encoder).Reset
+         0     0% 86.08%      0.19s  2.54%  github.com/klauspost/compress/zstd.(*blockEnc).init
+         0     0% 86.08%      0.13s  1.74%  github.com/klauspost/compress/zstd.(*doubleFastEncoder).Reset
+         0     0% 86.08%      0.13s  1.74%  github.com/klauspost/compress/zstd.(*fastBase).resetBase
+         0     0% 86.08%      0.13s  1.74%  github.com/klauspost/compress/zstd.(*fastEncoder).Reset (inline)
+         0     0% 86.08%      0.62s  8.30%  github.com/klauspost/compress/zstd.NewWriter
+         0     0% 86.08%      0.27s  3.61%  github.com/klauspost/compress/zstd.encoderOptions.encoder
+         0     0% 86.08%      0.08s  1.07%  github.com/nohles/go-toolkit/pkg/manifest.Link.MarshalJSON
+         0     0% 86.08%      2.66s 35.61%  github.com/readium/cli/pkg/serve.(*Server).Routes.func2
+         0     0% 86.08%      0.31s  4.15%  github.com/readium/cli/pkg/serve.(*Server).Routes.func3.1
+         0     0% 86.08%      0.30s  4.02%  github.com/readium/cli/pkg/serve.(*Server).getManifest
+         0     0% 86.08%      0.10s  1.34%  github.com/readium/cli/pkg/serve.(*Server).getPublication
+         0     0% 86.08%      0.30s  4.02%  github.com/readium/cli/pkg/serve.(*Server).withDirectorySelection-fm.(*Server).withDirectorySelection.func1
+         0     0% 86.08%      3.03s 40.56%  github.com/readium/cli/pkg/serve.BenchmarkServing.func1.2
+         0     0% 86.08%      0.05s  0.67%  github.com/readium/cli/pkg/serve.publicationFingerprint
+         0     0% 86.08%      0.31s  4.15%  net/http.HandlerFunc.ServeHTTP
+         0     0% 86.08%      0.04s  0.54%  regexp.(*Regexp).backtrack
+         0     0% 86.08%      0.06s   0.8%  regexp.(*Regexp).doExecute
+         0     0% 86.08%      0.04s  0.54%  runtime.(*atomicMSpanPointer).Load (inline)
+         0     0% 86.08%      0.10s  1.34%  runtime.(*gcControllerState).enlistWorker
+         0     0% 86.08%      0.05s  0.67%  runtime.(*mcache).refill
+         0     0% 86.08%      0.07s  0.94%  runtime.(*mheap).alloc
+         0     0% 86.08%      0.07s  0.94%  runtime.(*mheap).alloc.func1
+         0     0% 86.08%      0.12s  1.61%  runtime.(*mheap).nextSpanForSweep
+         0     0% 86.08%      0.51s  6.83%  runtime.(*pageAlloc).scavenge
+         0     0% 86.08%      0.51s  6.83%  runtime.(*pageAlloc).scavenge.func1
+         0     0% 86.08%      0.52s  6.96%  runtime.(*scavengerState).init.func2
+         0     0% 86.08%      0.52s  6.96%  runtime.(*scavengerState).run
+         0     0% 86.08%      0.05s  0.67%  runtime.(*spanSetBlockAlloc).alloc
+         0     0% 86.08%      0.12s  1.61%  runtime.(*sweepLocked).sweep
+         0     0% 86.08%      0.04s  0.54%  runtime.(*unwinder).init (inline)
+         0     0% 86.08%      0.04s  0.54%  runtime.(*unwinder).initAt
+         0     0% 86.08%      0.13s  1.74%  runtime.(*unwinder).next
+         0     0% 86.08%      0.04s  0.54%  runtime.acquirep
+         0     0% 86.08%      0.04s  0.54%  runtime.acquirepNoTrace
+         0     0% 86.08%      0.52s  6.96%  runtime.bgscavenge
+         0     0% 86.08%      0.20s  2.68%  runtime.bgsweep
+         0     0% 86.08%      0.08s  1.07%  runtime.callers
+         0     0% 86.08%      0.08s  1.07%  runtime.callers.func1
+         0     0% 86.08%      0.78s 10.44%  runtime.deductAssistCredit
+         0     0% 86.08%      0.10s  1.34%  runtime.finishsweep_m
+         0     0% 86.08%      0.06s   0.8%  runtime.funcspdelta (inline)
+         0     0% 86.08%      0.15s  2.01%  runtime.futexsleep
+         0     0% 86.08%      0.55s  7.36%  runtime.futexwakeup
+         0     0% 86.08%      0.78s 10.44%  runtime.gcAssistAlloc
+         0     0% 86.08%      0.77s 10.31%  runtime.gcAssistAlloc.func2
+         0     0% 86.08%      0.77s 10.31%  runtime.gcAssistAlloc1
+         0     0% 86.08%      3.10s 41.50%  runtime.gcBgMarkWorker
+         0     0% 86.08%      2.96s 39.63%  runtime.gcBgMarkWorker.func2
+         0     0% 86.08%      2.96s 39.63%  runtime.gcDrain
+         0     0% 86.08%      1.35s 18.07%  runtime.gcDrainMarkWorkerDedicated (inline)
+         0     0% 86.08%      1.61s 21.55%  runtime.gcDrainMarkWorkerIdle (inline)
+         0     0% 86.08%      0.77s 10.31%  runtime.gcDrainN
+         0     0% 86.08%      0.14s  1.87%  runtime.gcMarkDone
+         0     0% 86.08%      0.12s  1.61%  runtime.gcMarkTermination
+         0     0% 86.08%      0.10s  1.34%  runtime.gcStart.func3
+         0     0% 86.08%      0.09s  1.20%  runtime.gcStart.func4
+         0     0% 86.08%      0.05s  0.67%  runtime.gopreempt_m (inline)
+         0     0% 86.08%      0.11s  1.47%  runtime.goschedImpl
+         0     0% 86.08%      0.05s  0.67%  runtime.goschedguarded_m
+         0     0% 86.08%      0.04s  0.54%  runtime.growslice
+         0     0% 86.08%      0.12s  1.61%  runtime.mPark (inline)
+         0     0% 86.08%      0.06s   0.8%  runtime.mProf_Flush
+         0     0% 86.08%      0.10s  1.34%  runtime.mProf_Malloc
+         0     0% 86.08%      1.46s 19.54%  runtime.makeslice
+         0     0% 86.08%      0.12s  1.61%  runtime.mallocgcSmallNoscan
+         0     0% 86.08%      0.17s  2.28%  runtime.markroot.func1
+         0     0% 86.08%      0.86s 11.51%  runtime.markrootBlock
+         0     0% 86.08%      1.34s 17.94%  runtime.memclrNoHeapPointersChunked
+         0     0% 86.08%      0.05s  0.67%  runtime.morestack
+         0     0% 86.08%      0.08s  1.07%  runtime.newstack
+         0     0% 86.08%      0.12s  1.61%  runtime.notesleep
+         0     0% 86.08%      0.54s  7.23%  runtime.notewakeup
+         0     0% 86.08%      0.48s  6.43%  runtime.park_m
+         0     0% 86.08%      0.04s  0.54%  runtime.preemptM (inline)
+         0     0% 86.08%      0.10s  1.34%  runtime.profilealloc
+         0     0% 86.08%      0.20s  2.68%  runtime.resetspinning
+         0     0% 86.08%      0.09s  1.20%  runtime.runSafePointFn
+         0     0% 86.08%      0.13s  1.74%  runtime.scanstack
+         0     0% 86.08%      0.04s  0.54%  runtime.signalM
+         0     0% 86.08%      0.12s  1.61%  runtime.startTheWorldWithSema
+         0     0% 86.08%      0.43s  5.76%  runtime.startm
+         0     0% 86.08%      0.16s  2.14%  runtime.stopm
+         0     0% 86.08%      0.20s  2.68%  runtime.sweepone
+         0     0% 86.08%      0.45s  6.02%  runtime.sysUnused (inline)
+         0     0% 86.08%      0.08s  1.07%  runtime.tracebackPCs
+         0     0% 86.08%      0.44s  5.89%  runtime.wakep
+         0     0% 86.08%      3.05s 40.83%  testing.(*B).run1.func1
+         0     0% 86.08%      3.05s 40.83%  testing.(*B).runN

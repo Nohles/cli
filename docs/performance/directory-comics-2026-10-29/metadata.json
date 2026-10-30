@@ -1,0 +1,31 @@
+{
+  "before": {
+    "cli": "d123c32580915b722464f3a9c5dd8eb42a68e0ee",
+    "toolkit": "c070049715c50c756fc29f8349c6af96324e266d"
+  },
+  "after": {
+    "cli": "989c2f1b3d01cc2fc06ba697373e2887f0993ca8",
+    "toolkit": "99d1e931c3a60131ed36de4448c17312cc2826ca"
+  },
+  "benchmark_source": "pkg/serve/directory_performance_test.go copied unchanged into an exact git-archive baseline snapshot, plus identical fixture-only helpers; go.mod local replacement points to matching baseline toolkit archive",
+  "storage": {
+    "local": "/tmp/readium-perf/directory-comics (WSL ext4 virtual disk)",
+    "nas": "/mnt/Media/Reader_Testing/directory-comics (HDD SMB 3.1.1, cache=strict, actimeo=1, closetimeo=1)"
+  },
+  "suite_order": [
+    "local before HTTP",
+    "local before Go benchmarks",
+    "local after HTTP",
+    "local after Go benchmarks",
+    "NAS before HTTP",
+    "NAS before Go benchmarks",
+    "NAS after HTTP",
+    "NAS after Go benchmarks"
+  ],
+  "rounds": 5,
+  "warm_requests_per_round": 100,
+  "concurrency": 8,
+  "go_benchmark_runs": 5,
+  "go_benchmark_duration": "500ms",
+  "cache_policy": "Fresh CLI processes for first opens; OS/client/NAS filesystem caches are not flushed. Selection registration parses and caches the parent before its first GET."
+}

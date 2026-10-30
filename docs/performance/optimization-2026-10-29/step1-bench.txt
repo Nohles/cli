@@ -1,0 +1,24 @@
+goos: linux
+goarch: amd64
+pkg: github.com/readium/cli/pkg/serve
+cpu: Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz
+BenchmarkServing/book.epub/manifest-4         	    1503	    406492 ns/op	  196551 B/op	    3468 allocs/op
+BenchmarkServing/book.epub/manifest-4         	    1430	    415638 ns/op	  196448 B/op	    3468 allocs/op
+BenchmarkServing/book.epub/manifest-4         	    1341	    449923 ns/op	  196594 B/op	    3468 allocs/op
+BenchmarkServing/book.epub/asset-4            	    4572	    133953 ns/op	  110074 B/op	     597 allocs/op
+BenchmarkServing/book.epub/asset-4            	    4404	    147472 ns/op	  109941 B/op	     597 allocs/op
+BenchmarkServing/book.epub/asset-4            	    3892	    133668 ns/op	  109869 B/op	     597 allocs/op
+BenchmarkServing/comic.cbz/manifest-4         	    1072	    564526 ns/op	  234298 B/op	    5435 allocs/op
+BenchmarkServing/comic.cbz/manifest-4         	     937	    581578 ns/op	  233974 B/op	    5435 allocs/op
+BenchmarkServing/comic.cbz/manifest-4         	    1000	    574311 ns/op	  233865 B/op	    5435 allocs/op
+BenchmarkServing/comic.cbz/asset-4            	    7087	     88023 ns/op	   86080 B/op	    1048 allocs/op
+BenchmarkServing/comic.cbz/asset-4            	    6078	     93458 ns/op	   85914 B/op	    1048 allocs/op
+BenchmarkServing/comic.cbz/asset-4            	    7359	     89600 ns/op	   86070 B/op	    1048 allocs/op
+BenchmarkServing/audio.wav/manifest-4         	   19070	     30979 ns/op	   10054 B/op	     158 allocs/op
+BenchmarkServing/audio.wav/manifest-4         	   18894	     31422 ns/op	   10060 B/op	     158 allocs/op
+BenchmarkServing/audio.wav/manifest-4         	   19809	     30315 ns/op	   10043 B/op	     158 allocs/op
+BenchmarkServing/audio.wav/asset-4            	   18103	     33549 ns/op	    6123 B/op	      94 allocs/op
+BenchmarkServing/audio.wav/asset-4            	   17952	     33277 ns/op	    6118 B/op	      94 allocs/op
+BenchmarkServing/audio.wav/asset-4            	   18024	     33253 ns/op	    6120 B/op	      94 allocs/op
+PASS
+ok  	github.com/readium/cli/pkg/serve	10.880s

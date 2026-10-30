@@ -1,0 +1,2972 @@
+[
+  {
+    "pair": 0,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 20.4172,
+      "complete_ms": 20.5475,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 0,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 59.058299,
+      "complete_ms": 59.173399,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 0,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 15.7707,
+      "complete_ms": 15.8731,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 0,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.8967,
+      "complete_ms": 5.0205,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 0,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 5.4681,
+      "complete_ms": 5.5982,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 0,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.9812,
+      "complete_ms": 1.0218,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 0,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.7249,
+      "complete_ms": 4.8264,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 0,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 8.0702,
+      "complete_ms": 8.2077,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 0,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.9726,
+      "complete_ms": 1.03,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 1,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.8869,
+      "complete_ms": 3.9817,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 1,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 8.0897,
+      "complete_ms": 8.2316,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 1,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.8069,
+      "complete_ms": 0.8519,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 1,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.7382,
+      "complete_ms": 3.8274,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 1,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 6.1705,
+      "complete_ms": 6.2805,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 1,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.7851,
+      "complete_ms": 0.8197,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 1,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.1757,
+      "complete_ms": 5.2657,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 1,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.8747,
+      "complete_ms": 9.9995,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 1,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.3121,
+      "complete_ms": 2.3545,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 2,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 7.5977,
+      "complete_ms": 7.737,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 2,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.3912,
+      "complete_ms": 9.5167,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 2,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.2209,
+      "complete_ms": 2.278,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 2,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.0457,
+      "complete_ms": 5.1631,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 2,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 5.4668,
+      "complete_ms": 5.5972,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 2,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.9586,
+      "complete_ms": 1.0086,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 2,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.7083,
+      "complete_ms": 4.832,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 2,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 7.9124,
+      "complete_ms": 8.0674,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 2,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.7995,
+      "complete_ms": 0.8372,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 3,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.533,
+      "complete_ms": 4.6406,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 3,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 8.3677,
+      "complete_ms": 8.4881,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 3,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.9573,
+      "complete_ms": 1.0126,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 3,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.680199,
+      "complete_ms": 4.765099,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 3,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 5.0513,
+      "complete_ms": 5.1347,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 3,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 1.5106,
+      "complete_ms": 1.5573,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 3,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.8311,
+      "complete_ms": 5.953,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 3,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.4901,
+      "complete_ms": 9.6052,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 3,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.6401,
+      "complete_ms": 2.7012,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 4,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 6.6849,
+      "complete_ms": 6.8102,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 4,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.6492,
+      "complete_ms": 9.7656,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 4,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 1.9071,
+      "complete_ms": 1.9942,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 4,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.038,
+      "complete_ms": 4.1592,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 4,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 8.0586,
+      "complete_ms": 8.2148,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 4,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.94,
+      "complete_ms": 1.0403,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 4,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.096,
+      "complete_ms": 5.2214,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 4,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 8.6867,
+      "complete_ms": 8.8235,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 4,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.8578,
+      "complete_ms": 0.9254,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 5,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.8727,
+      "complete_ms": 3.9748,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 5,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 7.7738,
+      "complete_ms": 7.8933,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 5,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 1.4559,
+      "complete_ms": 1.539,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 5,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.8256,
+      "complete_ms": 4.9787,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 5,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 7.2031,
+      "complete_ms": 7.3222,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 5,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.886,
+      "complete_ms": 0.9461,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 5,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.5704,
+      "complete_ms": 5.7051,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 5,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.1177,
+      "complete_ms": 9.2382,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 5,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.3892,
+      "complete_ms": 2.4341,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 6,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.753,
+      "complete_ms": 5.8834,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 6,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.4379,
+      "complete_ms": 9.5475,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 6,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.0633,
+      "complete_ms": 2.1356,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 6,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.9084,
+      "complete_ms": 4.0423,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 6,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 5.7069,
+      "complete_ms": 5.8635,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 6,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.9878,
+      "complete_ms": 1.0327,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 6,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.7463,
+      "complete_ms": 4.8205,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 6,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 7.8739,
+      "complete_ms": 8.027,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 6,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 1.1488,
+      "complete_ms": 1.2195,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 7,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.396999,
+      "complete_ms": 5.474799,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 7,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 7.7394,
+      "complete_ms": 7.8908,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 7,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.8306,
+      "complete_ms": 0.8709,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 7,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.772,
+      "complete_ms": 3.873,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 7,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 5.4825,
+      "complete_ms": 5.5658,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 7,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 1.1169,
+      "complete_ms": 1.1607,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 7,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.8228,
+      "complete_ms": 4.9381,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 7,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.6165,
+      "complete_ms": 9.7001,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 7,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 3.6932,
+      "complete_ms": 3.7611,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 8,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.9717,
+      "complete_ms": 6.0733,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 8,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.3698,
+      "complete_ms": 9.4769,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 8,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.8113,
+      "complete_ms": 2.867,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 8,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.2779,
+      "complete_ms": 5.3605,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 8,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 6.5308,
+      "complete_ms": 6.6397,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 8,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.9034,
+      "complete_ms": 0.9552,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 8,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.0928,
+      "complete_ms": 4.2445,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 8,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 8.2193,
+      "complete_ms": 8.3538,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 8,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.8509,
+      "complete_ms": 0.901,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 9,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.9523,
+      "complete_ms": 4.0729,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 9,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 7.8897,
+      "complete_ms": 8.0053,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 9,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.7693,
+      "complete_ms": 0.8341,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 9,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.389,
+      "complete_ms": 5.477,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 9,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 5.7498,
+      "complete_ms": 5.8961,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 9,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.8896,
+      "complete_ms": 0.9552,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 9,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.948,
+      "complete_ms": 5.0784,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 9,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 10.9594,
+      "complete_ms": 11.0729,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 9,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.0164,
+      "complete_ms": 2.0698,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 10,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.7234,
+      "complete_ms": 4.8614,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 10,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.7316,
+      "complete_ms": 9.8478,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 10,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.2026,
+      "complete_ms": 2.2542,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 10,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.8231,
+      "complete_ms": 4.2065,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 10,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 6.7744,
+      "complete_ms": 6.8656,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 10,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.8918,
+      "complete_ms": 0.9501,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 10,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.178699,
+      "complete_ms": 5.274099,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 10,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 8.629,
+      "complete_ms": 8.7725,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 10,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.9104,
+      "complete_ms": 0.9541,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 11,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.8,
+      "complete_ms": 4.9687,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 11,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 8.2996,
+      "complete_ms": 8.4246,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 11,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 1.6591,
+      "complete_ms": 1.7477,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 11,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.5385,
+      "complete_ms": 5.6401,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 11,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 5.6917,
+      "complete_ms": 5.8275,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 11,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.9685,
+      "complete_ms": 1.0167,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 11,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.9996,
+      "complete_ms": 6.1079,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 11,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.5273,
+      "complete_ms": 9.76,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 11,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.2959,
+      "complete_ms": 2.3688,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 12,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 7.7792,
+      "complete_ms": 7.8777,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 12,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 10.1068,
+      "complete_ms": 10.2519,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 12,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.8196,
+      "complete_ms": 2.8813,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 12,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.1364,
+      "complete_ms": 4.2405,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 12,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 6.2326,
+      "complete_ms": 6.358,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 12,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 1.2713,
+      "complete_ms": 1.3173,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 12,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.1435,
+      "complete_ms": 5.2857,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 12,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 8.7381,
+      "complete_ms": 8.8623,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 12,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 1.4654,
+      "complete_ms": 1.5126,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 13,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.9393,
+      "complete_ms": 4.0643,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 13,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 8.0115,
+      "complete_ms": 8.1352,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 13,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.8558,
+      "complete_ms": 0.9001,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 13,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.9777,
+      "complete_ms": 5.0863,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 13,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 6.0067,
+      "complete_ms": 6.17,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 13,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 1.0815,
+      "complete_ms": 1.1614,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 13,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 7.4467,
+      "complete_ms": 7.5633,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 13,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 8.6925,
+      "complete_ms": 8.811,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 13,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.375,
+      "complete_ms": 2.455,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 14,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.2754,
+      "complete_ms": 5.3848,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 14,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.5402,
+      "complete_ms": 9.6315,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 14,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.2106,
+      "complete_ms": 2.2692,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 14,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.8796,
+      "complete_ms": 3.9799,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 14,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 6.8407,
+      "complete_ms": 6.9647,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 14,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.7621,
+      "complete_ms": 0.8779,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 14,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.0192,
+      "complete_ms": 4.1387,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 14,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 8.671,
+      "complete_ms": 8.7899,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 14,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.825,
+      "complete_ms": 0.8646,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 15,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.1022,
+      "complete_ms": 4.2572,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 15,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 10.8318,
+      "complete_ms": 11.0115,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 15,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.8917,
+      "complete_ms": 0.9511,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 15,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.7216,
+      "complete_ms": 4.8756,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 15,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 8.4337,
+      "complete_ms": 8.5524,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 15,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.8802,
+      "complete_ms": 0.9179,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 15,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.4079,
+      "complete_ms": 5.5001,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 15,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.5335,
+      "complete_ms": 9.6483,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 15,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.2091,
+      "complete_ms": 2.2813,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 16,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 7.366,
+      "complete_ms": 7.4437,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 16,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.191099,
+      "complete_ms": 9.317899,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 16,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.4731,
+      "complete_ms": 2.5321,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 16,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.2115,
+      "complete_ms": 5.3229,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 16,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 5.8054,
+      "complete_ms": 5.9163,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 16,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.9368,
+      "complete_ms": 0.9733,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 16,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.5607,
+      "complete_ms": 4.6411,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 16,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 7.9994,
+      "complete_ms": 8.1224,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 16,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 1.2594,
+      "complete_ms": 1.3075,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 17,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.479,
+      "complete_ms": 5.5753,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 17,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.034,
+      "complete_ms": 9.1984,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 17,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 1.2156,
+      "complete_ms": 1.2871,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 17,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.9729,
+      "complete_ms": 4.0513,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 17,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 5.9013,
+      "complete_ms": 6.0165,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 17,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 1.4662,
+      "complete_ms": 1.5349,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 17,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.806,
+      "complete_ms": 5.9166,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 17,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 10.0597,
+      "complete_ms": 10.1462,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 17,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.6972,
+      "complete_ms": 2.7566,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 18,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 8.3085,
+      "complete_ms": 8.4305,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 18,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 8.8511,
+      "complete_ms": 8.9532,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 18,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.5193,
+      "complete_ms": 2.5948,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 18,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.3096,
+      "complete_ms": 5.4013,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 18,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 5.3044,
+      "complete_ms": 5.4038,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 18,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.8522,
+      "complete_ms": 1.0039,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 18,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.771,
+      "complete_ms": 3.8332,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 18,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 7.9942,
+      "complete_ms": 8.0975,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 18,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.8272,
+      "complete_ms": 0.8854,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 19,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.5494,
+      "complete_ms": 4.6888,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 19,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 8.0252,
+      "complete_ms": 8.1391,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 19,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.8096,
+      "complete_ms": 0.855,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 19,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.8788,
+      "complete_ms": 4.0091,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 19,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 6.2927,
+      "complete_ms": 6.4074,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 19,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 1.9999,
+      "complete_ms": 2.0602,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 19,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 7.3101,
+      "complete_ms": 7.4074,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 19,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.0732,
+      "complete_ms": 9.1781,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 19,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.5579,
+      "complete_ms": 2.6179,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 20,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.7476,
+      "complete_ms": 5.8676,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 20,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 10.1262,
+      "complete_ms": 10.2658,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 20,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.3343,
+      "complete_ms": 2.4007,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 20,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.4959,
+      "complete_ms": 4.6156,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 20,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 5.7959,
+      "complete_ms": 5.9044,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 20,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.9477,
+      "complete_ms": 0.9868,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 20,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.9978,
+      "complete_ms": 4.1132,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 20,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.0484,
+      "complete_ms": 9.1649,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 20,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.7585,
+      "complete_ms": 0.7938,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 21,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.9599,
+      "complete_ms": 4.0468,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 21,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 8.2587,
+      "complete_ms": 8.3649,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 21,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.9073,
+      "complete_ms": 0.9788,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 21,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.446,
+      "complete_ms": 5.5298,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 21,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 7.0956,
+      "complete_ms": 7.2134,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 21,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 1.003,
+      "complete_ms": 1.062,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 21,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 8.3726,
+      "complete_ms": 8.4651,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 21,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 10.3926,
+      "complete_ms": 10.5062,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 21,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.1015,
+      "complete_ms": 2.1595,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 22,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.5888,
+      "complete_ms": 5.6897,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 22,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.6029,
+      "complete_ms": 9.7558,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 22,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.5889,
+      "complete_ms": 2.6497,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 22,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.7357,
+      "complete_ms": 3.8157,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 22,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 6.0503,
+      "complete_ms": 6.156,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 22,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.8573,
+      "complete_ms": 0.8937,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 22,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.7548,
+      "complete_ms": 3.8207,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 22,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 8.4881,
+      "complete_ms": 8.6287,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 22,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.8028,
+      "complete_ms": 0.8383,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 23,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.4865,
+      "complete_ms": 4.5357,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 23,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 7.3407,
+      "complete_ms": 7.4572,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 23,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 1.062,
+      "complete_ms": 1.1629,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 23,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.8787,
+      "complete_ms": 4.9621,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 23,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 5.3057,
+      "complete_ms": 5.3945,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 23,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.8882,
+      "complete_ms": 0.9496,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 23,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 10.4678,
+      "complete_ms": 10.5655,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 23,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 10.3498,
+      "complete_ms": 10.4426,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 23,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.4083,
+      "complete_ms": 2.4629,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 24,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 6.8677,
+      "complete_ms": 6.9524,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 24,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 10.1335,
+      "complete_ms": 10.2475,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 24,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.625,
+      "complete_ms": 2.6884,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 24,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.9675,
+      "complete_ms": 4.0829,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 24,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 5.9864,
+      "complete_ms": 6.1869,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 24,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 1.6545,
+      "complete_ms": 1.7059,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 24,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.1055,
+      "complete_ms": 4.1843,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 24,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 7.8192,
+      "complete_ms": 7.9186,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 24,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.5186,
+      "complete_ms": 2.5694,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 25,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.8136,
+      "complete_ms": 3.8886,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 25,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 8.3059,
+      "complete_ms": 8.4149,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 25,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.8109,
+      "complete_ms": 0.8523,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 25,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.4264,
+      "complete_ms": 4.5577,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 25,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 5.1562,
+      "complete_ms": 5.2639,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 25,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.9137,
+      "complete_ms": 0.9551,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 25,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 6.6357,
+      "complete_ms": 6.7391,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 25,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.7534,
+      "complete_ms": 9.9157,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 25,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.205,
+      "complete_ms": 2.2798,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 26,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 7.0795,
+      "complete_ms": 7.1836,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 26,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.7623,
+      "complete_ms": 9.8457,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 26,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.1977,
+      "complete_ms": 2.243,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 26,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.8155,
+      "complete_ms": 3.8706,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 26,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 5.5301,
+      "complete_ms": 5.6318,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 26,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 1.1187,
+      "complete_ms": 1.2018,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 26,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.735,
+      "complete_ms": 3.7999,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 26,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 7.6165,
+      "complete_ms": 7.7691,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 26,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.789,
+      "complete_ms": 0.8261,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 27,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.605,
+      "complete_ms": 4.6839,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 27,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 7.4585,
+      "complete_ms": 7.5542,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 27,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.8158,
+      "complete_ms": 0.8535,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 27,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.8601,
+      "complete_ms": 4.9606,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 27,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 5.037,
+      "complete_ms": 5.1638,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 27,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.8735,
+      "complete_ms": 0.9351,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 27,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 7.2353,
+      "complete_ms": 7.3458,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 27,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.3327,
+      "complete_ms": 9.4467,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 27,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.5615,
+      "complete_ms": 2.6226,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 28,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.8392,
+      "complete_ms": 5.9394,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 28,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.7845,
+      "complete_ms": 9.9235,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 28,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.3061,
+      "complete_ms": 2.4079,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 28,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 3.9801,
+      "complete_ms": 4.0747,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 28,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 6.4961,
+      "complete_ms": 6.6619,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 28,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.915,
+      "complete_ms": 0.9563,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 28,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.0083,
+      "complete_ms": 5.128,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 28,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 8.0067,
+      "complete_ms": 8.1057,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 28,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.7924,
+      "complete_ms": 0.8267,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 29,
+    "variant": "step1",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.863099,
+      "complete_ms": 4.937399,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 29,
+    "variant": "step1",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 7.7788,
+      "complete_ms": 7.8772,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 29,
+    "variant": "step1",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.7854,
+      "complete_ms": 0.8396,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 29,
+    "variant": "after",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 4.5656,
+      "complete_ms": 4.6443,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 29,
+    "variant": "after",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 5.351,
+      "complete_ms": 5.4385,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 29,
+    "variant": "after",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 0.8316,
+      "complete_ms": 0.8766,
+      "bytes": 1444,
+      "status": 200
+    }
+  },
+  {
+    "pair": 29,
+    "variant": "before",
+    "media": "external-0.epub",
+    "sample": {
+      "first_byte_ms": 5.9692,
+      "complete_ms": 6.0697,
+      "bytes": 21658,
+      "status": 200
+    }
+  },
+  {
+    "pair": 29,
+    "variant": "before",
+    "media": "comic.cbz",
+    "sample": {
+      "first_byte_ms": 9.6039,
+      "complete_ms": 9.7483,
+      "bytes": 15851,
+      "status": 200
+    }
+  },
+  {
+    "pair": 29,
+    "variant": "before",
+    "media": "external-2.m4b",
+    "sample": {
+      "first_byte_ms": 2.8306,
+      "complete_ms": 2.9854,
+      "bytes": 1444,
+      "status": 200
+    }
+  }
+]

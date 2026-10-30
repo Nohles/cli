@@ -1,0 +1,47 @@
+File: serve.test
+Build ID: 874527a1d460a3133c04737ad7813c5a0c50d848
+Type: alloc_space
+Time: 2026-10-29 01:46:24 PDT
+Showing nodes accounting for 17201.34MB, 98.54% of 17455.81MB total
+Dropped 228 nodes (cum <= 87.28MB)
+      flat  flat%   sum%        cum   cum%
+ 6082.60MB 34.85% 34.85%  6082.60MB 34.85%  github.com/andybalholm/brotli.(*h5).Initialize
+ 3782.22MB 21.67% 56.51%  4594.27MB 26.32%  compress/flate.NewWriter (inline)
+ 3743.93MB 21.45% 77.96%  3743.93MB 21.45%  github.com/klauspost/compress/zstd.encoderOptions.encoder
+ 1717.42MB  9.84% 87.80%  1717.42MB  9.84%  github.com/klauspost/compress/zstd.(*blockEnc).init
+ 1073.13MB  6.15% 93.95%  6535.48MB 37.44%  github.com/klauspost/compress/zstd.(*Encoder).Reset
+  794.54MB  4.55% 98.50%   794.54MB  4.55%  compress/flate.(*compressor).initDeflate (inline)
+    4.50MB 0.026% 98.53%  6539.98MB 37.47%  github.com/klauspost/compress/zstd.NewWriter
+       1MB 0.0057% 98.53%      863MB  4.94%  github.com/klauspost/compress/zstd.(*fastBase).resetBase
+       1MB 0.0057% 98.54%  6141.46MB 35.18%  github.com/CAFxX/httpcompression/contrib/andybalholm/brotli.New
+    0.50MB 0.0029% 98.54%  2347.73MB 13.45%  github.com/CAFxX/httpcompression/contrib/compress/gzip.New
+    0.50MB 0.0029% 98.54% 17409.74MB 99.74%  github.com/readium/cli/pkg/serve.BenchmarkServing.func1.2
+         0     0% 98.54%   812.05MB  4.65%  compress/flate.(*compressor).init
+         0     0% 98.54%  2262.82MB 12.96%  compress/flate.NewWriterDict
+         0     0% 98.54%  2330.57MB 13.35%  compress/gzip.(*Writer).Write
+         0     0% 98.54%  2262.82MB 12.96%  compress/zlib.(*Writer).Write
+         0     0% 98.54%  2262.82MB 12.96%  compress/zlib.(*Writer).writeHeader
+         0     0% 98.54%  6141.96MB 35.19%  github.com/CAFxX/httpcompression.BrotliCompressionLevel
+         0     0% 98.54% 17316.15MB 99.20%  github.com/CAFxX/httpcompression.DefaultAdapter
+         0     0% 98.54%  2277.97MB 13.05%  github.com/CAFxX/httpcompression.DeflateCompressionLevel
+         0     0% 98.54%  2347.73MB 13.45%  github.com/CAFxX/httpcompression.GzipCompressionLevel
+         0     0% 98.54%  2347.73MB 13.45%  github.com/CAFxX/httpcompression.NewDefaultGzipCompressor (inline)
+         0     0% 98.54%  6540.48MB 37.47%  github.com/CAFxX/httpcompression.defaultZstandardCompressor
+         0     0% 98.54%  2277.97MB 13.05%  github.com/CAFxX/httpcompression/contrib/compress/zlib.New
+         0     0% 98.54% 10733.36MB 61.49%  github.com/CAFxX/httpcompression/contrib/internal/utils.CheckWriter
+         0     0% 98.54%  6539.98MB 37.47%  github.com/CAFxX/httpcompression/contrib/klauspost/zstd.New
+         0     0% 98.54%  6109.16MB 35.00%  github.com/andybalholm/brotli.(*Writer).Close
+         0     0% 98.54%  6109.16MB 35.00%  github.com/andybalholm/brotli.(*Writer).writeChunk
+         0     0% 98.54%  6109.16MB 35.00%  github.com/andybalholm/brotli.encodeData
+         0     0% 98.54%  6109.16MB 35.00%  github.com/andybalholm/brotli.encoderCompressStream
+         0     0% 98.54%  6083.10MB 34.85%  github.com/andybalholm/brotli.hasherSetup
+         0     0% 98.54%  6083.10MB 34.85%  github.com/andybalholm/brotli.initOrStitchToPreviousBlock
+         0     0% 98.54% 17368.08MB 99.50%  github.com/gorilla/mux.(*Route).Match
+         0     0% 98.54% 17371.08MB 99.51%  github.com/gorilla/mux.(*Router).Match
+         0     0% 98.54% 17414.66MB 99.76%  github.com/gorilla/mux.(*Router).ServeHTTP
+         0     0% 98.54% 17319.15MB 99.22%  github.com/gorilla/mux.MiddlewareFunc.Middleware
+         0     0% 98.54%      863MB  4.94%  github.com/klauspost/compress/zstd.(*doubleFastEncoder).Reset
+         0     0% 98.54%      863MB  4.94%  github.com/klauspost/compress/zstd.(*fastEncoder).Reset (inline)
+         0     0% 98.54% 17316.15MB 99.20%  github.com/readium/cli/pkg/serve.(*Server).Routes.func2
+         0     0% 98.54% 17448.67MB   100%  testing.(*B).run1.func1
+         0     0% 98.54% 17448.67MB   100%  testing.(*B).runN

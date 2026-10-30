@@ -1,0 +1,27 @@
+ok  	github.com/nohles/go-toolkit/pkg/analyzer	(cached)
+ok  	github.com/nohles/go-toolkit/pkg/archive	(cached)
+?   	github.com/nohles/go-toolkit/pkg/asset	[no test files]
+?   	github.com/nohles/go-toolkit/pkg/content	[no test files]
+?   	github.com/nohles/go-toolkit/pkg/content/element	[no test files]
+?   	github.com/nohles/go-toolkit/pkg/content/iterator	[no test files]
+ok  	github.com/nohles/go-toolkit/pkg/fetcher	0.030s
+ok  	github.com/nohles/go-toolkit/pkg/guidednavigation	(cached)
+ok  	github.com/nohles/go-toolkit/pkg/guidednavigation/converter	(cached)
+ok  	github.com/nohles/go-toolkit/pkg/inspector	0.020s
+?   	github.com/nohles/go-toolkit/pkg/internal/extensions	[no test files]
+ok  	github.com/nohles/go-toolkit/pkg/internal/util	(cached)
+ok  	github.com/nohles/go-toolkit/pkg/manifest	(cached)
+ok  	github.com/nohles/go-toolkit/pkg/mediatype	(cached)
+ok  	github.com/nohles/go-toolkit/pkg/parser	(cached)
+ok  	github.com/nohles/go-toolkit/pkg/parser/audio	0.210s
+ok  	github.com/nohles/go-toolkit/pkg/parser/epub	0.169s
+ok  	github.com/nohles/go-toolkit/pkg/parser/image	0.035s
+?   	github.com/nohles/go-toolkit/pkg/parser/pdf	[no test files]
+ok  	github.com/nohles/go-toolkit/pkg/parser/webpub	0.032s
+ok  	github.com/nohles/go-toolkit/pkg/protection	(cached)
+ok  	github.com/nohles/go-toolkit/pkg/pub	(cached)
+ok  	github.com/nohles/go-toolkit/pkg/search	(cached)
+ok  	github.com/nohles/go-toolkit/pkg/streamer	0.021s
+ok  	github.com/nohles/go-toolkit/pkg/util/url	(cached)
+ok  	github.com/nohles/go-toolkit/pkg/util/url/uritemplates	(cached)
+?   	github.com/nohles/go-toolkit/pkg/util/version	[no test files]

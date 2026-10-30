@@ -1,0 +1,29 @@
+{
+  "measured_http_binary": "/tmp/readium-perf/readium-before",
+  "harness_revision": "67a84ea",
+  "nas_media_directory": "/mnt/Media/Reader_Testing",
+  "nas_backing_media": "HDD (confirmed by owner)",
+  "nas_protocol": "SMB 3.1.1 (Linux cifs mount)",
+  "nas_mount_settings": {
+    "cache": "strict",
+    "actimeo_seconds": 1,
+    "closetimeo_seconds": 1,
+    "rsize_bytes": 4194304,
+    "wsize_bytes": 4194304
+  },
+  "local_media_directory": "/tmp/readium-perf/storage-{synthetic,moby-m4b}",
+  "local_filesystem": "WSL ext4 virtual disk; physical host storage type is not inferred from guest ROTA",
+  "filesystem_cache_policy": "No client page-cache flush, no NAS cache flush, no NAS restart. Application-cold only, matching the original baseline.",
+  "suite_order": [
+    "local synthetic HTTP",
+    "local Moby-Dick/M4B HTTP",
+    "local Go benchmarks",
+    "local profiles",
+    "NAS synthetic HTTP",
+    "NAS Moby-Dick/M4B HTTP",
+    "NAS Go benchmarks",
+    "NAS profiles"
+  ],
+  "media_validation": "All input SHA-256s and HTTP binary SHA-256 must equal original baseline; reading order, TOC and duration must also match.",
+  "uname": "Linux 6.6.87.2-microsoft-standard-WSL2 x86_64 GNU/Linux"
+}

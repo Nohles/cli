@@ -1,6 +1,7 @@
 package serve
 
 import (
+	"fmt"
 	"log/slog"
 	"net/http"
 	"net/http/pprof"
@@ -53,9 +54,25 @@ func (s *Server) Routes() *mux.Router {
 	}
 
 	pub := r.PathPrefix("/webpub/{path}").Subrouter()
+	// Gorilla applies middleware while matching each request. Build compressor
+	// factories once per router, so even identity requests do not initialize and
+	// discard several megabytes of compressor state on every cache hit.
+	adapter, err := httpcompression.DefaultAdapter(httpcompression.ContentTypes(compressableMimes, false))
+	if err != nil {
+		panic(fmt.Errorf("publication compression configuration: %w", err))
+	}
 	pub.Use(func(next http.Handler) http.Handler {
-		adapter, _ := httpcompression.DefaultAdapter(httpcompression.ContentTypes(compressableMimes, false))
-		return adapter(next)
+		compressed := adapter(next)
+		return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+			if req.Header.Get("Range") != "" {
+				// The adapter removes Range when compression is offered. Publication
+				// ranges must instead keep their byte offsets and remain uncompressed.
+				w.Header().Add("Vary", "Accept-Encoding")
+				next.ServeHTTP(w, req)
+				return
+			}
+			compressed.ServeHTTP(w, req)
+		})
 	})
 	pub.Use(func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {

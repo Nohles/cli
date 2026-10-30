@@ -1,0 +1,5 @@
+ok  	github.com/nohles/go-toolkit/pkg/archive	(cached)
+ok  	github.com/nohles/go-toolkit/pkg/analyzer	(cached)
+ok  	github.com/nohles/go-toolkit/pkg/parser/image	1.056s
+ok  	github.com/nohles/go-toolkit/pkg/parser/audio	3.130s
+ok  	github.com/nohles/go-toolkit/pkg/fetcher	1.099s

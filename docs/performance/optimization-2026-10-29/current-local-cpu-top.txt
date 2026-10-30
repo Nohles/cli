@@ -1,0 +1,216 @@
+File: final-serve.test
+Build ID: 3fa10899c376105955f16cf4fe8e16bdc8f2cab5
+Type: cpu
+Time: 2026-10-29 03:44:01 PDT
+Duration: 3.82s, Total samples = 4.54s (118.90%)
+Showing nodes accounting for 3.61s, 79.52% of 4.54s total
+Dropped 208 nodes (cum <= 0.02s)
+      flat  flat%   sum%        cum   cum%
+     0.31s  6.83%  6.83%      0.31s  6.83%  internal/runtime/syscall/linux.Syscall6
+     0.24s  5.29% 12.11%      0.40s  8.81%  regexp.(*Regexp).doOnePass
+     0.20s  4.41% 16.52%      0.20s  4.41%  net/textproto.validHeaderFieldByte (inline)
+     0.16s  3.52% 20.04%      0.16s  3.52%  runtime.futex
+     0.12s  2.64% 22.69%      0.12s  2.64%  runtime.nextFreeFast (inline)
+     0.11s  2.42% 25.11%      0.37s  8.15%  net/textproto.CanonicalMIMEHeaderKey
+     0.10s  2.20% 27.31%      0.23s  5.07%  regexp.(*Regexp).tryBacktrack
+     0.08s  1.76% 29.07%      0.09s  1.98%  runtime.(*mspan).writeHeapBitsSmall
+     0.08s  1.76% 30.84%      0.08s  1.76%  runtime.memclrNoHeapPointers
+     0.07s  1.54% 32.38%      0.09s  1.98%  regexp.(*inputString).step
+     0.07s  1.54% 33.92%      0.07s  1.54%  regexp/syntax.(*Inst).MatchRunePos
+     0.07s  1.54% 35.46%      0.57s 12.56%  runtime.mallocgcSmallScanNoHeader
+     0.07s  1.54% 37.00%      0.13s  2.86%  runtime.scanObjectsSmall
+     0.06s  1.32% 38.33%      1.07s 23.57%  github.com/readium/cli/pkg/serve.(*Server).getPublication
+     0.06s  1.32% 39.65%      0.14s  3.08%  runtime.scanObject
+     0.06s  1.32% 40.97%      0.18s  3.96%  time.Time.appendFormat
+     0.05s  1.10% 42.07%      0.10s  2.20%  runtime.mallocgcSmallNoscan
+     0.05s  1.10% 43.17%      0.10s  2.20%  runtime.mapaccess1_faststr
+     0.05s  1.10% 44.27%      0.05s  1.10%  runtime.memmove
+     0.05s  1.10% 45.37%      0.07s  1.54%  runtime.tryDeferToSpanScan
+     0.04s  0.88% 46.26%      0.04s  0.88%  crypto/internal/fips140/sha256.blockAVX2
+     0.04s  0.88% 47.14%      0.79s 17.40%  github.com/gorilla/mux.(*Route).Match
+     0.04s  0.88% 48.02%      0.04s  0.88%  net/url.unescape
+     0.04s  0.88% 48.90%      0.70s 15.42%  regexp.(*Regexp).doExecute
+     0.04s  0.88% 49.78%      0.04s  0.88%  regexp.(*bitState).shouldVisit (inline)
+     0.04s  0.88% 50.66%      0.74s 16.30%  runtime.mallocgc
+     0.04s  0.88% 51.54%      0.09s  1.98%  runtime.scanblock
+     0.04s  0.88% 52.42%      0.06s  1.32%  runtime.typePointers.next
+     0.04s  0.88% 53.30%      0.04s  0.88%  runtime.typePointers.nextFast (inline)
+     0.04s  0.88% 54.19%      0.05s  1.10%  time.nextStdChunk
+     0.03s  0.66% 54.85%      0.03s  0.66%  aeshashbody
+     0.03s  0.66% 55.51%      3.77s 83.04%  github.com/gorilla/mux.(*Router).ServeHTTP
+     0.03s  0.66% 56.17%      0.03s  0.66%  internal/runtime/maps.(*Map).getWithoutKeySmallFastStr
+     0.03s  0.66% 56.83%      0.15s  3.30%  net/url.(*URL).String
+     0.03s  0.66% 57.49%      0.03s  0.66%  net/url.escape
+     0.03s  0.66% 58.15%      0.07s  1.54%  regexp.onePassNext
+     0.03s  0.66% 58.81%      0.03s  0.66%  runtime.(*spanSet).push
+     0.03s  0.66% 59.47%      0.04s  0.88%  runtime.efaceeq
+     0.03s  0.66% 60.13%      0.04s  0.88%  runtime.findObject
+     0.03s  0.66% 60.79%      0.03s  0.66%  runtime.step
+     0.03s  0.66% 61.45%      0.03s  0.66%  runtime.strhash
+     0.03s  0.66% 62.11%      0.06s  1.32%  strings.(*Builder).WriteString (inline)
+     0.02s  0.44% 62.56%      0.03s  0.66%  context.value
+     0.02s  0.44% 63.00%      0.03s  0.66%  fmt.(*pp).doPrintf
+     0.02s  0.44% 63.44%      2.58s 56.83%  github.com/gorilla/handlers.(*cors).ServeHTTP
+     0.02s  0.44% 63.88%      2.44s 53.74%  github.com/readium/cli/pkg/serve.(*Server).Routes.func3.1
+     0.02s  0.44% 64.32%      0.07s  1.54%  github.com/vmihailenco/go-tinylfu.(*T).Get
+     0.02s  0.44% 64.76%      0.04s  0.88%  internal/strconv.FormatInt
+     0.02s  0.44% 65.20%      0.05s  1.10%  io.copyBuffer
+     0.02s  0.44% 65.64%      0.24s  5.29%  net/textproto.MIMEHeader.Set (inline)
+     0.02s  0.44% 66.08%      0.15s  3.30%  net/url.(*URL).ResolveReference
+     0.02s  0.44% 66.52%      0.03s  0.66%  path.Clean
+     0.02s  0.44% 66.96%      0.10s  2.20%  runtime.(*mcentral).cacheSpan
+     0.02s  0.44% 67.40%      0.04s  0.88%  runtime.concatstring2
+     0.02s  0.44% 67.84%      0.16s  3.52%  runtime.growslice
+     0.02s  0.44% 68.28%      0.11s  2.42%  runtime.heapSetTypeNoHeader (inline)
+     0.02s  0.44% 68.72%      0.03s  0.66%  runtime.lock2
+     0.02s  0.44% 69.16%      0.03s  0.66%  runtime.makeSpanClass (inline)
+     0.02s  0.44% 69.60%      0.05s  1.10%  runtime.mapaccess2_faststr
+     0.02s  0.44% 70.04%      0.43s  9.47%  runtime.newobject
+     0.02s  0.44% 70.48%      0.04s  0.88%  sync.(*Pool).pin
+     0.01s  0.22% 70.70%      0.05s  1.10%  crypto/internal/fips140/sha256.(*Digest).Sum
+     0.01s  0.22% 70.93%      0.05s  1.10%  crypto/internal/fips140/sha256.(*Digest).Write
+     0.01s  0.22% 71.15%      0.07s  1.54%  crypto/sha256.Sum256
+     0.01s  0.22% 71.37%      0.04s  0.88%  github.com/CAFxX/httpcompression.Adapter.func2
+     0.01s  0.22% 71.59%      0.21s  4.63%  github.com/gorilla/handlers.parseCORSOptions
+     0.01s  0.22% 71.81%      0.24s  5.29%  github.com/gorilla/mux.(*Route).URLPath
+     0.01s  0.22% 72.03%      1.01s 22.25%  github.com/gorilla/mux.(*Router).Match
+     0.01s  0.22% 72.25%      0.43s  9.47%  github.com/gorilla/mux.(*routeRegexp).Match
+     0.01s  0.22% 72.47%      0.16s  3.52%  github.com/gorilla/mux.(*routeRegexp).url
+     0.01s  0.22% 72.69%      0.06s  1.32%  github.com/gorilla/mux.Vars
+     0.01s  0.22% 72.91%      0.11s  2.42%  github.com/nohles/go-toolkit/pkg/util/url.AbsoluteURLFromString
+     0.01s  0.22% 73.13%      0.07s  1.54%  github.com/nohles/go-toolkit/pkg/util/url.URLFromString
+     0.01s  0.22% 73.35%      0.04s  0.88%  github.com/readium/cli/pkg/serve.(*Server).Routes.AllowedHeaders.func9
+     0.01s  0.22% 73.57%      0.08s  1.76%  github.com/readium/cli/pkg/serve.(*Server).Routes.AllowedMethods.func8
+     0.01s  0.22% 73.79%      0.22s  4.85%  github.com/readium/cli/pkg/serve.(*Server).Routes.CORS.func12
+     0.01s  0.22% 74.01%      2.33s 51.32%  github.com/readium/cli/pkg/serve.(*Server).getManifest
+     0.01s  0.22% 74.23%      2.35s 51.76%  github.com/readium/cli/pkg/serve.(*Server).withDirectorySelection-fm.(*Server).withDirectorySelection.func1
+     0.01s  0.22% 74.45%      0.61s 13.44%  github.com/readium/cli/pkg/serve.appendFingerprint
+     0.01s  0.22% 74.67%      0.09s  1.98%  github.com/readium/cli/pkg/serve/cache.(*TinyLFU).Get
+     0.01s  0.22% 74.89%      0.06s  1.32%  internal/bytealg.MakeNoZero
+     0.01s  0.22% 75.11%      0.05s  1.10%  io.Copy (inline)
+     0.01s  0.22% 75.33%      2.54s 55.95%  net/http.HandlerFunc.ServeHTTP
+     0.01s  0.22% 75.55%      0.04s  0.88%  net/http.checkIfModifiedSince
+     0.01s  0.22% 75.77%      0.52s 11.45%  net/http.serveContent
+     0.01s  0.22% 75.99%      0.03s  0.66%  net/url.(*URL).EscapedPath
+     0.01s  0.22% 76.21%      0.05s  1.10%  net/url.(*URL).setPath
+     0.01s  0.22% 76.43%      0.14s  3.08%  net/url.parse
+     0.01s  0.22% 76.65%      0.18s  3.96%  regexp.(*Regexp).FindStringSubmatchIndex
+     0.01s  0.22% 76.87%      0.26s  5.73%  regexp.(*Regexp).backtrack
+     0.01s  0.22% 77.09%      0.54s 11.89%  regexp.(*Regexp).doMatch (inline)
+     0.01s  0.22% 77.31%      0.06s  1.32%  runtime.(*mcentral).grow
+     0.01s  0.22% 77.53%      0.03s  0.66%  runtime.(*mheap).alloc
+     0.01s  0.22% 77.75%      0.05s  1.10%  runtime.(*sweepLocked).sweep
+     0.01s  0.22% 77.97%      0.03s  0.66%  runtime.concatstrings
+     0.01s  0.22% 78.19%      0.05s  1.10%  runtime.futexsleep
+     0.01s  0.22% 78.41%      0.42s  9.25%  runtime.gcDrain
+     0.01s  0.22% 78.63%      0.09s  1.98%  runtime.sweepone
+     0.01s  0.22% 78.85%      0.07s  1.54%  strings.(*Builder).Grow
+     0.01s  0.22% 79.07%      0.03s  0.66%  strings.Join
+     0.01s  0.22% 79.30%      0.34s  7.49%  syscall.Stat (inline)
+     0.01s  0.22% 79.52%      0.19s  4.19%  time.Time.Format
+         0     0% 79.52%      0.06s  1.32%  context.(*valueCtx).Value
+         0     0% 79.52%      0.03s  0.66%  context.WithValue
+         0     0% 79.52%      0.04s  0.88%  crypto/internal/fips140/sha256.(*Digest).checkSum
+         0     0% 79.52%      0.04s  0.88%  crypto/internal/fips140/sha256.block
+         0     0% 79.52%      0.08s  1.76%  fmt.Sprintf
+         0     0% 79.52%      2.52s 55.51%  github.com/CAFxX/httpcompression.Adapter.func2.1
+         0     0% 79.52%      0.06s  1.32%  github.com/CAFxX/httpcompression.addVaryHeader
+         0     0% 79.52%      0.03s  0.66%  github.com/gorilla/mux.(*Route).prepareVars
+         0     0% 79.52%      0.29s  6.39%  github.com/gorilla/mux.MiddlewareFunc.Middleware
+         0     0% 79.52%      0.03s  0.66%  github.com/gorilla/mux.cleanPath
+         0     0% 79.52%      0.06s  1.32%  github.com/gorilla/mux.extractVars (inline)
+         0     0% 79.52%      0.03s  0.66%  github.com/gorilla/mux.mapFromPairsToString
+         0     0% 79.52%      0.03s  0.66%  github.com/gorilla/mux.requestWithRoute
+         0     0% 79.52%      0.08s  1.76%  github.com/gorilla/mux.requestWithVars
+         0     0% 79.52%      0.24s  5.29%  github.com/gorilla/mux.routeRegexpGroup.setMatch
+         0     0% 79.52%      0.15s  3.30%  github.com/nohles/go-toolkit/pkg/util/url.AbsoluteURL.Resolve
+         0     0% 79.52%      0.09s  1.98%  github.com/nohles/go-toolkit/pkg/util/url.AbsoluteURL.String (inline)
+         0     0% 79.52%      0.08s  1.76%  github.com/readium/cli/pkg/serve.(*Server).Routes.ExposedHeaders.func10
+         0     0% 79.52%      0.05s  1.10%  github.com/readium/cli/pkg/serve.(*Server).Routes.func2
+         0     0% 79.52%      2.54s 55.95%  github.com/readium/cli/pkg/serve.(*Server).Routes.func2.1
+         0     0% 79.52%      0.03s  0.66%  github.com/readium/cli/pkg/serve.(*discardResponse).ReadFrom
+         0     0% 79.52%      3.81s 83.92%  github.com/readium/cli/pkg/serve.BenchmarkServing.func1.2
+         0     0% 79.52%      0.59s 13.00%  github.com/readium/cli/pkg/serve.publicationFingerprint
+         0     0% 79.52%      0.03s  0.66%  github.com/readium/cli/pkg/serve/auth.(*B64EncodedAuthProvider).Validate
+         0     0% 79.52%      0.05s  1.10%  github.com/readium/cli/pkg/serve/cache.(*CachedPublication).MarshalManifest
+         0     0% 79.52%      0.09s  1.98%  internal/runtime/maps.(*Map).growToSmall
+         0     0% 79.52%      0.03s  0.66%  internal/runtime/maps.NewEmptyMap (inline)
+         0     0% 79.52%      0.09s  1.98%  internal/runtime/maps.newGroups (inline)
+         0     0% 79.52%      0.09s  1.98%  internal/runtime/maps.newarray
+         0     0% 79.52%      0.06s  1.32%  io.CopyN
+         0     0% 79.52%      0.09s  1.98%  net/http.(*Request).WithContext (inline)
+         0     0% 79.52%      0.05s  1.10%  net/http.CanonicalHeaderKey
+         0     0% 79.52%      0.05s  1.10%  net/http.Header.Add (inline)
+         0     0% 79.52%      0.17s  3.74%  net/http.Header.Get (inline)
+         0     0% 79.52%      0.24s  5.29%  net/http.Header.Set (inline)
+         0     0% 79.52%      0.52s 11.45%  net/http.ServeContent
+         0     0% 79.52%      0.03s  0.66%  net/http.checkIfUnmodifiedSince
+         0     0% 79.52%      0.07s  1.54%  net/http.checkPreconditions
+         0     0% 79.52%      0.24s  5.29%  net/http.setLastModified
+         0     0% 79.52%      0.05s  1.10%  net/textproto.MIMEHeader.Add (inline)
+         0     0% 79.52%      0.17s  3.74%  net/textproto.MIMEHeader.Get
+         0     0% 79.52%      0.08s  1.76%  net/textproto.canonicalMIMEHeaderKey
+         0     0% 79.52%      0.14s  3.08%  net/url.Parse
+         0     0% 79.52%      0.08s  1.76%  net/url.resolvePath
+         0     0% 79.52%      0.42s  9.25%  os.Stat
+         0     0% 79.52%      0.34s  7.49%  os.ignoringEINTR (inline)
+         0     0% 79.52%      0.41s  9.03%  os.statNolog
+         0     0% 79.52%      0.34s  7.49%  os.statNolog.func1 (inline)
+         0     0% 79.52%      0.03s  0.66%  path/filepath.Join (inline)
+         0     0% 79.52%      0.03s  0.66%  path/filepath.join
+         0     0% 79.52%      0.54s 11.89%  regexp.(*Regexp).MatchString (inline)
+         0     0% 79.52%      0.03s  0.66%  regexp/syntax.(*Inst).MatchRune (inline)
+         0     0% 79.52%      0.13s  2.86%  runtime.(*mcache).nextFree
+         0     0% 79.52%      0.13s  2.86%  runtime.(*mcache).refill
+         0     0% 79.52%      0.03s  0.66%  runtime.(*mcentral).uncacheSpan
+         0     0% 79.52%      0.03s  0.66%  runtime.(*mheap).freeSpan (inline)
+         0     0% 79.52%      0.03s  0.66%  runtime.(*sweepLocked).sweep.(*mheap).freeSpan.func2
+         0     0% 79.52%      0.09s  1.98%  runtime.bgsweep
+         0     0% 79.52%      0.04s  0.88%  runtime.callers
+         0     0% 79.52%      0.04s  0.88%  runtime.callers.func1
+         0     0% 79.52%      0.07s  1.54%  runtime.findRunnable
+         0     0% 79.52%      0.12s  2.64%  runtime.futexwakeup
+         0     0% 79.52%      0.47s 10.35%  runtime.gcBgMarkWorker
+         0     0% 79.52%      0.43s  9.47%  runtime.gcBgMarkWorker.func2
+         0     0% 79.52%      0.19s  4.19%  runtime.gcDrainMarkWorkerDedicated (inline)
+         0     0% 79.52%      0.23s  5.07%  runtime.gcDrainMarkWorkerIdle (inline)
+         0     0% 79.52%      0.04s  0.88%  runtime.gcMarkDone
+         0     0% 79.52%      0.03s  0.66%  runtime.gcMarkTermination
+         0     0% 79.52%      0.05s  1.10%  runtime.gopreempt_m (inline)
+         0     0% 79.52%      0.05s  1.10%  runtime.goschedImpl
+         0     0% 79.52%      0.03s  0.66%  runtime.lock (partial-inline)
+         0     0% 79.52%      0.03s  0.66%  runtime.lockWithRank (inline)
+         0     0% 79.52%      0.03s  0.66%  runtime.mPark (inline)
+         0     0% 79.52%      0.05s  1.10%  runtime.mProf_Malloc
+         0     0% 79.52%      0.03s  0.66%  runtime.makemap_small
+         0     0% 79.52%      0.14s  3.08%  runtime.mapassign_faststr
+         0     0% 79.52%      0.13s  2.86%  runtime.markroot
+         0     0% 79.52%      0.09s  1.98%  runtime.markrootBlock
+         0     0% 79.52%      0.11s  2.42%  runtime.mcall
+         0     0% 79.52%      0.05s  1.10%  runtime.morestack
+         0     0% 79.52%      0.03s  0.66%  runtime.newInlineUnwinder
+         0     0% 79.52%      0.09s  1.98%  runtime.newarray
+         0     0% 79.52%      0.07s  1.54%  runtime.newstack
+         0     0% 79.52%      0.03s  0.66%  runtime.notesleep
+         0     0% 79.52%      0.11s  2.42%  runtime.notewakeup
+         0     0% 79.52%      0.11s  2.42%  runtime.park_m
+         0     0% 79.52%      0.04s  0.88%  runtime.pcvalue
+         0     0% 79.52%      0.05s  1.10%  runtime.profilealloc
+         0     0% 79.52%      0.05s  1.10%  runtime.resetspinning
+         0     0% 79.52%      0.14s  3.08%  runtime.scanSpan
+         0     0% 79.52%      0.12s  2.64%  runtime.schedule
+         0     0% 79.52%      0.04s  0.88%  runtime.slicebytetostring
+         0     0% 79.52%      0.09s  1.98%  runtime.startm
+         0     0% 79.52%      0.03s  0.66%  runtime.stopm
+         0     0% 79.52%      0.58s 12.78%  runtime.systemstack
+         0     0% 79.52%      0.04s  0.88%  runtime.tracebackPCs
+         0     0% 79.52%      0.10s  2.20%  runtime.wakep
+         0     0% 79.52%      0.04s  0.88%  strconv.FormatInt (inline)
+         0     0% 79.52%      0.06s  1.32%  strings.(*Builder).grow
+         0     0% 79.52%      0.04s  0.88%  sync.(*Pool).Get
+         0     0% 79.52%      0.31s  6.83%  syscall.RawSyscall6
+         0     0% 79.52%      0.32s  7.05%  syscall.Syscall6
+         0     0% 79.52%      0.33s  7.27%  syscall.fstatat
+         0     0% 79.52%      3.81s 83.92%  testing.(*B).run1.func1
+         0     0% 79.52%      3.81s 83.92%  testing.(*B).runN
+         0     0% 79.52%      0.18s  3.96%  time.Time.AppendFormat

@@ -4,8 +4,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/readium/cli/pkg/serve/session"
 	"github.com/nohles/go-toolkit/pkg/pub"
+	"github.com/readium/cli/pkg/serve/session"
 )
 
 // CachedPublication implements Evictable
@@ -15,8 +15,9 @@ type CachedPublication struct {
 	Remote   bool
 	CachedAt time.Time
 
-	rightsService session.RightsService
-	Mu            sync.RWMutex
+	manifestResponse *manifestResponseCache
+	rightsService    session.RightsService
+	Mu               sync.RWMutex
 
 	// refcounting so the underlying publication (and its archive/file
 	// handles) is never closed while a request is still streaming from it.
@@ -49,6 +50,7 @@ func EncapsulatePublication(p *pub.Publication, doc *session.ReadingSessionDocum
 func (cp *CachedPublication) RefreshSession(doc *session.ReadingSessionDocument) {
 	cp.Mu.Lock()
 	defer cp.Mu.Unlock()
+	cp.manifestResponse = nil
 	cp.Session = doc
 	cp.CachedAt = time.Now()
 	if doc == nil {
