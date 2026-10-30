@@ -1,5 +1,7 @@
 # Readium serving optimizations — 2026-10-29
 
+> Historical candidate: the [final release qualification](release-qualification-2026-10-29.md) supersedes these combined timings. Cold-open coalescing was removed after the NAS requalification; retained raw results below are unchanged.
+
 The additional [100-CBZ directory case](directory-comics-2026-10-29.md) is now
 included in the interactive chart's plain/Reader-selection datasets, with
 registration plus first-open cost and chapter/positions validation.

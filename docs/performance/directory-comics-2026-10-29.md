@@ -1,5 +1,7 @@
 # Directory comics: 100 CBZ chapters — 2026-10-29
 
+> Historical candidate: the [final release qualification](release-qualification-2026-10-29.md) supersedes these combined timings. Cold-open coalescing was removed after the NAS requalification; retained raw results below are unchanged.
+
 This extends the existing [optimization results](optimization-2026-10-29.md)
 with a directory-of-CBZ publication. **No production serving/cache code was
 changed for this test.** It uses the exact saved before/after executables:

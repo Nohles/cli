@@ -1,7 +1,8 @@
 # Reader serving baseline
 
 This directory tracks baseline and optimized Reader / Readium CLI / Go toolkit
-serving results. See the [current before/after report](optimization-2026-10-29.md),
+serving results. See the [final release qualification](release-qualification-2026-10-29.md),
+[previous combined candidate](optimization-2026-10-29.md),
 [original Linux baseline](baseline-2026-10-29.md), and
 [matched HDD NAS comparison](storage-comparison-2026-10-29.md). Original
 measurement artifacts remain unchanged; optimization commits add new results
@@ -12,9 +13,8 @@ and after; a binary filename alone does not establish its version.
 ## Run on Linux, macOS or Windows
 
 Use the Go version declared in `go.mod`. Check out CLI and toolkit as sibling
-folders. The CLI currently has a development-only absolute toolkit replacement;
-point it at your local paired checkout before building (keep this local change
-out of performance commits):
+folders. The release pins its reviewed toolkit revision and needs no local replacement.
+For optional source development, use the paired checkout as a local-only override:
 
 ```sh
 go mod edit -replace=github.com/nohles/go-toolkit=../go-toolkit
