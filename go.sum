@@ -248,6 +248,10 @@ github.com/maypok86/otter/v2 v2.3.0 h1:8H8AVVFUSzJwIegKwv1uF5aGitTY+AIrtktg7OcLs
 github.com/maypok86/otter/v2 v2.3.0/go.mod h1:XgIdlpmL6jYz882/CAx1E4C1ukfgDKSaw4mWq59+7l8=
 github.com/nohles/go-toolkit v0.0.0-20261104030727-00d837068241 h1:zmQBVxR+TscAJpCxcodNMEiEY9Nc1DNAY0edcmfiuZY=
 github.com/nohles/go-toolkit v0.0.0-20261104030727-00d837068241/go.mod h1:VcwAQk4tnTDsGC1J6yCIjN2LOaHUe7FCNfPwRvPm79c=
+github.com/nohles/go-toolkit v0.0.0-20261115120903-3fde931e8a16 h1:/L48itCor8fTeVmMdU4OwjDrDqN0HB7xUT8Prp0Fldo=
+github.com/nohles/go-toolkit v0.0.0-20261115120903-3fde931e8a16/go.mod h1:VcwAQk4tnTDsGC1J6yCIjN2LOaHUe7FCNfPwRvPm79c=
+github.com/nohles/go-toolkit v0.0.0-20261116104000-eeb11c7a04ad h1:tV6VUiWQXZPk47ybUEFlbp5DSkU+CenCYo/j5zerOrs=
+github.com/nohles/go-toolkit v0.0.0-20261116104000-eeb11c7a04ad/go.mod h1:VcwAQk4tnTDsGC1J6yCIjN2LOaHUe7FCNfPwRvPm79c=
 github.com/orcaman/writerseeker v0.0.0-20200621085525-1d3f536ff85e h1:s2RNOM/IGdY0Y6qfTeUKhDawdHDpK9RGBdx80qN4Ttw=
 github.com/orcaman/writerseeker v0.0.0-20200621085525-1d3f536ff85e/go.mod h1:nBdnFKj15wFbf94Rwfq4m30eAcyY9V/IyKAGQFtqkW0=
 github.com/pdfcpu/pdfcpu v0.13.0 h1:7maI7K0w4pJsgX9u7eeCsK4+An/+xEVkJwAwyd7/n3M=
