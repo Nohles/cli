@@ -70,7 +70,12 @@ type Server struct {
 }
 
 const MaxCachedPublicationAmount = 10
-const MaxCachedPublicationTTL = time.Second * time.Duration(600)
+
+// MaxCachedPublicationTTL is how long a publication stays parsed without a
+// request. Each request extends it, so long audiobook chapters (15+ minutes
+// between file requests is common) do not force a full re-parse of the
+// whole folder at every chapter change.
+const MaxCachedPublicationTTL = 30 * time.Minute
 
 func NewServer(config ServerConfig, remote Remote) *Server {
 	if config.Auth == nil {
