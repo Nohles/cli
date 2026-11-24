@@ -22,11 +22,24 @@ type LocalCache interface {
 	Del(key string)
 }
 
+// TinyLFU holds parsed publications. Its TTL is an idle timeout: every hit
+// pushes the expiry back, so a publication in steady use (an audiobook
+// playing chapter after chapter) is never re-parsed mid-session. Expiry is
+// only checked on access, as before; size eviction still applies.
 type TinyLFU struct {
 	mu     sync.Mutex
 	lfu    *tinylfu.T
 	ttl    time.Duration
 	offset time.Duration
+	now    func() time.Time
+}
+
+// slidingEntry wraps a cached value with its own idle deadline. The
+// tinylfu item itself never expires; Get enforces this deadline instead.
+type slidingEntry struct {
+	value    Evictable
+	ttl      time.Duration
+	expireAt time.Time
 }
 
 var _ LocalCache = (*TinyLFU)(nil)
@@ -40,6 +53,7 @@ func NewTinyLFU(size int, ttl time.Duration) *TinyLFU {
 		lfu:    tinylfu.New(size, 100000),
 		ttl:    ttl,
 		offset: offset,
+		now:    time.Now,
 	}
 }
 
@@ -56,10 +70,10 @@ func (c *TinyLFU) Set(key string, b Evictable) {
 		ttl += time.Duration(rand.Int64N(int64(c.offset)))
 	}
 
+	entry := &slidingEntry{value: b, ttl: ttl, expireAt: c.now().Add(ttl)}
 	c.lfu.Set(&tinylfu.Item{
-		Key:      key,
-		Value:    b,
-		ExpireAt: time.Now().Add(ttl),
+		Key:   key,
+		Value: entry,
 		OnEvict: func() {
 			b.OnEvict()
 		},
@@ -75,7 +89,15 @@ func (c *TinyLFU) Get(key string) (Evictable, bool) {
 		return nil, false
 	}
 
-	return val.(Evictable), true
+	entry := val.(*slidingEntry)
+	now := c.now()
+	if now.After(entry.expireAt) {
+		c.lfu.Del(key)
+		return nil, false
+	}
+	entry.expireAt = now.Add(entry.ttl)
+
+	return entry.value, true
 }
 
 func (c *TinyLFU) Del(key string) {
